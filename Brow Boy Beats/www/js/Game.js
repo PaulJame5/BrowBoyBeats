@@ -5,6 +5,9 @@
  *    
  */
 
+
+var updateTestInt = 0;
+
 class Game
 {
     constructor()
@@ -21,7 +24,6 @@ class Game
     initWorld()
     {
         
-    
         var canvas = document.createElement("canvas");
         canvas.id = 'mycanvas';
         canvas.width = window.innerWidth;
@@ -143,5 +145,9 @@ class Game
     update()
     { 
          window.requestAnimationFrame(this.boundRecursiveUpdate);
+         
+         console.log(updateTestInt);
+         console.log("Update Works")
+         updateTestInt++;
     }
 }
