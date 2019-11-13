@@ -1,18 +1,30 @@
 // This js is for the player object of the game
 
 
-var player_health = 100;
+var player_health = new Health();
+
 var player_maxHealth = 100;
 
-var player_position = {x: 0, y: 0};
+var player_position = new Transform();
 
 var player_speed = 12;
 
 
+// Used to initialise player class
+///<summary> 
+/// init_posX: initialise position X to this
+/// init_posY: initialise position Y to this
+/// init_health: initialise health to this
+function Initialise(init_posX,init_posY, init_health)
+{
+    player_position.x = init_posX;
+    player_position.y = init_posY;
+    player_health.health = init_health;
+}
 
 
 
-
+// Move function for checking all types of inputs from the user
 function Move()
 {
     // Left and Right Movement (We can only ever be one or the other)
@@ -75,18 +87,3 @@ function RenderPlayer()
     // Draw Player Sprite in here
 }
 
-/*
- *   For Applying Damage to a player
-*/
-function RemoveHealth(t_damageAmount)
-{
-    player_health -= t_damageAmount;
-}
-
-/*
- *   For Increasing the health value of a player
-*/
-function AddToHealth(t_increaseAmount)
-{
-    player_health += t_increaseAmount;
-}
