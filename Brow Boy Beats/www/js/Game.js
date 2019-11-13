@@ -40,7 +40,7 @@ class Game
 
 
         var playerImage = new Image();
-        playerImage.src = "images/player1.png";
+        playerImage.src = "Sprites/player1.png";
 
         /**
         * We want this to be a 2D canvas.
@@ -150,9 +150,6 @@ class Game
     { 
          window.requestAnimationFrame(this.boundRecursiveUpdate);
          
-         console.log(updateTestInt);
-         console.log("Update Works")
-         updateTestInt++;
     }
 
 

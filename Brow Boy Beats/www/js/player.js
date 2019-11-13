@@ -1,13 +1,19 @@
-// This js is for the player object of the game
+// This is the player class where there are fuctions readily availble to be used
 
 
-var player_health = new Health();
 
-var player_maxHealth = 100;
+class Player
+{
+    constructor(player_health,player_transform)
+    {
+        player_health = new Health();
+        this.player_health = player_health;
 
-var player_position = new Transform();
+        player_transform = new Transform();
+        this.player_transform = player_transform;
 
-var player_speed = 12;
+    }
+}
 
 
 // Used to initialise player class
@@ -17,9 +23,10 @@ var player_speed = 12;
 /// init_health: initialise health to this
 function Initialise(init_posX,init_posY, init_health)
 {
-    player_position.x = init_posX;
-    player_position.y = init_posY;
-    player_health.health = init_health;
+    this.player_transform.position.x = init_posX;
+    this.player_transform.y = init_posY;
+    this.player_health.health = init_health;
+    
 }
 
 
@@ -30,21 +37,21 @@ function Move()
     // Left and Right Movement (We can only ever be one or the other)
     if(LeftInput())
     {
-        player_position.x -= player_speed;
+        this.player_transform.position.x -= player_speed;
     }
     else if(RightInput())
     {
-        player_position.x += player_speed;
+        this.player_transform.position.x += player_speed;
     }
 
     // Up and Down Movement (Like left and right we can only ever be one or the other)
     if(UpInput())
     {
-        player_position.y += player_speed;
+        this.player_transform.position.y += player_speed;
     }
     else if(DownInput())
     {
-        player_position.y -= player_speed;
+        this.player_transform.position.y -= player_speed;
     }
 
 }

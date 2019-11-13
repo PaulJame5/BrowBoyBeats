@@ -3,9 +3,10 @@
 
 class Health
 {
-    constructor(health)
+    constructor(health, max_health)
     {
         this.health = health;
+        this.max_health = max_health;
     }
 
     
