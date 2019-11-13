@@ -36,6 +36,10 @@ class Game
         document.addEventListener("touchmove", () => this.onTouchMove(event)); 
         document.addEventListener("touchend", () => this.onTouchEnd(event)); 
 
+
+        var playerImage = new Image();
+        playerImage.src = "images/player1.png";
+
         /**
         * We want this to be a 2D canvas.
         */
@@ -143,5 +147,19 @@ class Game
     update()
     { 
          window.requestAnimationFrame(this.boundRecursiveUpdate);
+    }
+
+
+     sprite (options)
+     {
+				
+        var that = {};
+                        
+        that.context = options.context;
+        that.width = options.width;
+        that.height = options.height;
+        that.image = options.image;
+    
+        return that;
     }
 }
