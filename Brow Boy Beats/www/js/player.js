@@ -9,9 +9,9 @@ function Player(init_position={x:0.0,y:0.0}, name="")
 {
     this.name = name;
     
-    this.transform  = new Transform(init_position); // initilised Values
+    this.transform = new Transform(init_position); // initilised Values
 
-    this.transform.position.getY();
+    this.input = new Input();
 
 }
 

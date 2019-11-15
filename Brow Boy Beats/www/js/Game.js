@@ -16,9 +16,12 @@ class Game
 
         var playerOnePosition = {x: 0.0, y:0.0};
         var playerTwoPosition = {x: 5.0, y:0.0};
-        var playerOneName = "Player1"
+
+        var playerOneName = "Player1";
         this.playerOne = new Player(playerOnePosition, playerOneName);
         this.playerTwo = new Player(playerTwoPosition, "Player Two");
+
+        
 
         // var dist = this.playerOne.transform.DistanceFromSelf(this.playerTwo.transform.position);
         // var dist2 = this.playerOne.transform.Distance(this.playerTwo.transform.position,this.playerOne.transform.position);
@@ -162,6 +165,7 @@ class Game
     { 
         window.requestAnimationFrame(this.boundRecursiveUpdate);
       
+        this.playerOne.input.RightInput();
         
 
         /* Testing values */

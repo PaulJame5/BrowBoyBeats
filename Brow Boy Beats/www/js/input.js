@@ -2,14 +2,16 @@
 
 function Input()
 {
-
+    this.pressedRight = false;
 }
 
+
 // if left key detected return true otherwise return false
-    Input.prototype.LeftInput = function()
+Input.prototype.LeftInput = function()
 {
+    
     // event listener for detecting keyboard input
-    document.addEventListener('keydown', function(event) 
+    document.addEventListener('keydown', function(LeftInput) 
     {
         if(event.keyCode == 37)
         {
@@ -17,33 +19,36 @@ function Input()
         }
         return false;
     });
-}
+};
 
 // if right key detected return true otherwise return false
-Input.prototype.RightInput = Boolean()
-  {   
-      console.log("listening");
-      // event listener for detecting keyboard input
-      document.addEventListener('keydown', function(event) 
-      {
-          console.log("listening inside");
-          if(event.keyCode == 39)
-          {
-              var player_speed = 5;
-              console.log("righty");
-              
-             // alert(this.getName());
-              //alert(this.getSecret());
-              console.log("hearing true");
-              return true;
-          }
+Input.prototype.RightInput = function(event)
+{   
+    this.pressedRight = false;
+    // event listener for detecting keyboard input
+    document.addEventListener('keydown', function(event) 
+    {
+        if(event.keyCode == 39)
+        {
+            this.pressedRight = true;
+            console.log("pressed");
+        }
           
-          console.log("hearing false within");
-          return false;
-      });
-      console.log("hearing false");
+    });
+
+    if(this.pressedRight)
+    {
+        console.log("pressed");
+    }
+    else
+    {
+        console.log("nope");
+    }
+
+    return this.pressedRight;
+
      // return false;
-  } // End right input
+}; // End right input
 
   Input.prototype.UpInput = function()
   {
