@@ -13,9 +13,12 @@ class Game
     {
         document.addEventListener('touchstart', function(e) {e.preventDefault();}, {passive: false});
         this.boundRecursiveUpdate = () => this.update(this);
-        
+
+        var playerOnePosition = {x: 0, y:0};
+        this.playerOne = new Player(playerOnePosition);
     }
 
+    
 
     /**
  * 
@@ -150,8 +153,10 @@ class Game
     update()
     { 
         window.requestAnimationFrame(this.boundRecursiveUpdate);
+        this.playerOne.Move();
 
         /* Testing values */
+        /*
         var initial = {x:0,y:0};
         var playerOne = new Player(initial);
         var d = 0;
