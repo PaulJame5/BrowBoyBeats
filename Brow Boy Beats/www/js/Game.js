@@ -5,8 +5,7 @@
  *    
  */
 
-
-var updateTestInt = 0;
+//playerOne = new Player(playerOneX,playerOneX);
 
 class Game
 {
@@ -14,7 +13,9 @@ class Game
     {
         document.addEventListener('touchstart', function(e) {e.preventDefault();}, {passive: false});
         this.boundRecursiveUpdate = () => this.update(this);
+        
     }
+
 
     /**
  * 
@@ -29,7 +30,7 @@ class Game
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
     
-
+        
 
          /**
          * event listener to listen for a touch move, start and end
@@ -148,7 +149,25 @@ class Game
  */
     update()
     { 
-         window.requestAnimationFrame(this.boundRecursiveUpdate);
+        window.requestAnimationFrame(this.boundRecursiveUpdate);
+
+        /* Testing values */
+        var initial = {x:0,y:0};
+        var playerOne = new Player(initial);
+        var d = 0;
+        console.log("initial.x: " + initial.x);
+        console.log("pos.x: " + playerOne.transform.position.getX());
+        console.log("d: " + d);
+
+        if(playerOne.transform.position.x === d)
+        {
+            console.log(true);
+        }
+        else
+        {
+            console.log(false);
+        }
+        /* End Testing Values */
          
     }
 
@@ -162,7 +181,8 @@ class Game
         that.width = options.width;
         that.height = options.height;
         that.image = options.image;
+
     
         return that;
     }
-}
+} // END Game class

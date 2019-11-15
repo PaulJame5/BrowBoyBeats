@@ -1,30 +1,39 @@
 // transform.js is a class for performing transform calcultions 
-
-// Objects that use the transform class will inherit a position class as well
-class Transform
+pos = ([0,0])
+function Transform(pos)
 {
-    
-    constructor(position)
-    {
-        this.positon.x = position.x;
-        this.position.y = position.y;
-    }
+    var position = new Position(pos);
+    this.position = position;
 
-    // Returns the distance of two points in 2D space
-    static Distance(transform1, transform2)
-    {
-        const distX = transform1.position.x - transform2.position.x;
-        const distY = transform1.position.y - transform2.position.y;
-
-        return Math.hypot(distX,distY);
-    }
-
-    // Finds Distance From Self to passed in target
-    DistanceFromSelf(otherTransform)
-    {
-        const distX = otherTransform.position.x - this.x;
-        const distY = otherTransform.position.y - this.y;
-
-        return Math.hypot(distX,distY);
-    }
 }
+
+ // Finds Distance From Self to passed in target
+ Transform.prototype.DistanceFromSelf = function (otherPosition)
+ {
+     const distX = otherPosition.x - this.position.x;
+     const distY = otherPosition.y - this.position.y;
+
+     // Returns the hyptonuse of a triangle in other words the distance between these two points
+     return Math.hypot(distX,distY);
+ }
+
+
+// Returns the distance of two points in 2D space
+Transform.prototype.Distance = function(position1, position2)
+{
+    const distX = position1.x - position2.x;
+    const distY = position1.y - position2.y;
+
+    return Math.hypot(distX,distY);
+}
+
+// Returns the distance of two points in 2D space
+Transform.prototype.Pos = function()
+{
+
+    return this.position;
+}
+
+
+
+    

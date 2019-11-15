@@ -1,11 +1,23 @@
-// Position class that stores position values
-
-
-class Position
+// position class using function
+position = {x: 0,y: 0};
+function Position(position)
 {
-    constructor(x,y)
-    {
-        this.x = x;
-        this.y = y;
-    }
+
+    this.position = position
+
+}
+
+Position.prototype.getPosition = function() 
+{
+    return Position ([this.positon.x,this.position.y]);
+}
+
+Position.prototype.getX = function() 
+{
+    return this.position.x;
+}
+
+Position.prototype.getY = function() 
+{
+    return this.position.y;
 }
