@@ -15,9 +15,15 @@ class Game
         this.boundRecursiveUpdate = () => this.update(this);
 
         var playerOnePosition = {x: 0.0, y:0.0};
+        var playerTwoPosition = {x: 5.0, y:0.0};
         var playerOneName = "Player1"
         this.playerOne = new Player(playerOnePosition, playerOneName);
-        this.playerTwo = new Player(playerOnePosition, "Player Two");
+        this.playerTwo = new Player(playerTwoPosition, "Player Two");
+
+        // var dist = this.playerOne.transform.DistanceFromSelf(this.playerTwo.transform.position);
+        // var dist2 = this.playerOne.transform.Distance(this.playerTwo.transform.position,this.playerOne.transform.position);
+        // console.log("Dist should = 5 : " + dist.toString()); // works
+        // console.log("Dist2 should = 5 : " + dist2.toString()); // works
     }
 
     
