@@ -3,15 +3,23 @@
 function Input()
 {
     this.pressedRight = false;
+    this.pressedDown = false;
+    this.pressedLeft = false;
+    this.pressedUp = false;
 }
 
 
 // if left key detected return true otherwise return false
+Input.prototype.setRightPressed = function(pressed = false)
+{
+    this.pressedRight = pressed;
+};
+
+// if left key detected return true otherwise return false
 Input.prototype.LeftInput = function()
 {
-    
     // event listener for detecting keyboard input
-    document.addEventListener('keydown', function(LeftInput) 
+    var pressed = document.addEventListener('keydown', function(event) 
     {
         if(event.keyCode == 37)
         {
@@ -19,31 +27,60 @@ Input.prototype.LeftInput = function()
         }
         return false;
     });
+    
+
 };
 
 // if right key detected return true otherwise return false
-Input.prototype.RightInput = function(event)
-{   
-    this.pressedRight = false;
-    // event listener for detecting keyboard input
+Input.prototype.inputUpdate = function()
+{
+    // left right
     document.addEventListener('keydown', function(event) 
     {
-        if(event.keyCode == 39)
+        switch (event.keyCode) 
         {
+            case 37: // Left
+            this.pressedLeft = true;
+            break;
+
+            case 39: // Right
             this.pressedRight = true;
-            console.log("pressed");
+
+            default: // neither
+            this.pressedRight = false;
+            this.pressedLeft = false;
+            break;
         }
-          
     });
 
-    if(this.pressedRight)
+    // up down
+    document.addEventListener('keydown', function(event) 
     {
-        console.log("pressed");
-    }
-    else
-    {
-        console.log("nope");
-    }
+        switch (event.keyCode) 
+        {
+            case 38: // Up
+            this.pressedUp = true;
+            break;
+
+            case 40: // Down
+            this.pressedDown = true;
+            break;
+
+            default: // neither
+            this.pressedUp = false;
+            this.pressedDown = false;
+            break;
+        }
+    });
+
+};
+
+// if right key detected return true otherwise return false
+Input.prototype.RightInput = function()
+{   
+    this.inputUpdate();
+
+    console.log(this.pressedRight);
 
     return this.pressedRight;
 
