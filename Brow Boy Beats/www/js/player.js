@@ -1,19 +1,37 @@
 // This is the player class where there are fuctions readily availble to be used
 
-init_position = {x:0,y:0};
 const LEFT_KEY = 37;
 const RIGHT_KEY = 39;
+
+
 // Player Class
-function Player(init_position)
+function Player(init_position={x:0.0,y:0.0}, name="")
 {
+    this.name = name;
+    
+    this.transform  = new Transform(init_position); // initilised Values
 
-    var transform = new Transform(init_position); // initilised Values
+    this.transform.position.getY();
 
-    this.transform = transform;
 }
 
+// Player.prototype = {
+//     get name() {
+//         return this.name;
+//     },
+//     set name(newName) {
+//         this.name = newName
+//     }
+// }
 
-
+// Unit.prototype = {
+//     get name() {
+//           return this._data;
+//       },
+//       set accreation(value) {
+//           this._data = value
+//       },
+// }
     // Used to initialise player class
     ///<summary> 
     /// init_posX: initialise position X to this
@@ -34,10 +52,12 @@ function Player(init_position)
         // Left and Right Movement (We can only ever be one or the other)
         if(this.LeftInput())
         {
+            this.transform.position.getX();
             this.player_transform.position.x -= player_speed;
         }
-        else if(this.RightInput())
+        else if(this.RightInput() === true)
         {
+            console.log("r");
             this.player_transform.position.x += player_speed;
         }
 
@@ -56,58 +76,25 @@ function Player(init_position)
 
 
 
-/* Input Detection for Player */
 
-// if left key detected return true otherwise return false
-Player.prototype.LeftInput = function()
-    {
-        // event listener for detecting keyboard input
-        document.addEventListener('keydown', function(event) 
-        {
-            if(event.keyCode == LEFT_KEY)
-            {
-                return true;
-            }
-            return false;
-        });
-    }
+    
+String.prototype.getName = function() 
+{
+    return Player (this.name);
+}
 
-
-    // if right key detected return true otherwise return false
-    Player.prototype.RightInput = function()
-    {   
-        // event listener for detecting keyboard input
-        document.addEventListener('keydown', function(event) 
-        {
-            if(event.keyCode == RIGHT_KEY)
-            {
-                console.log("right");
-                return true;
-            }
-            return false;
-        });
-    }
-
-    Player.prototype.UpInput = function()
-    {
-    // if up input return true
-
-    // else return false
-    }
-
-    Player.prototype.DownInput = function()
-    {
-    // if down input return true
-
-    // else return false
-    }
-/* End Input Detection for Player */
-
+  
 
 
 Player.prototype.RenderPlayer = function()
     {
         // Draw Player Sprite in here
     }
+
+
+Player.prototype.getName = function()
+{
+    return this.name;
+}
 
 // }

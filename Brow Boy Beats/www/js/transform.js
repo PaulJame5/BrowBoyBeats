@@ -1,9 +1,7 @@
 // transform.js is a class for performing transform calcultions 
-pos = ([0,0])
-function Transform(pos)
+function Transform(position={x:0,y:0})
 {
-    var position = new Position(pos);
-    this.position = position;
+    this.position = new Position(position);
 
 }
 
