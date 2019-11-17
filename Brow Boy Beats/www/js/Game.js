@@ -43,9 +43,27 @@ class Game
         canvas.id = 'mycanvas';
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-    
-        
 
+
+        var playerImage = new Image();
+        playerImage.src = "Sprites/Player1.png";
+
+        var playerCanvas = document.getElementById("playerAnimation");
+        playerCanvas.width = 400;
+        playerCanvas.height = 400;
+
+        var sprites = new Sprite();
+
+        var player = sprites.sprite
+        ({
+            context: playerCanvas.getContext("2d"),
+            width: 400,
+            height: 400,
+            image: playerImage
+        });
+
+
+        player.render();
          /**
          * event listener to listen for a touch move, start and end
          */
@@ -54,8 +72,11 @@ class Game
         document.addEventListener("touchend", () => this.onTouchEnd(event)); 
 
 
+
         var playerImage = new Image();
         playerImage.src = "Sprites/player1.png";
+
+
 
         /**
         * We want this to be a 2D canvas.
@@ -163,6 +184,7 @@ class Game
  */
     update()
     { 
+
         window.requestAnimationFrame(this.boundRecursiveUpdate);
       
         this.playerOne.input.inputUpdate();
@@ -191,18 +213,5 @@ class Game
          
     }
 
+}
 
-     sprite (options)
-     {
-				
-        var that = {};
-                        
-        that.context = options.context;
-        that.width = options.width;
-        that.height = options.height;
-        that.image = options.image;
-
-    
-        return that;
-    }
-} // END Game class
