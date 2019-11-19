@@ -22,14 +22,14 @@ class Sprite
         that.width = options.width;
         that.height = options.height;
         that.image = options.image;
-       // numberOfFrames = option.numberOfFrames || 1;
+        that.numberOfFrames = options.numberOfFrames || 1;
     
       that.render = function () 
         {
 
           console.log("render");
           that.context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-          that.context.drawImage(that.image, frameIndex * that.width / numberOfFrames, 0, that.width / numberOfFrames, 277, 0, 0, that.width / numberOfFrames, 277);
+          that.context.drawImage(that.image, frameIndex * that.width / that.numberOfFrames, 0, that.width / that.numberOfFrames, 277, 0, 0, that.width / that.numberOfFrames, 277);
       };
 
     that.loop = options.loop;

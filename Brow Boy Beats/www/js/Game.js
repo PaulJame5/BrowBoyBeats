@@ -70,7 +70,7 @@ class Game
             width: 240,
             height: 277,
             image: this.playerImage,
-            numberOfFrames: 4
+            numberOfFrames: 1
         });
 
          /**
