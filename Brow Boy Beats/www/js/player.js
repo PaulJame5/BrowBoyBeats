@@ -68,7 +68,5 @@ Player.prototype.Move = function()
     {
         this.transform.position.setX(this.transform.position.getX() + this.speed);
     }
-    console.log("x: " + this.transform.position.getX());
-    console.log("y: " + this.transform.position.getY());
 
 }
