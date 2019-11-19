@@ -6,20 +6,7 @@ function Input()
     this.pressedDown = false;
     this.pressedLeft = false;
     this.pressedUp = false;
-
-
-    this.rightKey = function() {
-        this.pressedRight = true;
-    };
-    
 }
-
-
-// if left key detected return true otherwise return false
-Input.prototype.setRightPressed = function(pressed = false)
-{
-    this.pressedRight = pressed;
-};
 
 // if Left key detected return true otherwise return false
 Input.prototype.LeftInput = function()
