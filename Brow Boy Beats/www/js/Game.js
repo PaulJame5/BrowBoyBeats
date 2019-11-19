@@ -186,14 +186,13 @@ class Game
     update()
     { 
         this.player.render();
-        this.player.update();
+        this.playerOne.Update();
         //this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
         // context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
         //this.ctx.drawImage(this.playerImage, 0, 0, 240, 277, 0, 0, 240, 277);
 
         window.requestAnimationFrame(this.boundRecursiveUpdate);
       
-        this.playerOne.input.Update();
         
 
         /* Testing values */
