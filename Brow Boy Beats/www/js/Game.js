@@ -22,6 +22,8 @@ class Game
         this.playerTwo = new Player(playerTwoPosition, "Player Two");
 
         
+       
+
 
         // var dist = this.playerOne.transform.DistanceFromSelf(this.playerTwo.transform.position);
         // var dist2 = this.playerOne.transform.Distance(this.playerTwo.transform.position,this.playerOne.transform.position);
@@ -44,26 +46,33 @@ class Game
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
+        /**
+        * We want this to be a 2D canvas.
+        */
+       this.ctx = canvas.getContext("2d");
+       /**
+       *Adds the canvas element to the document.
+       */
+       document.body.appendChild(canvas);
 
-        var playerImage = new Image();
-        playerImage.src = "Sprites/Player1.png";
 
-        var playerCanvas = document.getElementById("playerAnimation");
-        playerCanvas.width = 400;
-        playerCanvas.height = 400;
+       this.playerImage = new Image();   // Create new img element
+       this.playerImage.addEventListener('load', function() {
+            // execute drawImage statements here
+        }, false);
+        this.playerImage.src = "Sprites/Player1.png"; // Set source path
 
-        var sprites = new Sprite();
+        this.sprites = new Sprite();
 
-        var player = sprites.sprite
+        this.player = this.sprites.sprite
         ({
-            context: playerCanvas.getContext("2d"),
-            width: 400,
-            height: 400,
-            image: playerImage
+            context: this.ctx,
+            width: 240,
+            height: 277,
+            image: this.playerImage,
+            numberOfFrames: 4
         });
 
-
-        player.render();
          /**
          * event listener to listen for a touch move, start and end
          */
@@ -73,19 +82,11 @@ class Game
 
 
 
-        var playerImage = new Image();
-        playerImage.src = "Sprites/player1.png";
+        //var playerImage = new Image();
+        //playerImage.src = "Sprites/player1.png";
 
 
 
-        /**
-        * We want this to be a 2D canvas.
-        */
-        this.ctx = canvas.getContext("2d");
-        /**
-        *Adds the canvas element to the document.
-        */
-        document.body.appendChild(canvas);
  
     }/*
     /**
@@ -184,6 +185,11 @@ class Game
  */
     update()
     { 
+        this.player.render();
+        
+        //this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        // context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
+        //this.ctx.drawImage(this.playerImage, 0, 0, 240, 277, 0, 0, 240, 277);
 
         window.requestAnimationFrame(this.boundRecursiveUpdate);
       
