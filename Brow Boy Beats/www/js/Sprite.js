@@ -9,15 +9,16 @@ class Sprite
     }
 
 
-
+    
     sprite (options) 
     {
-        console.log("sprite");
         var that = {},
         frameIndex = 0,
         tickCount = 0,
-        ticksPerFrame = options.ticksPerFrame || 0;
-                        
+        ticksPerFrame = options.ticksPerFrame || 4;
+            
+        that.xVal = options.xVal;
+        that.yVal = options.yVal;
         that.context = options.context;
         that.width = options.width;
         that.height = options.height;
@@ -25,28 +26,27 @@ class Sprite
         that.numberOfFrames = options.numberOfFrames || 1;
     
       that.render = function () 
-        {
+      {
 
-          console.log("render");
-          that.context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-          that.context.drawImage(that.image, frameIndex * that.width / that.numberOfFrames, 0, that.width / that.numberOfFrames, 228, 0, 0, that.width / that.numberOfFrames, 228);
+          that.context.clearRect(0, 0,  that.width, that.height);
+          that.context.drawImage(that.image, frameIndex * that.width / that.numberOfFrames, 0, that.width / that.numberOfFrames, 32, that.xVal, that.yVal, that.width / that.numberOfFrames, 32);
       };
 
-    that.loop = options.loop;
-    that.update = function () {
+      that.loop = options.loop;
+      that.update = function () {
 
-        tickCount += 1;
+      tickCount += 1;
 			
-        if (tickCount > ticksPerFrame) {
-        
-        	tickCount = 0;
+      if (tickCount > ticksPerFrame) 
+      {
+        tickCount = 0;
         	
           if (frameIndex < that.numberOfFrames - 1)
           {	
             // Go to the next frame
             frameIndex += 1;
           }
-          else if (that.loop)
+          else
           {
             frameIndex = 0;
           }
