@@ -14,12 +14,12 @@ class Game
         document.addEventListener('touchstart', function(e) {e.preventDefault();}, {passive: false});
         this.boundRecursiveUpdate = () => this.update(this);
 
-        var playerOnePosition = {x: 0.0, y:0.0};
-        var playerTwoPosition = {x: 5.0, y:0.0};
+        this.playerOnePosition = {x: 500.0, y:500.0};
+        this.playerTwoPosition = {x: 100.0, y:100.0};
 
         var playerOneName = "Player1";
-        this.playerOne = new Player(playerOnePosition, playerOneName);
-        this.playerTwo = new Player(playerTwoPosition, "Player Two");
+        this.playerOne = new Player(this.playerOnePosition, playerOneName);
+        this.playerTwo = new Player(this.playerTwoPosition, "Player Two");
 
         
        
@@ -45,7 +45,7 @@ class Game
         canvas.id = 'mycanvas';
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-
+        this.sprites = new Sprite();
         /**
         * We want this to be a 2D canvas.
         */
@@ -56,23 +56,40 @@ class Game
        document.body.appendChild(canvas);
 
 
-       this.playerImage = new Image();   // Create new img element
-       this.playerImage.addEventListener('load', function() {
+       this.player1Image = new Image();   // Create new img element
+       this.player1Image.addEventListener('load', function() {
             // execute drawImage statements here
         }, false);
-        this.playerImage.src = "Sprites/Player1.png"; // Set source path
-
-        this.sprites = new Sprite();
-
-        this.player = this.sprites.sprite
+        this.player1Image.src = "Sprites/PlayerOne.png"; // Set source path
+        this.player1 = this.sprites.sprite
         ({
+            xVal : this.playerOnePosition.x,
+            yVal : this.playerOnePosition.y,
             context: this.ctx,
-            width: 200,
-            height: 228,
-            image: this.playerImage,
-            numberOfFrames: 4
+            width: 256,
+            height: 32,
+            image: this.player1Image,
+            numberOfFrames: 8
         });
 
+
+
+
+        this.player2Image = new Image();   // Create new img element
+        this.player2Image.addEventListener('load', function() {
+             // execute drawImage statements here
+         }, false);
+         this.player2Image.src = "Sprites/PlayerOne.png"; // Set source path
+         this.player2 = this.sprites.sprite
+         ({
+             xVal : this.playerTwoPosition.x,
+             yVal : this.playerTwoPosition.y,
+             context: this.ctx,
+             width: 256,
+             height: 32,
+             image: this.player2Image,
+             numberOfFrames: 8
+         });
          /**
          * event listener to listen for a touch move, start and end
          */
@@ -185,13 +202,19 @@ class Game
  */
     update()
     { 
-        this.player.render();
-        this.player.update();
+       
+        
         //this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
         // context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
         //this.ctx.drawImage(this.playerImage, 0, 0, 240, 277, 0, 0, 240, 277);
 
         window.requestAnimationFrame(this.boundRecursiveUpdate);
+
+        this.player1.update();
+        this.player1.render();
+        
+        this.player2.update();
+        this.player2.render();
       
         this.playerOne.input.Update();
         
