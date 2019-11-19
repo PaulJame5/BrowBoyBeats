@@ -22,6 +22,8 @@ class Game
         this.playerTwo = new Player(playerTwoPosition, "Player Two");
 
         
+       
+
 
         // var dist = this.playerOne.transform.DistanceFromSelf(this.playerTwo.transform.position);
         // var dist2 = this.playerOne.transform.Distance(this.playerTwo.transform.position,this.playerOne.transform.position);
@@ -43,8 +45,33 @@ class Game
         canvas.id = 'mycanvas';
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-    
-        
+
+        /**
+        * We want this to be a 2D canvas.
+        */
+       this.ctx = canvas.getContext("2d");
+       /**
+       *Adds the canvas element to the document.
+       */
+       document.body.appendChild(canvas);
+
+
+       this.playerImage = new Image();   // Create new img element
+       this.playerImage.addEventListener('load', function() {
+            // execute drawImage statements here
+        }, false);
+        this.playerImage.src = "Sprites/Player1.png"; // Set source path
+
+        this.sprites = new Sprite();
+
+        this.player = this.sprites.sprite
+        ({
+            context: this.ctx,
+            width: 240,
+            height: 277,
+            image: this.playerImage,
+            numberOfFrames: 4
+        });
 
          /**
          * event listener to listen for a touch move, start and end
@@ -54,17 +81,12 @@ class Game
         document.addEventListener("touchend", () => this.onTouchEnd(event)); 
 
 
-        var playerImage = new Image();
-        playerImage.src = "Sprites/player1.png";
 
-        /**
-        * We want this to be a 2D canvas.
-        */
-        this.ctx = canvas.getContext("2d");
-        /**
-        *Adds the canvas element to the document.
-        */
-        document.body.appendChild(canvas);
+        //var playerImage = new Image();
+        //playerImage.src = "Sprites/player1.png";
+
+
+
  
     }/*
     /**
@@ -163,6 +185,12 @@ class Game
  */
     update()
     { 
+        this.player.render();
+        
+        //this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        // context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
+        //this.ctx.drawImage(this.playerImage, 0, 0, 240, 277, 0, 0, 240, 277);
+
         window.requestAnimationFrame(this.boundRecursiveUpdate);
       
         this.playerOne.input.Update();
@@ -190,18 +218,5 @@ class Game
          
     }
 
+}
 
-     sprite (options)
-     {
-				
-        var that = {};
-                        
-        that.context = options.context;
-        that.width = options.width;
-        that.height = options.height;
-        that.image = options.image;
-
-    
-        return that;
-    }
-} // END Game class
