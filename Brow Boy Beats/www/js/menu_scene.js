@@ -11,12 +11,13 @@ class MenuScene extends Scene
         this.title = title;
         //this.color =color;
     }
+    
     /**
- * 
- * Function to draw the scene and  also clears the window 
- * @param {Object} ctx ctx used to create a font and text on screen also to clear screen
- *
- */
+    * 
+    * Function to draw the scene and  also clears the window 
+    * @param {Object} ctx ctx used to create a font and text on screen also to clear screen
+    *
+    */
     render(ctx)
     {
         ctx.clearRect(0,0,ctx.canvas.width, ctx.canvas.height);

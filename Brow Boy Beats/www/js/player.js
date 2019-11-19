@@ -21,7 +21,7 @@ function Player(init_position={x:0.0,y:0.0}, name="")
 
 
 
-    
+// Returns the player Name
 String.prototype.getName = function() 
 {
     return Player (this.name);
@@ -29,44 +29,46 @@ String.prototype.getName = function()
 
   
 
-
-Player.prototype.RenderPlayer = function()
-    {
-        // Draw Player Sprite in here
-    }
-
-
-Player.prototype.getName = function()
+// All rendering calls for player should go in here
+Player.prototype.renderPlayer = function()
 {
-    return this.name;
+    // Draw Player Sprite in here
 }
 
-Player.prototype.Update = function()
-{
-    this.input.Update();
-    this.Move();
-}
 
-Player.prototype.Move = function()
+// Update player behaviour in here
+Player.prototype.update = function()
+{
+    // Call the update function of player input first then perform and check actions after
+    this.input.update();
+    this.move();
+} // end update
+
+// Move funstion for player
+Player.prototype.move = function()
 {
     // Up Down Movement
     if(this.input.pressedDown)
     {
+        // get current y position and then subtract speed
         this.transform.position.setY(this.transform.position.getY() - this.speed);
     }
     else if(this.input.pressedUp)
     {
+        // get current y position and then add speed
         this.transform.position.setY(this.transform.position.getY() + this.speed);
-    }
+    } // end up down movement check
 
     // Left Right Movement
     if(this.input.pressedLeft)
     {
+        // get current x position and then subtract speed
         this.transform.position.setX(this.transform.position.getX() - this.speed);
     }
     else if(this.input.pressedRight)
     {
+        // get current x position and then add speed
         this.transform.position.setX(this.transform.position.getX() + this.speed);
-    }
+    } // end left right movement check
 
-}
+} // end move

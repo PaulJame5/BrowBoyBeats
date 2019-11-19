@@ -9,7 +9,7 @@ function Input()
 }
 
 // if Left key detected return true otherwise return false
-Input.prototype.LeftInput = function()
+Input.prototype.leftInput = function()
 {
     // declare self for use within event listener
     var self = this;
@@ -35,7 +35,7 @@ Input.prototype.LeftInput = function()
 }; // End Left Input
 
 // if Right key detected return true otherwise return false
-Input.prototype.RightInput = function()
+Input.prototype.rightInput = function()
 {
     // declare self for use within event listener
     var self = this;
@@ -61,7 +61,7 @@ Input.prototype.RightInput = function()
 }; // END Right Input
 
 // if Up key detected return true otherwise return false
-Input.prototype.UpInput = function()
+Input.prototype.upInput = function()
 {
     // declare self for use within event listener
     var self = this;
@@ -87,7 +87,7 @@ Input.prototype.UpInput = function()
 }; // End Up Input
 
 // if Down key detected return true otherwise return false
-Input.prototype.DownInput = function()
+Input.prototype.downInput = function()
 {
     // declare self for use within event listener
     var self = this;
@@ -114,12 +114,12 @@ Input.prototype.DownInput = function()
 
 
 // update input detection
-Input.prototype.Update = function()
+Input.prototype.update = function()
 {
-    this.LeftInput();
-    this.RightInput();
-    this.UpInput();
-    this.DownInput(); 
+    this.leftInput();
+    this.rightInput();
+    this.upInput();
+    this.downInput(); 
 }; // End Update
 
 

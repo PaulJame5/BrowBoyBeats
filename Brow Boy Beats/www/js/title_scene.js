@@ -1,9 +1,10 @@
 class TitleScene extends Scene
 {
-     /**
- * 
- * sets up the constructor ctx and color
- */
+     
+    /**
+    * 
+    * sets up the constructor ctx and color
+    */
     constructor(title)
     {
        
@@ -11,12 +12,13 @@ class TitleScene extends Scene
         this.title = title;
         
     }
+    
     /**
- * 
- * Function to draw the scene and  also clears the window 
- * 
- *
- */
+    * 
+    * Function to draw the scene and  also clears the window 
+    * 
+    *
+    */
     render(ctx)
     {
         ctx.clearRect(0,0,ctx.canvas.width, ctx.canvas.height);
@@ -25,4 +27,4 @@ class TitleScene extends Scene
         //ctx.fillStyle = rgb( this.color);
         document.body.style.background = 'red';
     }
-}
+} // end class title screen

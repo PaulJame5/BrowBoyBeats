@@ -49,18 +49,24 @@ class Game
         /**
         * We want this to be a 2D canvas.
         */
-       this.ctx = canvas.getContext("2d");
-       /**
-       *Adds the canvas element to the document.
-       */
-       document.body.appendChild(canvas);
+       
+        this.ctx = canvas.getContext("2d");
+        /**
+        *Adds the canvas element to the document.
+        */
+        document.body.appendChild(canvas);
 
 
-       this.player1Image = new Image();   // Create new img element
-       this.player1Image.addEventListener('load', function() {
+        this.player1Image = new Image();   // Create new img element
+        this.player1Image.addEventListener('load', function() 
+        {
             // execute drawImage statements here
         }, false);
+        
+        
         this.player1Image.src = "Sprites/PlayerOne.png"; // Set source path
+        
+        
         this.player1 = this.sprites.sprite
         ({
             xVal : this.playerOnePosition.x,
@@ -76,10 +82,13 @@ class Game
 
 
         this.player2Image = new Image();   // Create new img element
+        
         this.player2Image.addEventListener('load', function() {
              // execute drawImage statements here
          }, false);
+         
          this.player2Image.src = "Sprites/PlayerOne.png"; // Set source path
+        
          this.player2 = this.sprites.sprite
          ({
              xVal : this.playerTwoPosition.x,
@@ -90,9 +99,12 @@ class Game
              image: this.player2Image,
              numberOfFrames: 8
          });
+        
+        
          /**
          * event listener to listen for a touch move, start and end
          */
+        
         document.addEventListener("touchstart", () => this.onTouchStart(event)); 
         document.addEventListener("touchmove", () => this.onTouchMove(event)); 
         document.addEventListener("touchend", () => this.onTouchEnd(event)); 
@@ -105,17 +117,21 @@ class Game
 
 
  
-    }/*
-    /**
- * 
- * Function to clear the window and get the start of the touch and get time at start of touch
- * @param {Object} e event hanlder  
- *    
- */
+    }
+    
+    /*
+    * 
+    * Function to clear the window and get the start of the touch and get time at start of touch
+    * @param {Object} e event hanlder  
+    *    
+    */
+    
+    
     onTouchStart(e)
     {
         this.ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
         this.touches = e.touches;
+        
         /**
          * get the start of touch position x and y create two variables and store the start x and y
          */
@@ -128,18 +144,20 @@ class Game
         
   
     }
-      /**
- * 
- * Function to get whether there is a move across the screen, also draws a line along the movement and get the end x and y
- * also update start to be at the end as  finger is moved 
- * @param {Object} e event hanlder
- *    
- */
+      
+    /**
+    * 
+    * Function to get whether there is a move across the screen, also draws a line along the movement and get the end x and y
+    * also update start to be at the end as  finger is moved 
+    * @param {Object} e event hanlder
+    *     
+    */
     onTouchMove(e)
     {
         this.changedTouches = e.changedTouches;
         this.endX = e.changedTouches[0].clientX;
         this.endY = e.changedTouches[0].clientY;
+        
         /**
          * sets up the line
          */
@@ -151,13 +169,14 @@ class Game
         this.startX = this.endX;
         this.startY = this.endY;
     }
-        /**
- * 
- * Function to get the end of a touch and the time when touch ends
- * also gets lenght of swipe to determine if its long enough to swipe.
- * @param {Object} e event hanlder
- *    
- */
+        
+    /**
+    * 
+    * Function to get the end of a touch and the time when touch ends
+    * also gets lenght of swipe to determine if its long enough to swipe.
+    * @param {Object} e event hanlder
+    *    
+    */
     onTouchEnd(e)
     {
 
@@ -183,7 +202,10 @@ class Game
         */
         y = this.endSwipeY - this.startForY;
         y = y * y;
+        
         var LeghtOfSwipe = Math.sqrt((x+y));
+        
+        
         /**
          * check if the time is greater tham 360 and thhe swipe is greater than 240
          * the output a message swipe detected
@@ -194,12 +216,13 @@ class Game
         }
         
     }
-        /**
- * 
- * Function to create game loop
+        
+    /**
+    * 
+    * Function to create game loop
  
- *    
- */
+    *    
+    */
     update()
     { 
         //this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
@@ -208,7 +231,7 @@ class Game
 
         window.requestAnimationFrame(this.boundRecursiveUpdate);
 
-        this.playerOne.Update();
+        this.playerOne.update();
         
         this.player1.update();
         this.player1.render();
@@ -217,26 +240,6 @@ class Game
         this.player2.render();
       
         
-
-        /* Testing values */
-        /*
-        console.log(this.playerOne.transform.position.get()); // works
-        var initial = {x:0,y:0};
-        var playerOne = new Player(initial);
-        var d = 0;
-        console.log("initial.x: " + initial.x);
-        console.log("pos.x: " + playerOne.transform.position.getX());
-        console.log("d: " + d);
-
-        if(playerOne.transform.position.x === d)
-        {
-            console.log(true);
-        }
-        else
-        {
-            console.log(false);
-        }
-        /* End Testing Values */
          
     }
 

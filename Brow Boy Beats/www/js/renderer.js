@@ -1,5 +1,5 @@
 
-function RenderScreen(canvas) 
+function Render_Screen(canvas) 
 {
     var context = canvas.getContext("2d")
    

@@ -1,6 +1,6 @@
 class GameScene extends Scene
 {
-     /**
+    /**
  * 
  * sets up the constructor with title
  */

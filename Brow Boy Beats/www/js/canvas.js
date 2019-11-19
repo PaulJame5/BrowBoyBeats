@@ -1,7 +1,7 @@
 // Canvas that the game world will be drawn on
 
 /** 
-function initialiseCanvas() 
+function Initialise_Canvas() 
 {
 
 
@@ -15,7 +15,7 @@ function initialiseCanvas()
 */
 
 
-function updateCanvas()
+function Update_Canvas()
 {
     // All logic for updating the game world shall go here.
 
