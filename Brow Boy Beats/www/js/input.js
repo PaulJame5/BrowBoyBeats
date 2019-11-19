@@ -6,6 +6,12 @@ function Input()
     this.pressedDown = false;
     this.pressedLeft = false;
     this.pressedUp = false;
+
+
+    this.rightKey = function() {
+        this.pressedRight = true;
+    };
+    
 }
 
 
@@ -15,89 +21,119 @@ Input.prototype.setRightPressed = function(pressed = false)
     this.pressedRight = pressed;
 };
 
-// if left key detected return true otherwise return false
+// if Left key detected return true otherwise return false
 Input.prototype.LeftInput = function()
 {
-    // event listener for detecting keyboard input
-    var pressed = document.addEventListener('keydown', function(event) 
+    // declare self for use within event listener
+    var self = this;
+
+    // event listener for detecting keyboard input going down
+    document.addEventListener('keydown', function(event) 
     {
         if(event.keyCode == 37)
         {
-            return true;
+            self.pressedLeft = true;
         }
-        return false;
-    });
+    });  
     
-
-};
-
-// if right key detected return true otherwise return false
-Input.prototype.inputUpdate = function()
-{
-    // left right
-    document.addEventListener('keydown', function(event) 
+    // set to false if key is lifted up
+    document.addEventListener('keyup', function(event) 
     {
-        switch (event.keyCode) 
+        if(event.keyCode == 37)
         {
-            case 37: // Left
-            this.pressedLeft = true;
-            break;
-
-            case 39: // Right
-            this.pressedRight = true;
-
-            default: // neither
-            this.pressedRight = false;
-            this.pressedLeft = false;
-            break;
+            self.pressedLeft = false;
         }
     });
 
-    // up down
-    document.addEventListener('keydown', function(event) 
-    {
-        switch (event.keyCode) 
-        {
-            case 38: // Up
-            this.pressedUp = true;
-            break;
+}; // End Left Input
 
-            case 40: // Down
-            this.pressedDown = true;
-            break;
-
-            default: // neither
-            this.pressedUp = false;
-            this.pressedDown = false;
-            break;
-        }
-    });
-
-};
-
-// if right key detected return true otherwise return false
+// if Right key detected return true otherwise return false
 Input.prototype.RightInput = function()
-{   
-    this.inputUpdate();
+{
+    // declare self for use within event listener
+    var self = this;
 
-    console.log(this.pressedRight);
+    // event listener for detecting keyboard input going down
+    document.addEventListener('keydown', function(event) 
+    {
+        if(event.keyCode == 39)
+        {
+            self.pressedRight = true;
+        }
+    });  
+    
+    // set to false if key is lifted up
+    document.addEventListener('keyup', function(event) 
+    {
+        if(event.keyCode == 39)
+        {
+            self.pressedRight = false;
+        }
+    });
 
-    return this.pressedRight;
+}; // END Right Input
 
-     // return false;
-}; // End right input
+// if Up key detected return true otherwise return false
+Input.prototype.UpInput = function()
+{
+    // declare self for use within event listener
+    var self = this;
 
-  Input.prototype.UpInput = function()
-  {
-  // if up input return true
+    // event listener for detecting keyboard input going down
+    document.addEventListener('keydown', function(event) 
+    {
+        if(event.keyCode == 38)
+        {
+            self.pressedUp = true;
+        }
+    });  
+    
+    // set to false if key is lifted up
+    document.addEventListener('keyup', function(event) 
+    {
+        if(event.keyCode == 38)
+        {
+            self.pressedUp = false;
+        }
+    });
 
-  // else return false
-  }
+}; // End Up Input
 
-  Input.prototype.DownInput = function()
-  {
-  // if down input return true
+// if Down key detected return true otherwise return false
+Input.prototype.DownInput = function()
+{
+    // declare self for use within event listener
+    var self = this;
 
-  // else return false
-  }
+    // event listener for detecting keyboard input going down
+    document.addEventListener('keydown', function(event) 
+    {
+        if(event.keyCode == 40)
+        {
+            self.pressedDown = true;
+        }
+    });  
+    
+    // set to false if key is lifted up
+    document.addEventListener('keyup', function(event) 
+    {
+        if(event.keyCode == 40)
+        {
+            self.pressedDown = false;
+        }
+    });
+
+}; // End DOwn Input
+
+
+// update input detection
+Input.prototype.Update = function()
+{
+    this.LeftInput();
+    this.RightInput();
+    this.UpInput();
+    this.DownInput(); 
+}; // End Update
+
+
 /* End Input Detection for Player */

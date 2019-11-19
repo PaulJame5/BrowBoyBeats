@@ -165,8 +165,7 @@ class Game
     { 
         window.requestAnimationFrame(this.boundRecursiveUpdate);
       
-        this.playerOne.input.inputUpdate();
-        this.playerOne.input.RightInput();
+        this.playerOne.input.Update();
         
 
         /* Testing values */
