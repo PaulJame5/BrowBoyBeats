@@ -67,10 +67,10 @@ class Game
         this.player = this.sprites.sprite
         ({
             context: this.ctx,
-            width: 240,
-            height: 277,
+            width: 200,
+            height: 228,
             image: this.playerImage,
-            numberOfFrames: 1
+            numberOfFrames: 4
         });
 
          /**
@@ -186,7 +186,7 @@ class Game
     update()
     { 
         this.player.render();
-        
+        this.player.update();
         //this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
         // context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
         //this.ctx.drawImage(this.playerImage, 0, 0, 240, 277, 0, 0, 240, 277);

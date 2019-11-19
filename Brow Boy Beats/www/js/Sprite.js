@@ -29,7 +29,7 @@ class Sprite
 
           console.log("render");
           that.context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-          that.context.drawImage(that.image, frameIndex * that.width / that.numberOfFrames, 0, that.width / that.numberOfFrames, 277, 0, 0, that.width / that.numberOfFrames, 277);
+          that.context.drawImage(that.image, frameIndex * that.width / that.numberOfFrames, 0, that.width / that.numberOfFrames, 228, 0, 0, that.width / that.numberOfFrames, 228);
       };
 
     that.loop = options.loop;
@@ -41,7 +41,7 @@ class Sprite
         
         	tickCount = 0;
         	
-          if (frameIndex < numberOfFrames - 1)
+          if (frameIndex < that.numberOfFrames - 1)
           {	
             // Go to the next frame
             frameIndex += 1;
