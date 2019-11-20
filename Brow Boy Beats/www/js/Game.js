@@ -34,6 +34,9 @@ class Game
     */
     initWorld()
     {
+        // initialise update variables
+        this.lastFrameTimeMs = 0; // The last time the loop was run
+        this.maxFPS = 30; // The maximum FPS we want to allow
         
         var canvas = document.createElement("canvas");
         canvas.id = 'mycanvas';
@@ -179,11 +182,19 @@ class Game
     */
     update()
     { 
-        // context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
-        //this.ctx.drawImage(this.playerImage, 0, 0, 240, 277, 0, 0, 240, 277);
+        // Throttle the frame rate.    
+        if (Date.now() < this.lastFrameTimeMs + (1000 / this.maxFPS)) 
+        {
+            console.log("Frame Buffer");
+            window.requestAnimationFrame(this.boundRecursiveUpdate);
+
+            return;
+        }
+        
+        console.log("Updating");
+        this.lastFrameTimeMs = Date.now();
 
         this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-        window.requestAnimationFrame(this.boundRecursiveUpdate);
 
         this.playerOne.update();
         this.playerOne.renderPlayer();
@@ -191,6 +202,7 @@ class Game
         this.playerTwo.update();
         this.playerTwo.renderPlayer();
       
+        window.requestAnimationFrame(this.boundRecursiveUpdate);
         
          
     }

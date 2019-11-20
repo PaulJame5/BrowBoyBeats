@@ -11,7 +11,7 @@ function Player(init_position={x:0.0,y:0.0}, name="",src="",context)
 
     this.input = new Input();
 
-    this.speed = 2;
+    this.speed = 5;
 
     this.initSpritesheet(src, context);
     
