@@ -4,12 +4,22 @@ class MenuScene extends Scene
  * 
  * sets up the constructor ctx and color
  */
-    constructor(title )
+    constructor(title)
     {
        
-        super(title );
+        super(title);
         this.title = title;
-        //this.color =color;
+
+
+        
+    }
+    initMenuScene()
+    {
+        var img = new Image();   // Create new img element
+        img.addEventListener('load', function() {
+          // execute drawImage statements here
+        }, false);
+        img.src = 'myImage.png'; // Set source path
     }
     
     /**
