@@ -13,13 +13,15 @@ class MenuScene extends Scene
 
         
     }
-    initMenuScene()
+    initScene(ctx)
     {
-        var img = new Image();   // Create new img element
-        img.addEventListener('load', function() {
-          // execute drawImage statements here
+        var img = new Image();   
+        img.addEventListener('load', function() 
+        {
+            ctx.drawImage(img, 0, 0);
+
         }, false);
-        img.src = 'myImage.png'; // Set source path
+        img.src = 'Sprites/Background.png';
     }
     
     /**
@@ -32,7 +34,7 @@ class MenuScene extends Scene
     {
         ctx.clearRect(0,0,ctx.canvas.width, ctx.canvas.height);
         ctx.font = '48px serif';
-        ctx.fillText('Menu Scene' , 100 , 100);
+        ctx.fillText('Menu Scene' , 10 , 50);
         document.body.style.background = 'green';
     }
 }

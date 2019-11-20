@@ -83,7 +83,7 @@ Player.prototype.move = function()
         // get current y position and then subtract speed
         this.transform.position.setY(this.transform.position.getY() + this.speed);
     }
-    else if(this.input.pressedUp)
+    if(this.input.pressedUp)
     {
         // get current y position and then add speed
         this.transform.position.setY(this.transform.position.getY() - this.speed);
@@ -95,7 +95,7 @@ Player.prototype.move = function()
         // get current x position and then subtract speed
         this.transform.position.setX(this.transform.position.getX() - this.speed);
     }
-    else if(this.input.pressedRight)
+    if(this.input.pressedRight)
     {
         // get current x position and then add speed
         this.transform.position.setX(this.transform.position.getX() + this.speed);

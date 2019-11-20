@@ -46,6 +46,7 @@ class Game
     inputs()
     {
         this.sceneManager.goToNextScene();
+        this.sceneManager.initScene(this.ctx);
         this.sceneManager.render(this.ctx);
     }
 
