@@ -28,7 +28,6 @@ class Sprite
     
     that.render = function () 
     {
-      that.context.clearRect(0, 0,  that.width, that.height);
       that.context.drawImage(that.image, frameIndex * that.width / that.numberOfFrames, 0, that.width / that.numberOfFrames, 32, that.xVal, that.yVal, that.width / that.numberOfFrames, 32);
     };
 
@@ -61,6 +60,6 @@ class Sprite
 
     // retrun the sprite    
     return that;
-  } // end sprite()
+  }
 
 } // End Sprite Class

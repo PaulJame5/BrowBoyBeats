@@ -87,7 +87,7 @@ class Game
              // execute drawImage statements here
          }, false);
          
-         this.player2Image.src = "Sprites/PlayerOne.png"; // Set source path
+         this.player2Image.src = "Sprites/PlayerTwo.png"; // Set source path
         
          this.player2 = this.sprites.sprite
          ({
@@ -225,19 +225,19 @@ class Game
     */
     update()
     { 
-        //this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
         // context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
         //this.ctx.drawImage(this.playerImage, 0, 0, 240, 277, 0, 0, 240, 277);
 
+        this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
         window.requestAnimationFrame(this.boundRecursiveUpdate);
 
         this.playerOne.update();
         
-        this.player1.update();
         this.player1.render();
+        this.player1.update();
         
-        this.player2.update();
         this.player2.render();
+        this.player2.update();
       
         
          
