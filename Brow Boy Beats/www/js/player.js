@@ -1,11 +1,9 @@
 // This is the player class where there are fuctions readily availble to be used
 
-const LEFT_KEY = 37;
-const RIGHT_KEY = 39;
 
 
 // Player Class
-function Player(init_position={x:0.0,y:0.0}, name="")
+function Player(init_position={x:0.0,y:0.0}, name="",src="",context)
 {
     this.name = name;
     
@@ -15,16 +13,46 @@ function Player(init_position={x:0.0,y:0.0}, name="")
 
     this.speed = 2;
 
+    this.initSpritesheet(src, context);
+    
+    
+   
+    //=======================
+
+
+
 }
 
 
+Player.prototype.initSpritesheet = function(src="",context)
+{
+    this.sprites = new Sprite();
+    this.spritesheet = new Image();   // Create new img element
+    this.spritesheet.addEventListener('load', function() 
+    {
+        // execute drawImage statements here
+    }, false);
+    
+    
+    this.spritesheet.src = src; // Set source path
+    this.playerSprite = this.sprites.sprite
+    ({
+        xVal : this.transform.position.getX(),
+        yVal : this.transform.position.getY(),
+        context: context,
+        width: 256,
+        height: 32,
+        image: this.spritesheet,
+        numberOfFrames: 8
+    });
+}
 
 
 
 // Returns the player Name
 String.prototype.getName = function() 
 {
-    return Player (this.name);
+    return this.name;
 }
 
   
@@ -33,6 +61,8 @@ String.prototype.getName = function()
 Player.prototype.renderPlayer = function()
 {
     // Draw Player Sprite in here
+    this.playerSprite.update();
+    this.playerSprite.render(this.transform.position.get());
 }
 
 
@@ -51,12 +81,12 @@ Player.prototype.move = function()
     if(this.input.pressedDown)
     {
         // get current y position and then subtract speed
-        this.transform.position.setY(this.transform.position.getY() - this.speed);
+        this.transform.position.setY(this.transform.position.getY() + this.speed);
     }
     else if(this.input.pressedUp)
     {
         // get current y position and then add speed
-        this.transform.position.setY(this.transform.position.getY() + this.speed);
+        this.transform.position.setY(this.transform.position.getY() - this.speed);
     } // end up down movement check
 
     // Left Right Movement

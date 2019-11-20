@@ -26,9 +26,9 @@ class Sprite
     that.image = options.image;
     that.numberOfFrames = options.numberOfFrames || 1;
     
-    that.render = function () 
+    that.render = function (psotion = {x:0,y:0}) 
     {
-      that.context.drawImage(that.image, frameIndex * that.width / that.numberOfFrames, 0, that.width / that.numberOfFrames, 32, that.xVal, that.yVal, that.width / that.numberOfFrames, 32);
+      this.context.drawImage(that.image, frameIndex * that.width / that.numberOfFrames, 0, that.width / that.numberOfFrames, 32, psotion.x, psotion.y, that.width / that.numberOfFrames, 32);
     };
 
       
