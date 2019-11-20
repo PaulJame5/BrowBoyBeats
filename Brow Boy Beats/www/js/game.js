@@ -53,8 +53,8 @@ class Game
         this.playerTwoPosition = {x: 100.0, y:100.0};
 
         var playerOneName = "Player1";
-        this.playerOne = new Player(this.playerOnePosition, playerOneName,"Sprites/PlayerOne.png", this.ctx,document);
-        this.playerTwo = new Player(this.playerTwoPosition, "Player Two","Sprites/PlayerTwo.png", this.ctx,document);
+        this.playerOne = new Player(this.playerOnePosition, playerOneName,"Sprites/PlayerOne.png", this.ctx);
+        this.playerTwo = new Player(this.playerTwoPosition, "Player Two","Sprites/PlayerTwo.png", this.ctx);
         // End Initialisation of players
        
 
