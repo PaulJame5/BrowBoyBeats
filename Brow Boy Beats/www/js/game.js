@@ -15,7 +15,25 @@ class Game
         this.boundRecursiveUpdate = () => this.update(this);
 
 
-        
+          
+  
+        //calls and passes title to the constructors of each class
+  
+      
+        this.sceneManager = new SceneManager();
+        var menuScene = new MenuScene("MenuScreen");
+        var titleScene = new TitleScene("TitleScreen");
+        var gameScene = new GameScene("GameScreen");
+ 
+        /**
+         * 
+         *adds scenes to the dictionary in addScene function
+         *and calls renders the screenManger 
+         */
+
+        this.sceneManager.addScene(gameScene);
+        this.sceneManager.addScene(menuScene);        
+        this.sceneManager.addScene(titleScene);
        
 
 
@@ -25,7 +43,13 @@ class Game
         // console.log("Dist2 should = 5 : " + dist2.toString()); // works
     }
 
-    
+    inputs()
+    {
+        this.sceneManager.goToNextScene();
+        this.sceneManager.render(this.ctx);
+    }
+
+   
 
     /**
     * 
@@ -69,9 +93,19 @@ class Game
         document.addEventListener("touchmove", () => this.onTouchMove(event)); 
         document.addEventListener("touchend", () => this.onTouchEnd(event)); 
 
-
+        window.addEventListener("keydown", e => 
+        {
+            /**
+             *  Space and arrow keys to prevent the scrool of the screen
+              */
+                if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1)
+                {
+                    e.preventDefault();
+                }
+            }, false);
  
     }
+    
     
     /*
     * 
@@ -182,7 +216,7 @@ class Game
         // context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
         //this.ctx.drawImage(this.playerImage, 0, 0, 240, 277, 0, 0, 240, 277);
 
-        this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        //this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
         window.requestAnimationFrame(this.boundRecursiveUpdate);
 
         this.playerOne.update();
@@ -194,6 +228,8 @@ class Game
         
          
     }
+
+    
 
 }
 
