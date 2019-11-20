@@ -9,16 +9,14 @@ function Player(init_position={x:0.0,y:0.0}, name="",src="",context)
     
     this.transform = new Transform(init_position); // initilised Values
 
-    this.input = new Input();
+    input = new Input();
+    input.initSelf();
+    this.input = input;
 
     this.speed = 5;
 
     this.initSpritesheet(src, context);
     
-    var test_input = new Test_Input();
-    test_input.initSelf();
-
-    this.test_input = test_input;
     console.log("Initialised Player");
    
     //=======================
@@ -73,8 +71,6 @@ Player.prototype.renderPlayer = function()
 // Update player behaviour in here
 Player.prototype.update = function()
 {
-    // Call the update function of player input first then perform and check actions after
-    this.input.update();
     this.move();
 } // end update
 
