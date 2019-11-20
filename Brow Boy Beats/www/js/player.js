@@ -3,19 +3,19 @@
 
 
 // Player Class
-function Player(init_position={x:0.0,y:0.0}, name="",src="",context)
+function Player(init_position={x:0.0,y:0.0}, name="",src="",context,document)
 {
     this.name = name;
     
     this.transform = new Transform(init_position); // initilised Values
 
-    this.input = new Input();
+    this.input = new Input(document);
 
     this.speed = 5;
 
     this.initSpritesheet(src, context);
     
-    
+    console.log("Initialised Player");
    
     //=======================
 

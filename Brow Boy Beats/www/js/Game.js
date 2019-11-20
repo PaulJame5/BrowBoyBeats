@@ -14,15 +14,8 @@ class Game
         document.addEventListener('touchstart', function(e) {e.preventDefault();}, {passive: false});
         this.boundRecursiveUpdate = () => this.update(this);
 
-
-        
-       
-
-
-        // var dist = this.playerOne.transform.DistanceFromSelf(this.playerTwo.transform.position);
-        // var dist2 = this.playerOne.transform.Distance(this.playerTwo.transform.position,this.playerOne.transform.position);
-        // console.log("Dist should = 5 : " + dist.toString()); // works
-        // console.log("Dist2 should = 5 : " + dist2.toString()); // works
+        // We want to simulate 1000 ms / 60 FPS = 16.667 ms per frame every time we run update()
+        this.timestep = 1000 / 60;
     }
 
     
@@ -37,6 +30,7 @@ class Game
         // initialise update variables
         this.lastFrameTimeMs = 0; // The last time the loop was run
         this.maxFPS = 30; // The maximum FPS we want to allow
+        this.delta = 0;
         
         var canvas = document.createElement("canvas");
         canvas.id = 'mycanvas';
@@ -59,8 +53,8 @@ class Game
         this.playerTwoPosition = {x: 100.0, y:100.0};
 
         var playerOneName = "Player1";
-        this.playerOne = new Player(this.playerOnePosition, playerOneName,"Sprites/PlayerOne.png", this.ctx);
-        this.playerTwo = new Player(this.playerTwoPosition, "Player Two","Sprites/PlayerTwo.png", this.ctx);
+        this.playerOne = new Player(this.playerOnePosition, playerOneName,"Sprites/PlayerOne.png", this.ctx,document);
+        this.playerTwo = new Player(this.playerTwoPosition, "Player Two","Sprites/PlayerTwo.png", this.ctx,document);
         // End Initialisation of players
        
 
@@ -185,24 +179,33 @@ class Game
         // Throttle the frame rate.    
         if (Date.now() < this.lastFrameTimeMs + (1000 / this.maxFPS)) 
         {
-            console.log("Frame Buffer");
+           // console.log("Frame Buffer");
             window.requestAnimationFrame(this.boundRecursiveUpdate);
 
             return;
         }
         
-        console.log("Updating");
+        this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        //console.log("Updating");
         this.lastFrameTimeMs = Date.now();
 
-        this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
         this.playerOne.update();
-        this.playerOne.renderPlayer();
-
         this.playerTwo.update();
+
+        //this.playerTwo.update();
+        
+       // console.log("Finished Updating");
+
+
+       // console.log("Rendering");
         this.playerTwo.renderPlayer();
+        this.playerOne.renderPlayer();
+      //  console.log("Rendering Completed");
       
         window.requestAnimationFrame(this.boundRecursiveUpdate);
+
+
         
          
     }
