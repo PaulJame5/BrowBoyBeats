@@ -83,12 +83,17 @@ class SceneManager
     */
     render(ctx)
     {
+        ctx.clearRect(0,0,ctx.canvas.width, ctx.canvas.height);
         ctx.fillText('Scene Manager' , 10 , 50);
         this.currentScene.render(ctx);
     }
     initScene(ctx)
     {
        this.currentScene.initScene(ctx);
+    }
+    update()
+    {
+        this.currentScene.update();
     }
 
 }

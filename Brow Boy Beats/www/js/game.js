@@ -13,7 +13,8 @@ class Game
     {
         document.addEventListener('touchstart', function(e) {e.preventDefault();}, {passive: false});
         this.boundRecursiveUpdate = () => this.update(this);
-
+        this.ctx ;
+        this.initWorld();
         // We want to simulate 1000 ms / 60 FPS = 16.667 ms per frame every time we run update()
         this.timestep = 1000 / 60;
 
@@ -26,7 +27,7 @@ class Game
         this.sceneManager = new SceneManager();
         var menuScene = new MenuScene("MenuScreen");
         var titleScene = new TitleScene("TitleScreen");
-        var gameScene = new GameScene("GameScreen");
+        var gameScene = new GameScene("GameScreen" , this.ctx);
  
         /**
          * 
@@ -51,7 +52,34 @@ class Game
     {
         this.sceneManager.goToNextScene();
         this.sceneManager.initScene(this.ctx);
+        this.sceneManager.update();
         this.sceneManager.render(this.ctx);
+
+        if (Date.now() < this.lastFrameTimeMs + (1000 / this.maxFPS)) 
+        {
+           // console.log("Frame Buffer");
+            window.requestAnimationFrame(this.boundRecursiveUpdate);
+
+
+            return;
+        }
+        
+        this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        //console.log("Updating");
+        this.lastFrameTimeMs = Date.now();
+
+
+
+
+        
+       // console.log("Finished Updating");
+
+
+       // console.log("Rendering");
+       
+      //  console.log("Rendering Completed");
+      
+        window.requestAnimationFrame(this.boundRecursiveUpdate);
     }
 
    
@@ -83,15 +111,8 @@ class Game
         *Adds the canvas element to the document.
         */
         document.body.appendChild(canvas);
-
-        // initialise Players
-        this.playerOnePosition = {x: 500.0, y:500.0};
-        this.playerTwoPosition = {x: 100.0, y:100.0};
-
-        var playerOneName = "Player1";
-        this.playerOne = new Player(this.playerOnePosition, playerOneName,"Sprites/PlayerOne.png", this.ctx);
-        this.playerTwo = new Player(this.playerTwoPosition, "Player Two","Sprites/PlayerTwo.png", this.ctx);
-        // End Initialisation of players
+       // this.sprites = new Sprite();
+    
        
 
         /**
@@ -238,17 +259,13 @@ class Game
 
 
 
-        this.playerOne.update();
-        this.playerTwo.update();
 
-        //this.playerTwo.update();
         
        // console.log("Finished Updating");
 
 
        // console.log("Rendering");
-        this.playerTwo.renderPlayer();
-        this.playerOne.renderPlayer();
+       
       //  console.log("Rendering Completed");
       
         window.requestAnimationFrame(this.boundRecursiveUpdate);

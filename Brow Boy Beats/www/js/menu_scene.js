@@ -23,7 +23,10 @@ class MenuScene extends Scene
         }, false);
         img.src = 'Sprites/Background.png';
     }
-    
+    update()
+    {
+        
+    }
     /**
     * 
     * Function to draw the scene and  also clears the window 

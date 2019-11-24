@@ -22,6 +22,10 @@ class TitleScene extends Scene
 
         img.src = 'Sprites/Background.png'; 
     }
+    update()
+    {
+        
+    }
     /**
     * 
     * Function to draw the scene and  also clears the window 
