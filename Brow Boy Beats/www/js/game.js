@@ -16,9 +16,45 @@ class Game
 
         // We want to simulate 1000 ms / 60 FPS = 16.667 ms per frame every time we run update()
         this.timestep = 1000 / 60;
+
+
+          
+  
+        //calls and passes title to the constructors of each class
+  
+      
+        this.sceneManager = new SceneManager();
+        var menuScene = new MenuScene("MenuScreen");
+        var titleScene = new TitleScene("TitleScreen");
+        var gameScene = new GameScene("GameScreen");
+ 
+        /**
+         * 
+         *adds scenes to the dictionary in addScene function
+         *and calls renders the screenManger 
+         */
+
+        this.sceneManager.addScene(gameScene);
+        this.sceneManager.addScene(menuScene);        
+        this.sceneManager.addScene(titleScene);
+       
+
+
+        // var dist = this.playerOne.transform.DistanceFromSelf(this.playerTwo.transform.position);
+        // var dist2 = this.playerOne.transform.Distance(this.playerTwo.transform.position,this.playerOne.transform.position);
+        // console.log("Dist should = 5 : " + dist.toString()); // works
+        // console.log("Dist2 should = 5 : " + dist2.toString()); // works
+
     }
 
-    
+    inputs()
+    {
+        this.sceneManager.goToNextScene();
+        this.sceneManager.initScene(this.ctx);
+        this.sceneManager.render(this.ctx);
+    }
+
+   
 
     /**
     * 
@@ -66,9 +102,19 @@ class Game
         document.addEventListener("touchmove", () => this.onTouchMove(event)); 
         document.addEventListener("touchend", () => this.onTouchEnd(event)); 
 
-
+        window.addEventListener("keydown", e => 
+        {
+            /**
+             *  Space and arrow keys to prevent the scrool of the screen
+              */
+                if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1)
+                {
+                    e.preventDefault();
+                }
+            }, false);
  
     }
+    
     
     /*
     * 
@@ -182,12 +228,14 @@ class Game
            // console.log("Frame Buffer");
             window.requestAnimationFrame(this.boundRecursiveUpdate);
 
+
             return;
         }
         
         this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
         //console.log("Updating");
         this.lastFrameTimeMs = Date.now();
+
 
 
         this.playerOne.update();
@@ -209,6 +257,8 @@ class Game
         
          
     }
+
+    
 
 }
 

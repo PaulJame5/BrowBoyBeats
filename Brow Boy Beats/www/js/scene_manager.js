@@ -86,5 +86,9 @@ class SceneManager
         ctx.fillText('Scene Manager' , 10 , 50);
         this.currentScene.render(ctx);
     }
+    initScene(ctx)
+    {
+       this.currentScene.initScene(ctx);
+    }
 
 }

@@ -11,6 +11,17 @@ class GameScene extends Scene
         this.title = title;
         
     }
+
+    initScene(ctx)
+    {
+        var img = new Image();   
+        img.addEventListener('load', function() 
+        {
+            ctx.drawImage(img, 0, 0);
+
+        }, false);
+        img.src = 'Sprites/Background.png';
+    }
     /**
  * 
  * Function to draw the scene and  also clears the window 
