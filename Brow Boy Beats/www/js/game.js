@@ -93,6 +93,11 @@ class Game
         this.playerTwo = new Player(this.playerTwoPosition, "Player Two","Sprites/PlayerTwo.png", this.ctx);
         // End Initialisation of players
        
+        // Init enemy
+        
+        this.enemyBrowPosition = {x: 50.0, y: 50.0};
+        this.enemyBrowBoy = new Enemy(this.enemyBrowPosition,"Sprites/browBoy.png",this.ctx);
+
 
         /**
         * event listener to listen for a touch move, start and end
@@ -240,6 +245,7 @@ class Game
 
         this.playerOne.update();
         this.playerTwo.update();
+        this.enemyBrowBoy.update();
 
         //this.playerTwo.update();
         
@@ -249,6 +255,7 @@ class Game
        // console.log("Rendering");
         this.playerTwo.renderPlayer();
         this.playerOne.renderPlayer();
+        this.enemyBrowBoy.render();
       //  console.log("Rendering Completed");
       
         window.requestAnimationFrame(this.boundRecursiveUpdate);
