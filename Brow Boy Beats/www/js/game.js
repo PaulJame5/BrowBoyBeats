@@ -93,11 +93,25 @@ class Game
         this.playerTwo = new Player(this.playerTwoPosition, "Player Two","Sprites/PlayerTwo.png", this.ctx);
         // End Initialisation of players
        
-        // Init enemy
+        /* INITIALISE ENEMY POOL */
+        this.enemyPos = new Array(10);
         
-        this.enemyBrowPosition = {x: 50.0, y: 50.0};
-        this.enemyBrowBoy = new Enemy(this.enemyBrowPosition,"Sprites/browBoy.png",this.ctx);
-
+        for(var i = 0; i < 10; i++)
+        {
+            this.enemyPos[i] = {x:0,y:0};
+        }
+        
+        this.enemyArray = new Array(10); 
+        
+        for(var i = 0; i < 10; i++)
+        {
+            this.enemyPos[i].x = Math.floor(Math.random() * 300);
+            this.enemyPos[i].y = Math.floor(Math.random() * 300);
+            this.enemyArray[i] = new Enemy(this.enemyPos[i],"Sprites/browBoy.png",this.ctx);
+            this.enemyArray[i].setPosition(this.enemyPos[i]);
+        }
+        
+        /* END ENEMY INITIALISE POOL */
 
         /**
         * event listener to listen for a touch move, start and end
@@ -245,7 +259,6 @@ class Game
 
         this.playerOne.update();
         this.playerTwo.update();
-        this.enemyBrowBoy.update();
 
         //this.playerTwo.update();
         
@@ -255,7 +268,11 @@ class Game
        // console.log("Rendering");
         this.playerTwo.renderPlayer();
         this.playerOne.renderPlayer();
-        this.enemyBrowBoy.render();
+        
+        for(var i = 0; i < 10; i++)
+        {
+          this.enemyArray[i].render();
+        }
       //  console.log("Rendering Completed");
       
         window.requestAnimationFrame(this.boundRecursiveUpdate);

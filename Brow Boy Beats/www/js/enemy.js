@@ -17,7 +17,7 @@ function Enemy(init_position={x:0.0,y:0.0},src="",context)
 
     this.initSpritesheet(src, context);
     
-    console.log("Initialised Player");
+    console.log("Initialised Enemy");
    
     //=======================
 
@@ -69,8 +69,9 @@ Enemy.prototype.update = function()
 } // end update
 
 // Move funstion for player
-Enemy.prototype.move = function()
+Enemy.prototype.setPosition = function(pos = {x:0,y:0})
 {
-  
+    this.transform.position.setX(pos.x);
+    this.transform.position.setY(pos.y);
 
 } // end move
