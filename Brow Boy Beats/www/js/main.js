@@ -28,7 +28,6 @@ function main()
 }
 function keyDownHandler (t_game , e)
 {
-    
     if(e.keyCode === 87)
     {
      t_game.inputs();

@@ -10,6 +10,7 @@ class SceneManager
         this.scenesDict = {};
         this.scenesList = [];
         this.index =-1;
+        this.title = null;
     }
         
     /**
@@ -27,10 +28,12 @@ class SceneManager
         * 
         *
         */
+        
+        
         this.scenesDict[scene.title] = scene;
 
         this.scenesList.push(scene.title);
-        console.log("scene lists" + this.scenesList);
+        
         
     }
     
@@ -70,7 +73,8 @@ class SceneManager
         // Get the scene object from the dictionary
         this.currentScene = this.scenesDict[sceneTitle];
         this.currentScene.start();
-       
+        this.title = sceneTitle;
+        console.log( this.title);
 
     }
     getScene()
@@ -96,7 +100,11 @@ class SceneManager
     }
     update()
     {
-            this.currentScene.update();
+       
+        if(this.title === "GameScreen")
+        {
+             this.currentScene.update();
+        }
         
     }
 
