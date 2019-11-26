@@ -34,7 +34,11 @@ class MenuScene extends Scene
     {
         ctx.clearRect(0,0,ctx.canvas.width, ctx.canvas.height);
         ctx.font = '48px serif';
-        ctx.fillText('Menu Scene' , 10 , 50);
+       
         document.body.style.background = 'green';
+    }
+    update()
+    {
+        
     }
 }
