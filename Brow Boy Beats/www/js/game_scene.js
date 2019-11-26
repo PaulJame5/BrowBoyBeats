@@ -4,23 +4,32 @@ class GameScene extends Scene
  * 
  * sets up the constructor with title
  */
-    constructor(title)
+    constructor(title , ctx)
     {
        
         super(title);
         this.title = title;
+        this.ctx = ctx;
         
     }
 
     initScene(ctx)
     {
-        var img = new Image();   
-        img.addEventListener('load', function() 
-        {
-            ctx.drawImage(img, 0, 0);
 
-        }, false);
-        img.src = 'Sprites/Background.png';
+         
+           // initialise Players
+           this.playerOnePosition = {x: 500.0, y:500.0};
+           this.playerTwoPosition = {x: 100.0, y:100.0};
+   
+           var playerOneName = "Player1";
+           this.playerOne = new Player(this.playerOnePosition, playerOneName,"Sprites/PlayerOne.png", this.ctx);
+           this.playerTwo = new Player(this.playerTwoPosition, "Player Two","Sprites/PlayerTwo.png", this.ctx);
+           // End Initialisation of players
+          
+           // Init enemy
+           
+           this.enemyBrowPosition = {x: 50.0, y: 50.0};
+           this.enemyBrowBoy = new Enemy(this.enemyBrowPosition,"Sprites/browBoy.png",this.ctx);
     }
     /**
  * 
@@ -32,8 +41,25 @@ class GameScene extends Scene
     {
         ctx.clearRect(0,0,ctx.canvas.width, ctx.canvas.height);
         ctx.font = '48px serif';
-        ctx.fillText('Game Scene' , 10 , 50);
+        
+         // console.log("Rendering");
+        this.playerTwo.renderPlayer();
+        this.playerOne.renderPlayer();
+        this.enemyBrowBoy.render();
         //ctx.fillStyle = rgb( this.color);
-        document.body.style.background = 'pink';
+        document.body.style.background = 'White';
+    }
+    update()
+    {
+        this.playerOne.update();
+        this.playerTwo.update();
+        this.enemyBrowBoy.update();
+
+    //this.playerTwo.update();
+    
+   // console.log("Finished Updating");
+
+
+
     }
 }

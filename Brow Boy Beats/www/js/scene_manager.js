@@ -73,6 +73,10 @@ class SceneManager
        
 
     }
+    getScene()
+    {
+        return this.currentScene;
+    }
     
     
     /**
@@ -90,5 +94,12 @@ class SceneManager
     {
        this.currentScene.initScene(ctx);
     }
+    update()
+    {
+            this.currentScene.update();
+        
+    }
+
+    
 
 }

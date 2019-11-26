@@ -20,25 +20,6 @@ class Game
 
           
   
-        //calls and passes title to the constructors of each class
-  
-      
-        this.sceneManager = new SceneManager();
-        var menuScene = new MenuScene("MenuScreen");
-        var titleScene = new TitleScene("TitleScreen");
-        var gameScene = new GameScene("GameScreen");
- 
-        /**
-         * 
-         *adds scenes to the dictionary in addScene function
-         *and calls renders the screenManger 
-         */
-
-        this.sceneManager.addScene(gameScene);
-        this.sceneManager.addScene(menuScene);        
-        this.sceneManager.addScene(titleScene);
-       
-
 
         // var dist = this.playerOne.transform.DistanceFromSelf(this.playerTwo.transform.position);
         // var dist2 = this.playerOne.transform.Distance(this.playerTwo.transform.position,this.playerOne.transform.position);
@@ -52,6 +33,7 @@ class Game
         this.sceneManager.goToNextScene();
         this.sceneManager.initScene(this.ctx);
         this.sceneManager.render(this.ctx);
+        this.sceneManager.update();
     }
 
    
@@ -73,7 +55,7 @@ class Game
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         
-        this.sprites = new Sprite();
+       
         /**
         * We want this to be a 2D canvas.
         */
@@ -84,19 +66,22 @@ class Game
         */
         document.body.appendChild(canvas);
 
-        // initialise Players
-        this.playerOnePosition = {x: 500.0, y:500.0};
-        this.playerTwoPosition = {x: 100.0, y:100.0};
+    
+        //calls and passes title to the constructors of each class
+        this.sceneManager = new SceneManager();
+        var menuScene = new MenuScene("MenuScreen");
+        var titleScene = new TitleScene("TitleScreen");
+        this.gameScene = new GameScene("GameScreen" , this.ctx);
+ 
+        /**
+         * 
+         *adds scenes to the dictionary in addScene function
+         *and calls renders the screenManger 
+         */
 
-        var playerOneName = "Player1";
-        this.playerOne = new Player(this.playerOnePosition, playerOneName,"Sprites/PlayerOne.png", this.ctx);
-        this.playerTwo = new Player(this.playerTwoPosition, "Player Two","Sprites/PlayerTwo.png", this.ctx);
-        // End Initialisation of players
-       
-        // Init enemy
-        
-        this.enemyBrowPosition = {x: 50.0, y: 50.0};
-        this.enemyBrowBoy = new Enemy(this.enemyBrowPosition,"Sprites/browBoy.png",this.ctx);
+        this.sceneManager.addScene( this.gameScene);
+        this.sceneManager.addScene(menuScene);        
+        this.sceneManager.addScene(titleScene);
 
 
         /**
@@ -237,25 +222,14 @@ class Game
             return;
         }
         
-        this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        //this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
         //console.log("Updating");
         this.lastFrameTimeMs = Date.now();
-
-
-
-        this.playerOne.update();
-        this.playerTwo.update();
-        this.enemyBrowBoy.update();
-
-        //this.playerTwo.update();
         
-       // console.log("Finished Updating");
-
-
-       // console.log("Rendering");
-        this.playerTwo.renderPlayer();
-        this.playerOne.renderPlayer();
-        this.enemyBrowBoy.render();
+        /**var scene = this.sceneManager.getScene();
+        this.sceneManager.update();
+        */
+        
       //  console.log("Rendering Completed");
       
         window.requestAnimationFrame(this.boundRecursiveUpdate);

@@ -32,8 +32,11 @@ class TitleScene extends Scene
     {
         ctx.clearRect(0,0,ctx.canvas.width, ctx.canvas.height);
         ctx.font = '48px serif';
-        ctx.fillText('Title Scene' , 10 , 50);
         //ctx.fillStyle = rgb( this.color);
         document.body.style.background = 'red';
+    }
+    update()
+    {
+        
     }
 } // end class title screen
