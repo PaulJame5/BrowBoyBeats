@@ -30,6 +30,27 @@ class GameScene extends Scene
            
            this.enemyBrowPosition = {x: 50.0, y: 50.0};
            this.enemyBrowBoy = new Enemy(this.enemyBrowPosition,"Sprites/browBoy.png",this.ctx);
+
+             
+        /* INITIALISE ENEMY POOL */
+        this.enemyPos = new Array(10);
+        
+        for(var i = 0; i < 10; i++)
+        {
+            this.enemyPos[i] = {x:0,y:0};
+        }
+        
+        this.enemyArray = new Array(10); 
+        
+        for(var i = 0; i < 10; i++)
+        {
+            this.enemyPos[i].x = Math.floor(Math.random() * 300);
+            this.enemyPos[i].y = Math.floor(Math.random() * 300);
+            this.enemyArray[i] = new Enemy(this.enemyPos[i],"Sprites/browBoy.png",this.ctx);
+            this.enemyArray[i].setPosition(this.enemyPos[i]);
+        }
+        
+        /* END ENEMY INITIALISE POOL */
     }
     /**
  * 
@@ -46,6 +67,12 @@ class GameScene extends Scene
         this.playerTwo.renderPlayer();
         this.playerOne.renderPlayer();
         this.enemyBrowBoy.render();
+
+        for(var i = 0; i < 10; i++)
+        {
+          this.enemyArray[i].render();
+        }
+
         
         //ctx.fillStyle = rgb( this.color);
         document.body.style.background = 'White';
