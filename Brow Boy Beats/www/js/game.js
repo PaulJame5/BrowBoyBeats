@@ -16,7 +16,9 @@ class Game
 
         // We want to simulate 1000 ms / 60 FPS = 16.667 ms per frame every time we run update()
         this.timestep = 1000 / 60;
-        
+        this.tapped =false;
+        this.tappedX = 0;
+        this.tappedY = 0;
 
           
   
@@ -67,20 +69,24 @@ class Game
     
         //calls and passes title to the constructors of each class
         this.sceneManager = new SceneManager();
-        var menuScene = new MenuScene("MenuScreen");
-        var titleScene = new TitleScene("TitleScreen");
+        this.menuScene = new MenuScene("MenuScreen");
+        this.titleScene = new TitleScene("TitleScreen");
         this.gameScene = new GameScene("GameScreen" , this.ctx);
         
         /**
          * 
          *adds scenes to the dictionary in addScene function
-         *and calls renders the screenManger 
+         *and calls the init scene for each scene the screenManger 
          */
-     
+        this.menuScene.initScene(this.ctx);
+        this.titleScene.initScene(this.ctx);
+        this.gameScene.initScene(this.ctx);
 
         this.sceneManager.addScene( this.gameScene);
-        this.sceneManager.addScene(menuScene);        
-        this.sceneManager.addScene(titleScene);
+        this.sceneManager.addScene(this.menuScene);        
+        this.sceneManager.addScene(this.titleScene);
+
+        /**goes to very first scene eg title scene */
         this.sceneManager.goToScene("TitleScreen");
 
 
@@ -88,7 +94,6 @@ class Game
         /**
         * event listener to listen for a touch move, start and end
         */
-        this.sceneManager.initScene(this.ctx);
         document.addEventListener("touchstart", () => this.onTouchStart(event)); 
         document.addEventListener("touchmove", () => this.onTouchMove(event)); 
         document.addEventListener("touchend", () => this.onTouchEnd(event)); 
@@ -127,10 +132,12 @@ class Game
         this.startY = e.touches[0].clientY;
         this.startForX = this.startX;
         this.startForY = this.startY;
-        console.log(this.startX + " " + this.startY );
+        console.log("The position is" + this.startX + " " + this.startY );
         this.time1 = new Date();
-        
-  
+        this.tappedX = this.startForX;
+        this.tappedY =this.startForY;
+        this.tapped = true;
+        console.log("Is tapped is: " + this.tapped);
     }
       
     /**
@@ -191,18 +198,21 @@ class Game
         y = this.endSwipeY - this.startForY;
         y = y * y;
         
-        var LeghtOfSwipe = Math.sqrt((x+y));
+        this.LeghtOfSwipe = Math.sqrt((x+y));
         
         
         /**
          * check if the time is greater tham 360 and thhe swipe is greater than 240
          * the output a message swipe detected
          */
-        if(timeLapsed >= 360 && LeghtOfSwipe >= 240)
+        if(timeLapsed >= 360 && this.LeghtOfSwipe >= 240)
         {
             console.log("Swipe Detected");
+            this.tapped = false;
+            console.log("Is tapped is: " + this.tapped);
         }
-        
+      
+       
     }
         
     /**
@@ -222,6 +232,26 @@ class Game
 
             return;
         }
+        /**
+        var menuScene = new MenuScene("MenuScreen");
+        var titleScene = new TitleScene("TitleScreen");
+        this.gameScene = new GameScene("GameScreen" , this.ctx);
+        */
+
+        console.log("The Scene " + this.sceneManager.getScene());
+
+        if(this.tapped === true && this.sceneManager.getScene() == "TitleScreen")
+        {
+            this.sceneManager.goToScene("MenuScreen");
+        }
+        else if(this.tappedX > 60 && this.tappedX < 860 
+            && this.tappedY > 317 &&this.tappedY < 817 
+            && this.sceneManager.getScene() === "MenuScreen")
+        {
+            this.sceneManager.goToScene("GameScreen");
+        }
+        //else if (th)
+      
         
         //this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
         //console.log("Updating");

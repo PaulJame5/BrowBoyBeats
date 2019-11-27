@@ -21,6 +21,7 @@ class TitleScene extends Scene
         }, false);
 
         this.img.src = 'Sprites/Background.png'; 
+        
     }
     /**
     * 

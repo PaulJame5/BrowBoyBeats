@@ -15,13 +15,13 @@ class MenuScene extends Scene
     }
     initScene(ctx)
     {
-        var img = new Image();   
-        img.addEventListener('load', function() 
+        this.img = new Image();   
+        this.img.addEventListener('load', function() 
         {
-            ctx.drawImage(img, 0, 0);
+           
 
         }, false);
-        img.src = 'Sprites/Background.png';
+        this.img.src = 'Sprites/NewGame.png';
     }
     
     /**
@@ -32,7 +32,7 @@ class MenuScene extends Scene
     */
     render(ctx)
     {
-        ctx.clearRect(0,0,ctx.canvas.width, ctx.canvas.height);
+        ctx.drawImage(this.img, 60, 50);
         ctx.font = '48px serif';
        
         document.body.style.background = 'green';

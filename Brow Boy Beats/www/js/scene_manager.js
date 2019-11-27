@@ -11,6 +11,7 @@ class SceneManager
         this.scenesList = [];
         this.index =-1;
         this.title = null;
+        this.scene = null;
     }
         
     /**
@@ -48,7 +49,7 @@ class SceneManager
         {
             this.currentScene.stop();
         }
-        
+        this.scene = sceneTitle;
         this.currentScene = this.scenesDict[sceneTitle];
         this.currentScene.start();
         
@@ -79,7 +80,7 @@ class SceneManager
     }
     getScene()
     {
-        return this.currentScene;
+        return this.scene;
     }
     
     
@@ -91,7 +92,8 @@ class SceneManager
     */
     render(ctx)
     {
-        ctx.fillText('Scene Manager' , 10 , 50);
+        
+    
         this.currentScene.render(ctx);
     }
     initScene(ctx)
@@ -100,11 +102,7 @@ class SceneManager
     }
     update()
     {
-       
-      
         this.currentScene.update();
-        
-        
     }
 
     
