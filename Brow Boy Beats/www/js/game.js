@@ -32,13 +32,6 @@ class Game
     {
         this.sceneManager.goToNextScene();
         this.sceneManager.initScene(this.ctx);
-        this.sceneManager.render(this.ctx);
-
-
-       
-
-        this.update();
-        
     }
 
    
@@ -88,13 +81,14 @@ class Game
         this.sceneManager.addScene( this.gameScene);
         this.sceneManager.addScene(menuScene);        
         this.sceneManager.addScene(titleScene);
+        this.sceneManager.goToScene("TitleScreen");
 
 
 
         /**
         * event listener to listen for a touch move, start and end
         */
-        
+        this.sceneManager.initScene(this.ctx);
         document.addEventListener("touchstart", () => this.onTouchStart(event)); 
         document.addEventListener("touchmove", () => this.onTouchMove(event)); 
         document.addEventListener("touchend", () => this.onTouchEnd(event)); 
@@ -233,6 +227,7 @@ class Game
         //console.log("Updating");
         this.lastFrameTimeMs = Date.now();
         this.sceneManager.update();
+        this.render();
 
         /**var scene = this.sceneManager.getScene();
         this.sceneManager.update();
@@ -246,6 +241,11 @@ class Game
 
         
          
+    }
+    render()
+    {
+        this.ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
+        this.sceneManager.render(this.ctx);
     }
 
     

@@ -101,10 +101,9 @@ class SceneManager
     update()
     {
        
-        if(this.title === "GameScreen")
-        {
-             this.currentScene.update();
-        }
+      
+        this.currentScene.update();
+        
         
     }
 

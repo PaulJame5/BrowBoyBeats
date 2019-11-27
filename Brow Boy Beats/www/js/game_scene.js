@@ -60,7 +60,7 @@ class GameScene extends Scene
  */
     render(ctx)
     {
-        ctx.clearRect(0,0,ctx.canvas.width, ctx.canvas.height);
+       // ctx.clearRect(0,0,ctx.canvas.width, ctx.canvas.height);
         ctx.font = '48px serif';
         
          // console.log("Rendering");

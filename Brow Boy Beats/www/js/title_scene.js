@@ -14,13 +14,13 @@ class TitleScene extends Scene
     }
     initScene(ctx)
     {
-        var img = new Image();   
-        img.addEventListener('load', function() 
+        this.img = new Image();   
+        this.img.addEventListener('load', function() 
         {
-            ctx.drawImage(img, 0, 0);
+            
         }, false);
 
-        img.src = 'Sprites/Background.png'; 
+        this.img.src = 'Sprites/Background.png'; 
     }
     /**
     * 
@@ -30,13 +30,15 @@ class TitleScene extends Scene
     */
     render(ctx)
     {
-        ctx.clearRect(0,0,ctx.canvas.width, ctx.canvas.height);
+
+        ctx.drawImage(this.img, 0, 0);
+        //ctx.clearRect(0,0,ctx.canvas.width, ctx.canvas.height);
         ctx.font = '48px serif';
         //ctx.fillStyle = rgb( this.color);
         document.body.style.background = 'red';
     }
     update()
     {
-        
+        //return;
     }
 } // end class title screen
