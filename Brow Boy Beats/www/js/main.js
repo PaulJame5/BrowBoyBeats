@@ -33,7 +33,7 @@ function keyDownHandler (t_game , e)
     if(e.keyCode === 87 && this.pressed == false)
     {
         this.pressed = true;
-     t_game.inputs();
+        t_game.inputs();
     }
 }
 

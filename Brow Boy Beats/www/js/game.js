@@ -132,12 +132,12 @@ class Game
         this.startY = e.touches[0].clientY;
         this.startForX = this.startX;
         this.startForY = this.startY;
-        console.log("The position is" + this.startX + " " + this.startY );
+        
         this.time1 = new Date();
         this.tappedX = this.startForX;
         this.tappedY =this.startForY;
         this.tapped = true;
-        console.log("Is tapped is: " + this.tapped);
+        
     }
       
     /**
@@ -209,7 +209,7 @@ class Game
         {
             console.log("Swipe Detected");
             this.tapped = false;
-            console.log("Is tapped is: " + this.tapped);
+            
         }
       
        
