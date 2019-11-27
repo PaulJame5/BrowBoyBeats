@@ -17,6 +17,8 @@ function main()
      */
     var game = new Game();
     document.addEventListener("keydown", () => this.keyDownHandler(game , event)); 
+    document.addEventListener("keyup", () => this.keyUpHandler(game , event)); 
+    this.pressed = false;
     /**
      * call functions to init the world and update game
      */
@@ -28,10 +30,22 @@ function main()
 }
 function keyDownHandler (t_game , e)
 {
-    if(e.keyCode === 87)
+    if(e.keyCode === 87 && this.pressed == false)
     {
+        this.pressed = true;
      t_game.inputs();
     }
 }
+
+function keyUpHandler (t_game , e)
+{
+    if(e.keyCode === 87 && this.pressed == true)
+    {
+        this.pressed = false;
+    // t_game.inputs();
+    }
+}
+
+
 
 
