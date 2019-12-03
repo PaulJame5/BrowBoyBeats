@@ -39,6 +39,6 @@ class MenuScene extends Scene
     }
     update()
     {
-        
+       
     }
 }

@@ -102,6 +102,9 @@ class SceneManager
     }
     update()
     {
+     
+        
+
         this.currentScene.update();
     }
 
