@@ -38,8 +38,11 @@ class TitleScene extends Scene
         //ctx.fillStyle = rgb( this.color);
         document.body.style.background = 'red';
     }
-    update()
+    update(tappedX , tappedY)
     {
+
+        this.tappedXPos = tappedX;
+        this.tappedYPos = tappedY;
         //return;
     }
 } // end class title screen

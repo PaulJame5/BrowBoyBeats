@@ -19,10 +19,7 @@ function Player(init_position={x:0.0,y:0.0}, name="",src="",context)
     
     console.log("Initialised Player");
    
-    //=======================
-
-
-
+    //===========================================
 }
 
 
@@ -69,15 +66,21 @@ Player.prototype.renderPlayer = function()
 
 
 // Update player behaviour in here
-Player.prototype.update = function()
+Player.prototype.update = function(tappedX, tappedY)
 {
-    this.move();
+    this.move(tappedX, tappedY);
 } // end update
 
 // Move funstion for player
-Player.prototype.move = function()
+Player.prototype.move = function(tappedX , tappedY)
 {
-    // Up Down Movement
+
+
+
+
+
+
+      // Up Down Movement
     if(this.input.pressedDown)
     {
         // get current y position and then subtract speed
@@ -100,5 +103,6 @@ Player.prototype.move = function()
         // get current x position and then add speed
         this.transform.position.setX(this.transform.position.getX() + this.speed);
     } // end left right movement check
+    
 
 } // end move

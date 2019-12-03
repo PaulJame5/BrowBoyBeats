@@ -112,14 +112,14 @@ class Game
     */
     onTouchStart(e)
     {
-        this.ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
+        //this.ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
         this.touches = e.touches;
         
         /**
           get the start of touch position x and y create two variables and store the start x and y
         */
-        this.startX = e.touches[0].clientX;
-        this.startY = e.touches[0].clientY;
+        this.startX = e.touches[0].clientX * window.devicePixelRatio;
+        this.startY = e.touches[0].clientY * window.devicePixelRatio;
         this.startForX = this.startX;
         this.startForY = this.startY;
         
@@ -240,13 +240,23 @@ class Game
         {
             this.sceneManager.goToScene("GameScreen");
         }
-        //else if (th)
-      
+        
+        if(this.tapped = true && this.sceneManager.getScene() == "GameScreen")
+        {
+            this.sceneManager.update(this.tappedX , this.tappedY);
+        }
+        else
+        {
+            this.sceneManager.update(this.tappedX , this.tappedY);
+        }
+        
+        this.lastFrameTimeMs = Date.now();
+            //this.sceneManager.update(this.tappedX , this.tappedY);
+        
         
         //this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
         //console.log("Updating");
-        this.lastFrameTimeMs = Date.now();
-        this.sceneManager.update();
+   
         this.render();
 
         /**var scene = this.sceneManager.getScene();

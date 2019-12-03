@@ -77,9 +77,12 @@ class GameScene extends Scene
         //ctx.fillStyle = rgb( this.color);
         document.body.style.background = 'White';
     }
-    update()
+    update(tappedX , tappedY)
     {
-        this.playerOne.update();
+
+        this.tappedXPos = tappedX;
+        this.tappedYPos = tappedY;
+        this.playerOne.update( this.tappedXPos ,  this.tappedYPos);
         this.playerTwo.update();
         this.enemyBrowBoy.update();
 

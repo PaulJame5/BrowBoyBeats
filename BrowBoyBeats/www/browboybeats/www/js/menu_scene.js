@@ -37,8 +37,11 @@ class MenuScene extends Scene
        
         document.body.style.background = 'green';
     }
-    update()
+    update(tappedX , tappedY)
     {
+
+        this.tappedXPos = tappedX;
+        this.tappedYPos = tappedY;
         
     }
 }
