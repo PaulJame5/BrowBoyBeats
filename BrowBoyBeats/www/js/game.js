@@ -17,6 +17,7 @@ class Game
         // We want to simulate 1000 ms / 60 FPS = 16.667 ms per frame every time we run update()
         this.timestep = 1000 / 60;
         this.tapped =false;
+        this.tapped =false;
         this.tappedX = 0;
         this.tappedY = 0;
 
@@ -228,9 +229,9 @@ class Game
         this.gameScene = new GameScene("GameScreen" , this.ctx);
         */
 
-        console.log("The Scene " + this.sceneManager.getScene());
+       
 
-        if(this.tapped === true && this.sceneManager.getScene() == "TitleScreen")
+        if(this.tapped === true && this.sceneManager.getScene() === "TitleScreen")
         {
             this.sceneManager.goToScene("MenuScreen");
         }
@@ -246,6 +247,7 @@ class Game
         //this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
         //console.log("Updating");
         this.lastFrameTimeMs = Date.now();
+        //console.log("Last Frame  " + this.lastFrameTimeMs);
         this.sceneManager.update();
         this.render();
 
