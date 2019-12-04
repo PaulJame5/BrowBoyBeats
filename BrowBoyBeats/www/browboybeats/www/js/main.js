@@ -6,7 +6,7 @@ function main()
 {
 
     
-    var ws = new WebSocket("ws://localhost:8080/wstest");
+    /**var ws = new WebSocket("ws://localhost:8080/wstest");
     
     //called when the websocket is opened
     ws.onopen = function() 
@@ -17,7 +17,7 @@ function main()
     ws.onmessage = function (evt)
     {
         alert(evt.data);
-    };
+    };*/
 
     /**
      * call function to check is a touch device

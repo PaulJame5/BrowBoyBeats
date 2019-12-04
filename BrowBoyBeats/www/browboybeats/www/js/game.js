@@ -197,7 +197,7 @@ class Game
          */
         if(timeLapsed >= 360 && this.LeghtOfSwipe >= 240)
         {
-            console.log("Swipe Detected");
+            
             this.tapped = false;
             
         }
@@ -228,7 +228,7 @@ class Game
         this.gameScene = new GameScene("GameScreen" , this.ctx);
         */
 
-        console.log("The Scene " + this.sceneManager.getScene());
+       
 
         if(this.tapped === true && this.sceneManager.getScene() == "TitleScreen")
         {
@@ -251,12 +251,7 @@ class Game
         }
         
         this.lastFrameTimeMs = Date.now();
-            //this.sceneManager.update(this.tappedX , this.tappedY);
-        
-        
-        //this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-        //console.log("Updating");
-   
+
         this.render();
 
         /**var scene = this.sceneManager.getScene();
