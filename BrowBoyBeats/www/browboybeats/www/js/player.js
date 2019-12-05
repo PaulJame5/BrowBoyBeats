@@ -16,7 +16,7 @@ function Player(init_position={x:0.0,y:0.0}, name="",src="",context)
     this.swipedRight = false;
     this.swipedLeft = false;
     this.speed = 10;
-
+    this.swipped = false;
     this.initSpritesheet(src, context);
     
     console.log("Initialised Player");
@@ -86,7 +86,13 @@ Player.prototype.move = function(tappedX , tappedY)
     var moveTimeLapse =this.timeMove2-this.timeMove1;
     //console.log(this.timeMove1);
     // Up Down Movement
-
+   
+    var startPos =  new Vector2(this.startForX , this.startForY);
+    var endPos = new Vector2(this.endSwipeX ,this.endSwipeY);
+    
+    //newDirection = Vector3.Normalize(direction);
+    this.direction = new Vector2(startPos.x - endPos.x , startPos.y - endPos.y); 
+    this.newDirection = new Vector2(this.direction.normalise());
 
     if(this.tapped === true && this.tappedX > 500|| this.input.pressedRight)
     {
@@ -129,7 +135,7 @@ Player.prototype.onTouchStart = function(e)
     this.tappedY =this.startForY;
     this.tapped = true;
 
-    console.log("Start of swipe " +this.startX +  "," + this.startY);
+    //console.log("Start of swipe " +this.startX +  "," + this.startY);
 }
 
 /**
@@ -193,8 +199,9 @@ Player.prototype.onTouchEnd = function(e)
     if(timeLapsed >= 360 && this.LeghtOfSwipe >= 240)
     {
         this.tapped = false;
+        this.swipped = true;
         console.log("A swipe was done in game");
     }
-    console.log("End of swipe " +this.endSwipeX +  "," + this.endSwipeY);
+    //console.log("End of swipe " +this.endSwipeX +  "," + this.endSwipeY);
 
 }
