@@ -94,7 +94,15 @@ Player.prototype.move = function(tappedX , tappedY)
     this.direction = new Vector2(startPos.x - endPos.x , startPos.y - endPos.y); 
     this.newDirection = new Vector2(this.direction.normalise());
 
-    if(this.tapped === true && this.tappedX > 500|| this.input.pressedRight)
+    this.testVec = new Vector2(this.startForX  , this.startForY)
+
+    if(this.swipped === true)
+    {
+        this.transform.position.setPosition(this.testVec);
+    }
+
+
+  /**  if(this.tapped === true && this.tappedX > 500|| this.input.pressedRight)
     {
         // get current x position and then subtract speed
         this.transform.position.setX(this.transform.position.getX() + this.speed);
@@ -115,7 +123,7 @@ Player.prototype.move = function(tappedX , tappedY)
         // get current y position and then add speed
         this.transform.position.setY(this.transform.position.getY() - this.speed);
     } // end up down movement check
-
+*/
 
 
 } // end move
