@@ -5,22 +5,27 @@ class TitleScene extends Scene
     * 
     * sets up the constructor ctx and color
     */
-    constructor(title)
+    constructor(title ,width,height)
     {
        
-        super(title);
+        super(title,width,height);
         this.title = title;
+        this.canvasWidth = width;
+        this.canvasHeight = height;
         
     }
     initScene(ctx)
     {
         this.img = new Image();   
+       
         this.img.addEventListener('load', function() 
         {
             
         }, false);
-
+      
         this.img.src = 'sprites/Background.png'; 
+        this.img.height = 1000;
+        this.img.width = 800;
         
     }
     /**

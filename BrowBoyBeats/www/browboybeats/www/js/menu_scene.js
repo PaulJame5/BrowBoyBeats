@@ -9,7 +9,11 @@ class MenuScene extends Scene
        
         super(title);
         this.title = title;
-
+        this.buttonWidth = 100;
+        this.buttonHeight= 50;
+        this.newGameX = 10;
+        this.newGameY = 50;
+       
 
         
     }
@@ -32,7 +36,7 @@ class MenuScene extends Scene
     */
     render(ctx)
     {
-        ctx.drawImage(this.img, 60, 50);
+        ctx.drawImage(this.img, this.newGameX , this.newGameY);
         ctx.font = '48px serif';
        
         document.body.style.background = 'green';
@@ -43,5 +47,21 @@ class MenuScene extends Scene
         this.tappedXPos = tappedX;
         this.tappedYPos = tappedY;
         
+    }
+    getWidth()
+    {
+        return this.buttonWidth;
+    }
+    getHeight()
+    {
+        return this.buttonHeight;
+    }
+    getPosX()
+    {
+        return this.newGameX; 
+    }
+    getPosY()
+    {
+        return this.newGameY; 
     }
 }

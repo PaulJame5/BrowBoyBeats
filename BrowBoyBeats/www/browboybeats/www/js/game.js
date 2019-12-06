@@ -19,7 +19,7 @@ class Game
         this.tapped =false;
         this.tappedX = 0;
         this.tappedY = 0;
-
+        this.timer =0;
     }
 
     inputs()
@@ -44,9 +44,12 @@ class Game
         
         var canvas = document.createElement("canvas");
         canvas.id = 'mycanvas';
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        
+    
+        const DEFAULT_HEIGHT = 768;
+        const DEFAULT_WIDTH = (window.innerWidth / window.innerHeight) * DEFAULT_HEIGHT;
+        canvas.width = DEFAULT_WIDTH;
+        canvas.height = DEFAULT_HEIGHT;
+
        
         /**
         * We want this to be a 2D canvas.
@@ -62,7 +65,7 @@ class Game
         //calls and passes title to the constructors of each class
         this.sceneManager = new SceneManager();
         this.menuScene = new MenuScene("MenuScreen");
-        this.titleScene = new TitleScene("TitleScreen");
+        this.titleScene = new TitleScene("TitleScreen" ,canvas.width,canvas.height );
         this.gameScene = new GameScene("GameScreen" , this.ctx);
         
         /**
@@ -118,8 +121,8 @@ class Game
         /**
           get the start of touch position x and y create two variables and store the start x and y
         */
-        this.startX = e.touches[0].clientX * window.devicePixelRatio;
-        this.startY = e.touches[0].clientY * window.devicePixelRatio;
+        this.startX = e.touches[0].clientX;
+        this.startY = e.touches[0].clientY;
         this.startForX = this.startX;
         this.startForY = this.startY;
         
@@ -140,8 +143,8 @@ class Game
     onTouchMove(e)
     {
         this.changedTouches = e.changedTouches;
-        this.endX = e.changedTouches[0].clientX;
-        this.endY = e.changedTouches[0].clientY;
+        this.endX = e.changedTouches[0].clientX ;
+        this.endY = e.changedTouches[0].clientY ;
         
         /**
          * sets up the line
@@ -228,14 +231,26 @@ class Game
         this.gameScene = new GameScene("GameScreen" , this.ctx);
         */
 
-       
-
-        if(this.tapped === true && this.sceneManager.getScene() == "TitleScreen")
-        {
-            this.sceneManager.goToScene("MenuScreen");
+       var num = this.menuScene.getPosX() + this.menuScene.getWidth();
+       console.log("Y :" + num  );
+       console.log("Tapped X :" +   this.tappedX);
+       if( this.sceneManager.getScene() === "TitleScreen")
+       {
+            if(this.timer !== 30)
+            {
+                this.timer  =this.timer +1 ;
+                console.log("Time :" +  this.timer);
+            }
+            else if(this.timer === 30)
+            {
+                this.sceneManager.goToScene("MenuScreen");
+                this.timer = 0;
+            }
         }
-        else if(this.tappedX > 60 && this.tappedX < 860 
-            && this.tappedY > 317 &&this.tappedY < 817 
+
+        
+        else if(this.tappedX > this.menuScene.getPosX() && this.tappedX < this.menuScene.getPosX() + this.menuScene.getWidth()
+            && this.tappedY > this.menuScene.getPosY() && this.tappedY < this.menuScene.getPosY() + this.menuScene.getHeight()
             && this.sceneManager.getScene() === "MenuScreen")
         {
             this.sceneManager.goToScene("GameScreen");

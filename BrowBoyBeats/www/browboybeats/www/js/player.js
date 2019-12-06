@@ -134,8 +134,8 @@ Player.prototype.onTouchStart = function(e)
 /**
   get the start of touch position x and y create two variables and store the start x and y
 */
-    this.startX = e.touches[0].clientX;
-    this.startY = e.touches[0].clientY;
+    this.startX = e.touches[0].clientX* window.devicePixelRatio;
+    this.startY = e.touches[0].clientY* window.devicePixelRatio;
     this.startForX = this.startX;
     this.startForY = this.startY;
     this.time1 = new Date();
@@ -156,8 +156,8 @@ Player.prototype.onTouchStart = function(e)
 Player.prototype.onTouchMove = function(e)
 {
     this.changedTouches = e.changedTouches;
-    this.endX = e.changedTouches[0].clientX;
-    this.endY = e.changedTouches[0].clientY;
+    this.endX = e.changedTouches[0].clientX * window.devicePixelRatio;
+    this.endY = e.changedTouches[0].clientY * window.devicePixelRatio;
 /**
  * sets up the line
  */
