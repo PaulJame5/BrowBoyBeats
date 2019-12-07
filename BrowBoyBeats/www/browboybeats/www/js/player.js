@@ -17,6 +17,7 @@ function Player(init_position={x:0.0,y:0.0}, name="",src="",context)
     this.swipedLeft = false;
     this.speed = 1;
     this.swipped = false;
+    this.timer =0;
     this.initSpritesheet(src, context);
     
     console.log("Initialised Player");
@@ -95,15 +96,19 @@ Player.prototype.move = function(tappedX , tappedY)
     this.newDirection = new Vector2(this.direction.normalise());
 
     this.testVec = new Vector2(this.startForX  , this.startForY)
-    
-    if(this.swipped === true)
+    console.log(this.endSwipeX +"," + this.endSwipeY)
+    if(this.swipped === true && this.timer !== 10)
     {
+        this.timer = this.timer +1;
 
-        
-        this.transform.position.setX(this.transform.position.getX() + this.newDirection.x * this.speed);
-        this.transform.position.setY(this.transform.position.getY() + this.newDirection.y * this.speed);
+        this.transform.position.setX(this.transform.position.getX() + this.endSwipeX * this.speed);
+        this.transform.position.setY(this.transform.position.getY() + this.endSwipeY * this.speed);
     }
-
+    else if( this.timer === 10)
+    {
+        this.timer =0;
+        this.swipped = false
+    }
   /**  if(this.tapped === true && this.tappedX > 500|| this.input.pressedRight)
     {
         // get current x position and then subtract speed
