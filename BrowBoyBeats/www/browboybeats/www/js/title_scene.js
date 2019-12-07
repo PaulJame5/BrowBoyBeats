@@ -17,15 +17,14 @@ class TitleScene extends Scene
     initScene(ctx)
     {
         this.img = new Image();   
-       
+
         this.img.addEventListener('load', function() 
         {
             
         }, false);
       
         this.img.src = 'sprites/Background.png'; 
-        this.img.height = 1000;
-        this.img.width = 800;
+      
         
     }
     /**

@@ -20,6 +20,7 @@ class Game
         this.tappedX = 0;
         this.tappedY = 0;
         this.timer =0;
+        this.buttonTimer = 0;
     }
 
     inputs()
@@ -67,7 +68,8 @@ class Game
         this.menuScene = new MenuScene("MenuScreen");
         this.titleScene = new TitleScene("TitleScreen" ,canvas.width,canvas.height );
         this.gameScene = new GameScene("GameScreen" , this.ctx);
-        
+        //OptionsScreen
+        this.optionsScene = new OptionsScene("OptionsScreen");
         /**
          * 
          *adds scenes to the dictionary in addScene function
@@ -76,11 +78,13 @@ class Game
         this.menuScene.initScene(this.ctx);
         this.titleScene.initScene(this.ctx);
         this.gameScene.initScene(this.ctx);
+        this.optionsScene.initScene(this.ctx);
+
 
         this.sceneManager.addScene( this.gameScene);
         this.sceneManager.addScene(this.menuScene);        
         this.sceneManager.addScene(this.titleScene);
-
+        this.sceneManager.addScene(this.optionsScene);
         /**goes to very first scene eg title scene */
         this.sceneManager.goToScene("TitleScreen");
 
@@ -143,8 +147,8 @@ class Game
     onTouchMove(e)
     {
         this.changedTouches = e.changedTouches;
-        this.endX = e.changedTouches[0].clientX ;
-        this.endY = e.changedTouches[0].clientY ;
+        this.endX = e.changedTouches[0].clientX;
+        this.endY = e.changedTouches[0].clientY;
         
         /**
          * sets up the line
@@ -230,16 +234,13 @@ class Game
         var titleScene = new TitleScene("TitleScreen");
         this.gameScene = new GameScene("GameScreen" , this.ctx);
         */
-
-       var num = this.menuScene.getPosX() + this.menuScene.getWidth();
-       console.log("Y :" + num  );
-       console.log("Tapped X :" +   this.tappedX);
+       
        if( this.sceneManager.getScene() === "TitleScreen")
        {
             if(this.timer !== 30)
             {
-                this.timer  =this.timer +1 ;
-                console.log("Time :" +  this.timer);
+                this.timer  = this.timer +1 ;
+                
             }
             else if(this.timer === 30)
             {
@@ -247,14 +248,34 @@ class Game
                 this.timer = 0;
             }
         }
-
-        
         else if(this.tappedX > this.menuScene.getPosX() && this.tappedX < this.menuScene.getPosX() + this.menuScene.getWidth()
             && this.tappedY > this.menuScene.getPosY() && this.tappedY < this.menuScene.getPosY() + this.menuScene.getHeight()
             && this.sceneManager.getScene() === "MenuScreen")
         {
             this.sceneManager.goToScene("GameScreen");
         }
+        else if(this.tappedX > this.menuScene.getPosX() && this.tappedX < this.menuScene.getPosX() + this.menuScene.getWidth()
+            && this.tappedY > this.menuScene.getOptionsPosY() && this.tappedY < this.menuScene.getOptionsPosY() + this.menuScene.getHeight()
+            && this.sceneManager.getScene() === "MenuScreen" )
+        {
+            
+            this.sceneManager.goToScene("OptionsScreen");
+        }
+        else if(this.tappedX > this.menuScene.getPosX() && this.tappedX < this.menuScene.getPosX() + this.menuScene.getWidth()
+        && this.tappedY > this.menuScene.getQuitPosY() && this.tappedY < this.menuScene.getQuitPosY() + this.menuScene.getHeight()
+        && this.sceneManager.getScene() === "MenuScreen" )
+        {
+            this.tappedX = 0;
+            this.tappedY = 0;
+            this.sceneManager.goToScene("TitleScreen");
+        }
+        else if(this.tappedX > this.optionsScene.getPosX() && this.tappedX < this.optionsScene.getPosX() + this.optionsScene.getWidth()
+            && this.tappedY > this.optionsScene.getPosY() && this.tappedY < this.optionsScene.getPosY()  + this.optionsScene.getHeight()
+            && this.sceneManager.getScene() === "OptionsScreen" )
+        {
+            this.sceneManager.goToScene("MenuScreen");
+        }
+       
         
         if(this.tapped = true && this.sceneManager.getScene() == "GameScreen")
         {
