@@ -95,12 +95,15 @@ Player.prototype.move = function(tappedX , tappedY)
     this.newDirection = new Vector2(this.direction.normalise());
 
     this.testVec = new Vector2(this.startForX  , this.startForY)
-
+    
     if(this.swipped === true)
     {
-        this.transform.position.setPosition(this.testVec);
-    }
 
+        this.newPositionX = this.transform.position.getX();
+        this.newPositionY = this.transform.position.getY();
+        this.transform.position.setX(this.newPositionX);
+        this.transform.position.setY(this.newPositionY);
+    }
 
   /**  if(this.tapped === true && this.tappedX > 500|| this.input.pressedRight)
     {

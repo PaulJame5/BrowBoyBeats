@@ -38,3 +38,7 @@ Position.prototype.setPosition = function(pos = {x: 0,y: 0})
     this.position = pos;
     
 }
+Position.prototype.getPosition = function()
+{
+    return this.position;
+}
