@@ -15,7 +15,7 @@ function Player(init_position={x:0.0,y:0.0}, name="",src="",context)
     this.tapped = false;
     this.swipedRight = false;
     this.swipedLeft = false;
-    this.speed = 10;
+    this.speed = 1;
     this.swipped = false;
     this.initSpritesheet(src, context);
     
@@ -99,10 +99,9 @@ Player.prototype.move = function(tappedX , tappedY)
     if(this.swipped === true)
     {
 
-        this.newPositionX = this.transform.position.getX();
-        this.newPositionY = this.transform.position.getY();
-        this.transform.position.setX(this.newPositionX);
-        this.transform.position.setY(this.newPositionY);
+        
+        this.transform.position.setX(this.transform.position.getX() + this.newDirection.x * this.speed);
+        this.transform.position.setY(this.transform.position.getY() + this.newDirection.y * this.speed);
     }
 
   /**  if(this.tapped === true && this.tappedX > 500|| this.input.pressedRight)
