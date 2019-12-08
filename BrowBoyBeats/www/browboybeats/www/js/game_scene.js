@@ -10,6 +10,9 @@ class GameScene extends Scene
         super(title);
         this.title = title;
         this.ctx = ctx;
+
+    
+
         
     }
 
@@ -30,7 +33,8 @@ class GameScene extends Scene
            
            this.enemyBrowPosition = {x: 50.0, y: 50.0};
            this.enemyBrowBoy = new Enemy(this.enemyBrowPosition,"sprites/browBoy.png",this.ctx);
-
+           
+         
              
         /* INITIALISE ENEMY POOL */
         this.enemyPos = new Array(10);
@@ -64,8 +68,8 @@ class GameScene extends Scene
         ctx.font = '48px serif';
         
          // console.log("Rendering");
-        this.playerTwo.renderPlayer();
-        this.playerOne.renderPlayer();
+        this.playerTwo.renderPlayer(ctx);
+        this.playerOne.renderPlayer(ctx);
         this.enemyBrowBoy.render();
 
         for(var i = 0; i < 10; i++)
@@ -73,6 +77,7 @@ class GameScene extends Scene
           this.enemyArray[i].render();
         }
 
+  
         
         //ctx.fillStyle = rgb( this.color);
         document.body.style.background = 'White';

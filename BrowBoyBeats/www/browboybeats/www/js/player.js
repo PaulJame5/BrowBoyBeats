@@ -19,9 +19,11 @@ function Player(init_position={x:0.0,y:0.0}, name="",src="",context)
     this.swipped = false;
     this.timer =0;
     this.initSpritesheet(src, context);
+    this.xCircle = 50;
+    this.yCircle = 500;
+
     
     console.log("Initialised Player");
-
 
     document.addEventListener("touchstart", () => this.onTouchStart(event)); 
     document.addEventListener("touchmove", () => this.onTouchMove(event)); 
@@ -65,8 +67,13 @@ String.prototype.getName = function()
   
 
 // All rendering calls for player should go in here
-Player.prototype.renderPlayer = function()
+Player.prototype.renderPlayer = function(ctx)
 {
+
+    ctx.beginPath();
+    ctx.arc(this.xCircle, this.yCircle, 50, 0, 2 * Math.PI);
+    ctx.stroke();
+
     // Draw Player Sprite in here
     this.playerSprite.update();
     this.playerSprite.render(this.transform.position.get());
@@ -76,6 +83,10 @@ Player.prototype.renderPlayer = function()
 // Update player behaviour in here
 Player.prototype.update = function(tappedX, tappedY)
 {
+
+
+    this.xCircle = this.endSwipeX;
+    this.yCircle = this.endSwipeY;
     this.move(tappedX, tappedY);
 } // end update
 
@@ -95,8 +106,12 @@ Player.prototype.move = function(tappedX , tappedY)
     this.direction = new Vector2(startPos.x - endPos.x , startPos.y - endPos.y); 
     this.newDirection = new Vector2(this.direction.normalise());
 
-    this.testVec = new Vector2(this.startForX  , this.startForY)
-    console.log(this.endSwipeX +"," + this.endSwipeY)
+    this.testVec = new Vector2(this.startForX  , this.startForY);
+    console.log(this.endSwipeX +"," + this.endSwipeY);
+
+
+
+
     if(this.swipped === true && this.timer !== 10)
     {
         this.timer = this.timer +1;
