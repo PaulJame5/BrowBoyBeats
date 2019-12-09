@@ -13,9 +13,7 @@ function Player(init_position={x:0.0,y:0.0}, name="",src="",context)
     input.initSelf();
     this.input = input;
     this.tapped = false;
-    this.swipedRight = false;
-    this.swipedLeft = false;
-    this.speed = 1;
+    this.speed = 10;
     this.swipped = false;
     this.held=false;
     this.timer =0;
@@ -24,8 +22,13 @@ function Player(init_position={x:0.0,y:0.0}, name="",src="",context)
     this.yCircle = 660;
     this.stationaryCircleX = 110;
     this.stationaryCircleY = 660;
+    this.innerRadius = 20;
+    this.outerRadius = 50;
     
-    console.log("Initialised Player");
+
+
+    this.targetCircleX = this.transform.position.getX() + 20;
+    this.targetCircleY = this.transform.position.getY() - 10;
 
     document.addEventListener("touchstart", () => this.onTouchStart(event)); 
     document.addEventListener("touchmove", () => this.onTouchMove(event)); 
@@ -71,13 +74,16 @@ String.prototype.getName = function()
 // All rendering calls for player should go in here
 Player.prototype.renderPlayer = function(ctx)
 {
-
     ctx.beginPath();
-    ctx.arc(this.xCircle, this.yCircle, 20, 0, 2 * Math.PI);
+    ctx.arc(this.xCircle, this.yCircle, this.innerRadius, 0, 2 * Math.PI);
     ctx.stroke();
 
     ctx.beginPath();
-    ctx.arc(this.stationaryCircleX, this.stationaryCircleY, 50, 0, 2 * Math.PI);
+    ctx.arc(this.stationaryCircleX, this.stationaryCircleY, this.outerRadius, 0, 2 * Math.PI);
+    ctx.stroke();
+    /**creates and draws a circle at a target position */
+    ctx.beginPath();
+    ctx.arc(this.targetCircleX, this.targetCircleY, this.innerRadius, 0, 2 * Math.PI);
     ctx.stroke();
 
     // Draw Player Sprite in here
@@ -89,10 +95,12 @@ Player.prototype.renderPlayer = function(ctx)
 // Update player behaviour in here
 Player.prototype.update = function(tappedX, tappedY)
 {
-    
-    if(this.xCircle < this.stationaryCircleX +50 && this.xCircle > this.stationaryCircleX -50
-        && this.yCircle < this.stationaryCircleY +50 && this.yCircle > this.stationaryCircleY -50
-        && this.held === false)
+    this.targetCircleX = this.transform.position.getX() -80;
+    this.targetCircleY = this.transform.position.getY() - 50;
+
+ 
+    if(this.startX <= this.stationaryCircleX + this.outerRadius || this.startX >= this.stationaryCircleX -this.outerRadius
+        || this.startY <= this.stationaryCircleY +this.outerRadius || this.startY >= this.stationaryCircleY -this.outerRadius)
     {
         this.xCircle = this.startX;
         this.yCircle = this.startY;
@@ -106,6 +114,15 @@ Player.prototype.update = function(tappedX, tappedY)
     
     this.move(tappedX, tappedY);
 } // end update
+Player.prototype.getTargetPos = function()
+{
+
+    return targetPos={x:this.targetCircleX,y:this.targetCircleY};
+}
+
+
+
+
 
 // Move funstion for player
 Player.prototype.move = function(tappedX , tappedY)
@@ -259,6 +276,6 @@ Player.prototype.onTouchEnd = function(e)
     {
         this.held=true;
     }
-    //console.log("End of swipe " +this.endSwipeX +  "," + this.endSwipeY);
+   
 
 }

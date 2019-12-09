@@ -12,15 +12,50 @@ function Enemy(init_position={x:0.0,y:0.0},src="",context)
     input = new Input();
     input.initSelf();
     this.input = input;
-
+    this.player = new Player();
+    this.HIVE_MIND_ID = 0;
+    this.attackMode = false;
+    this.timeInbetweenAttacking = 1.8;
+    this.timeSinceLastAttack;
     this.speed = 5;
+    this.position = init_position;
+    this.playerIndexTargetChoice = 0;
 
     this.initSpritesheet(src, context);
-    
-    console.log("Initialised Enemy");
+    this.offsetX = 2.4;
+    this.offsetY = 3;
+
    
     //=======================
-
+    this.targets = 
+    {
+        LEFT : 0,
+        RIGHT : 1,
+        TOP: 2,
+        BOTTOM: 3,
+        TOP_LEFT: 4,
+        TOP_RIGHT: 5,
+        BOTTOM_LEFT: 6,
+        BOTTOM_RIGHT: 7,
+        WAIT: 8
+    }
+    
+    this.target = this.targets.LEFT
+    
+    //--------------------------------------------------------------------
+    //Exaple switch statement
+    //--------------------------------------------------------------------
+    /** 
+    switch(target){
+        case targets.LEFT:
+        
+        case targets.RIGHT:
+       
+        case targets.TOP:
+        
+        case targets.BOTTOM:
+        
+    }*/
 
 
 }
@@ -65,7 +100,7 @@ Enemy.prototype.render = function()
 // Update player behaviour in here
 Enemy.prototype.update = function()
 {
-
+    this.move();
 } // end update
 
 // Move funstion for player
@@ -75,3 +110,58 @@ Enemy.prototype.setPosition = function(pos = {x:0,y:0})
     this.transform.position.setY(pos.y);
 
 } // end move
+Enemy.prototype.move = function()
+{
+    var targetX;
+    var targetY;
+   
+    this.target = this.player.getTargetPosX();
+    console.log("GG" +this.target);
+    switch (this.target)
+    {
+        case this.targets.BOTTOM:
+            targetY -= this.offsetY;
+            break;
+
+        case this.targets.TOP:
+            target.y += this.offsetY;
+            break;
+
+        case this.targets.LEFT:
+            targetX -= this.offsetX ;
+            break;
+
+        case this.targets.RIGHT:
+            targetX+= this.offsetX ;
+            break;
+
+        case this.targets.TOP_LEFT:
+            targetY += this.offsetY;
+            targetX -= this.offsetX ;
+            break;
+
+        case this.targets.TOP_RIGHT:
+            targetX += this.offsetX ;
+            targetY += this.offsetY;
+            break;
+
+        case this.targets.BOTTOM_LEFT:
+            targetY -= this.offsetY;
+            targetX -= this.offsetX ;
+            break;
+
+        case this.targets.BOTTOM_RIGHT:
+            targetX += this.offsetX ;
+            targetY -= this.offsetY;
+            break;
+
+        case this.targets.WAIT:
+            
+            break;
+        default:
+            this.target= this.targets.WAIT;
+            break;
+    }
+
+
+}
