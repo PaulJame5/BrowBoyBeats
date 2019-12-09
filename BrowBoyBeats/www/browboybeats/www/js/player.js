@@ -8,7 +8,7 @@ function Player(init_position={x:0.0,y:0.0}, name="",src="",context)
     this.name = name;
     
     this.transform = new Transform(init_position); // initilised Values
-
+    this.sceneManager = new SceneManager();
     input = new Input();
     input.initSelf();
     this.input = input;
@@ -17,11 +17,13 @@ function Player(init_position={x:0.0,y:0.0}, name="",src="",context)
     this.swipedLeft = false;
     this.speed = 1;
     this.swipped = false;
+    this.held=false;
     this.timer =0;
     this.initSpritesheet(src, context);
-    this.xCircle = 50;
-    this.yCircle = 500;
-
+    this.xCircle = 110;
+    this.yCircle = 660;
+    this.stationaryCircleX = 110;
+    this.stationaryCircleY = 660;
     
     console.log("Initialised Player");
 
@@ -71,7 +73,11 @@ Player.prototype.renderPlayer = function(ctx)
 {
 
     ctx.beginPath();
-    ctx.arc(this.xCircle, this.yCircle, 50, 0, 2 * Math.PI);
+    ctx.arc(this.xCircle, this.yCircle, 20, 0, 2 * Math.PI);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(this.stationaryCircleX, this.stationaryCircleY, 50, 0, 2 * Math.PI);
     ctx.stroke();
 
     // Draw Player Sprite in here
@@ -83,17 +89,28 @@ Player.prototype.renderPlayer = function(ctx)
 // Update player behaviour in here
 Player.prototype.update = function(tappedX, tappedY)
 {
-
-
-    this.xCircle = this.endSwipeX;
-    this.yCircle = this.endSwipeY;
+    
+    if(this.xCircle < this.stationaryCircleX +50 && this.xCircle > this.stationaryCircleX -50
+        && this.yCircle < this.stationaryCircleY +50 && this.yCircle > this.stationaryCircleY -50
+        && this.held === false)
+    {
+        this.xCircle = this.startX;
+        this.yCircle = this.startY;
+    }
+    if(this.held === true)
+    {
+        this.xCircle = this.stationaryCircleX;
+        this.yCircle = this.stationaryCircleY;
+    }
+    
+    
     this.move(tappedX, tappedY);
 } // end update
 
 // Move funstion for player
 Player.prototype.move = function(tappedX , tappedY)
 {
-    this.timeMove1 = new Date();
+   /**  this.timeMove1 = new Date();
     this.timeMove2 = new Date();
     var moveTimeLapse =this.timeMove2-this.timeMove1;
     //console.log(this.timeMove1);
@@ -107,57 +124,63 @@ Player.prototype.move = function(tappedX , tappedY)
     this.newDirection = new Vector2(this.direction.normalise());
 
     this.testVec = new Vector2(this.startForX  , this.startForY);
-    console.log(this.endSwipeX +"," + this.endSwipeY);
+    console.log(this.endSwipeX +"," + this.endSwipeY);*/
 
 
 
 
-    if(this.swipped === true && this.timer !== 10)
+    /**if(this.swipped === true && this.timer !== 10)
     {
         this.timer = this.timer +1;
 
-        this.transform.position.setX(this.transform.position.getX() + this.endSwipeX * this.speed);
-        this.transform.position.setY(this.transform.position.getY() + this.endSwipeY * this.speed);
+        this.transform.position.setX(this.transform.position.getX() + this.startX * this.speed);
+        this.transform.position.setY(this.transform.position.getY() + this.startY * this.speed);
     }
     else if( this.timer === 10)
     {
         this.timer =0;
         this.swipped = false
     }
-  /**  if(this.tapped === true && this.tappedX > 500|| this.input.pressedRight)
+    */
+
+
+    ///right
+    if(this.xCircle > this.stationaryCircleX || this.input.pressedRight)
     {
         // get current x position and then subtract speed
         this.transform.position.setX(this.transform.position.getX() + this.speed);
     }
-    if(this.tapped === true && this.tappedX < 500||this.input.pressedLeft )
+
+    //left
+    if(this.xCircle < this.stationaryCircleX ||this.input.pressedLeft )
     {
         // get current x position and then add speed
         this.transform.position.setX(this.transform.position.getX() - this.speed);
         
     } // end left right movement check
-    if(this.tapped === true && this.tappedY > 1000 || this.input.pressedDown)
+    if(this.yCircle > this.stationaryCircleY|| this.input.pressedDown)
     {
         // get current y position and then subtract speed
         this.transform.position.setY(this.transform.position.getY() + this.speed);
     }
-    if(this.tapped === true && this.tappedY < 1000 || this.input.pressedUp)
+    if(this.yCircle < this.stationaryCircleY || this.input.pressedUp)
     {
         // get current y position and then add speed
         this.transform.position.setY(this.transform.position.getY() - this.speed);
     } // end up down movement check
-*/
+
 
 
 } // end move
 Player.prototype.onTouchStart = function(e)
 {
-
+    this.held=false;
     this.touches = e.touches;
 /**
   get the start of touch position x and y create two variables and store the start x and y
 */
-    this.startX = e.touches[0].clientX* window.devicePixelRatio;
-    this.startY = e.touches[0].clientY* window.devicePixelRatio;
+    this.startX = e.touches[0].clientX;
+    this.startY = e.touches[0].clientY;
     this.startForX = this.startX;
     this.startForY = this.startY;
     this.time1 = new Date();
@@ -178,8 +201,8 @@ Player.prototype.onTouchStart = function(e)
 Player.prototype.onTouchMove = function(e)
 {
     this.changedTouches = e.changedTouches;
-    this.endX = e.changedTouches[0].clientX * window.devicePixelRatio;
-    this.endY = e.changedTouches[0].clientY * window.devicePixelRatio;
+    this.endX = e.changedTouches[0].clientX;
+    this.endY = e.changedTouches[0].clientY;
 /**
  * sets up the line
  */
@@ -231,6 +254,10 @@ Player.prototype.onTouchEnd = function(e)
         this.tapped = false;
         this.swipped = true;
         console.log("A swipe was done in game");
+    }
+    else if(timeLapsed >= 10)
+    {
+        this.held=true;
     }
     //console.log("End of swipe " +this.endSwipeX +  "," + this.endSwipeY);
 
