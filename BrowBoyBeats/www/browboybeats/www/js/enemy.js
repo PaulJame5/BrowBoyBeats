@@ -115,8 +115,8 @@ Enemy.prototype.move = function()
     var targetX;
     var targetY;
    
-    this.target = this.player.getTargetPosX();
-    console.log("GG" +this.target);
+    this.target = this.player.getTargetPos();
+    console.log("GG" +this.target.x);
     switch (this.target)
     {
         case this.targets.BOTTOM:
