@@ -1,5 +1,7 @@
 // This is the player class where there are fuctions readily availble to be used
 
+/// TO DO: Remove touch controller from player and put into iput class
+
 
 
 // Player Class
@@ -22,14 +24,15 @@ function Player(init_position={x:0.0,y:0.0}, name="",src="",context)
     this.yCircle = 660;
     this.stationaryCircleX = 110;
     this.stationaryCircleY = 660;
+    this.deadZone = 10;
     this.innerRadius = 20;
     this.outerRadius = 50;
-    
-
-
+    this.attackX =0;
+    this.attackY=0;
+    this.attackRadius = 25;
     this.targetCircleX = this.transform.position.getX() + 20;
     this.targetCircleY = this.transform.position.getY() - 10;
-
+    this.enemyPosDist = 16;
     document.addEventListener("touchstart", () => this.onTouchStart(event)); 
     document.addEventListener("touchmove", () => this.onTouchMove(event)); 
     document.addEventListener("touchend", () => this.onTouchEnd(event)); 
@@ -86,6 +89,10 @@ Player.prototype.renderPlayer = function(ctx)
     ctx.arc(this.targetCircleX, this.targetCircleY, this.innerRadius, 0, 2 * Math.PI);
     ctx.stroke();
 
+    ctx.beginPath();
+    ctx.arc(this.attackX, this.attackY, this.innerRadius, 0, 2 * Math.PI);
+    ctx.stroke();
+
     // Draw Player Sprite in here
     this.playerSprite.update();
     this.playerSprite.render(this.transform.position.get());
@@ -93,14 +100,18 @@ Player.prototype.renderPlayer = function(ctx)
 
 
 // Update player behaviour in here
-Player.prototype.update = function(tappedX, tappedY)
+Player.prototype.update = function(tappedX, tappedY,enemyBrowBoy)
 {
     this.targetCircleX = this.transform.position.getX() -80;
     this.targetCircleY = this.transform.position.getY() - 50;
-
+    this.attackX = this.transform.position.getX() + this.attackRadius;
+    this.attackY = this.transform.position.getY() + this.attackRadius;
  
-    if(this.startX <= this.stationaryCircleX + this.outerRadius || this.startX >= this.stationaryCircleX -this.outerRadius
-        || this.startY <= this.stationaryCircleY +this.outerRadius || this.startY >= this.stationaryCircleY -this.outerRadius)
+
+    
+
+    if(this.startX < this.stationaryCircleX + this.outerRadius || this.startX > this.stationaryCircleX -this.outerRadius
+        || this.startY < this.stationaryCircleY +this.outerRadius || this.startY > this.stationaryCircleY -this.outerRadius)
     {
         this.xCircle = this.startX;
         this.yCircle = this.startY;
@@ -111,18 +122,22 @@ Player.prototype.update = function(tappedX, tappedY)
         this.yCircle = this.stationaryCircleY;
     }
     
+    this.enemyPos = enemyBrowBoy.getEnemyPosition(); 
+    console.log("EnemyPos: " +this.enemyPos.x);
+
+    if(this.enemyPos.x <= this.attackX + this.innerRadius && this.enemyPos.x >= this.attackX -this.innerRadius
+        && this.enemyPos.y +this.enemyPosDist <= this.attackY +this.innerRadius && this.enemyPos.y + this.enemyPosDist>= this.attackY -this.innerRadius && this.tapped === true)
+    {
+        console.log("Attacked");
+    }
+    
     
     this.move(tappedX, tappedY);
 } // end update
 Player.prototype.getTargetPos = function()
 {
-
     return targetPos={x:this.targetCircleX,y:this.targetCircleY};
 }
-
-
-
-
 
 // Move funstion for player
 Player.prototype.move = function(tappedX , tappedY)
@@ -162,25 +177,26 @@ Player.prototype.move = function(tappedX , tappedY)
 
 
     ///right
-    if(this.xCircle > this.stationaryCircleX || this.input.pressedRight)
+    if(this.xCircle > this.stationaryCircleX + this.deadZone || this.input.pressedRight)
     {
         // get current x position and then subtract speed
         this.transform.position.setX(this.transform.position.getX() + this.speed);
     }
 
     //left
-    if(this.xCircle < this.stationaryCircleX ||this.input.pressedLeft )
+    if(this.xCircle < this.stationaryCircleX - this.deadZone ||this.input.pressedLeft )
     {
         // get current x position and then add speed
         this.transform.position.setX(this.transform.position.getX() - this.speed);
         
     } // end left right movement check
-    if(this.yCircle > this.stationaryCircleY|| this.input.pressedDown)
+
+    if(this.yCircle > this.stationaryCircleY + this.deadZone || this.input.pressedDown)
     {
         // get current y position and then subtract speed
         this.transform.position.setY(this.transform.position.getY() + this.speed);
     }
-    if(this.yCircle < this.stationaryCircleY || this.input.pressedUp)
+    if(this.yCircle < this.stationaryCircleY - this.deadZone || this.input.pressedUp)
     {
         // get current y position and then add speed
         this.transform.position.setY(this.transform.position.getY() - this.speed);
@@ -275,6 +291,10 @@ Player.prototype.onTouchEnd = function(e)
     else if(timeLapsed >= 10)
     {
         this.held=true;
+    }
+    else if(timeLapsed >= 3)
+    {
+        this.tapped = false;
     }
    
 

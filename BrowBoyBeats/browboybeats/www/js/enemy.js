@@ -3,7 +3,7 @@
 
 
 // Player Class
-function Enemy(init_position={x:0.0,y:0.0},src="",context)
+function Enemy(init_position={x:0.0,y:0.0},src="",context,player)
 {
     this.name = name;
     
@@ -12,7 +12,7 @@ function Enemy(init_position={x:0.0,y:0.0},src="",context)
     input = new Input();
     input.initSelf();
     this.input = input;
-    this.player = new Player();
+    this.player = player;
     this.HIVE_MIND_ID = 0;
     this.attackMode = false;
     this.timeInbetweenAttacking = 1.8;
@@ -84,7 +84,10 @@ Enemy.prototype.initSpritesheet = function(src="",context)
         numberOfFrames: 4
     });
 }
-
+Enemy.prototype.getEnemyPosition = function()
+{
+    return pos={x:this.transform.position.getX(),y:this.transform.position.getY()};
+}
 
   
 
