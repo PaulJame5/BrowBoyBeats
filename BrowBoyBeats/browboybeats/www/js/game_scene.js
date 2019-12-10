@@ -26,13 +26,13 @@ class GameScene extends Scene
    
            var playerOneName = "Player1";
            this.playerOne = new Player(this.playerOnePosition, playerOneName,"sprites/PlayerOne.png", this.ctx);
-           this.playerTwo = new Player(this.playerTwoPosition, "Player Two","sprites/PlayerTwo.png", this.ctx);
+           //this.playerTwo = new Player(this.playerTwoPosition, "Player Two","sprites/PlayerTwo.png", this.ctx);
            // End Initialisation of players
           
            // Init enemy
            
            this.enemyBrowPosition = {x: 50.0, y: 50.0};
-           this.enemyBrowBoy = new Enemy(this.enemyBrowPosition,"sprites/browBoy.png",this.ctx);
+           this.enemyBrowBoy = new Enemy(this.enemyBrowPosition,"sprites/browBoy.png",this.ctx,this.playerOne);
            
          
              
@@ -68,7 +68,7 @@ class GameScene extends Scene
         ctx.font = '48px serif';
         
          // console.log("Rendering");
-        this.playerTwo.renderPlayer(ctx);
+        //this.playerTwo.renderPlayer(ctx);
         this.playerOne.renderPlayer(ctx);
         this.enemyBrowBoy.render();
 
@@ -87,8 +87,8 @@ class GameScene extends Scene
 
         this.tappedXPos = tappedX;
         this.tappedYPos = tappedY;
-        this.playerOne.update( this.tappedXPos ,  this.tappedYPos);
-        this.playerTwo.update();
+        this.playerOne.update( this.tappedXPos ,  this.tappedYPos,this.enemyBrowBoy);
+        //this.playerTwo.update();
         this.enemyBrowBoy.update();
 
     //this.playerTwo.update();
