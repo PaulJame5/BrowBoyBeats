@@ -21,7 +21,7 @@ class GameScene extends Scene
 
          
            // initialise Players
-           this.playerOnePosition = {x: 500.0, y:500.0};
+           this.playerOnePosition = {x: 100.0, y:500.0};
            this.playerTwoPosition = {x: 100.0, y:100.0};
    
            var playerOneName = "Player1";
@@ -82,12 +82,12 @@ class GameScene extends Scene
         //ctx.fillStyle = rgb( this.color);
         document.body.style.background = 'White';
     }
-    update(tappedX , tappedY)
+    update(tappedX , tappedY , ctx)
     {
 
         this.tappedXPos = tappedX;
         this.tappedYPos = tappedY;
-        this.playerOne.update( this.tappedXPos ,  this.tappedYPos,this.enemyBrowBoy);
+        this.playerOne.update( this.tappedXPos ,  this.tappedYPos,this.enemyBrowBoy,ctx);
         //this.playerTwo.update();
         this.enemyBrowBoy.update();
 

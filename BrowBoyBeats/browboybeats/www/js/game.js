@@ -279,11 +279,11 @@ class Game
         
         if(this.tapped = true && this.sceneManager.getScene() == "GameScreen")
         {
-            this.sceneManager.update(this.tappedX , this.tappedY);
+            this.sceneManager.update(this.tappedX , this.tappedY,this.ctx);
         }
         else
         {
-            this.sceneManager.update(this.tappedX , this.tappedY);
+            this.sceneManager.update(this.tappedX , this.tappedY,this.ctx);
         }
         
         this.lastFrameTimeMs = Date.now();

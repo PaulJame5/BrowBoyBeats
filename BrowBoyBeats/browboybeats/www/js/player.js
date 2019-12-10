@@ -15,7 +15,7 @@ function Player(init_position={x:0.0,y:0.0}, name="",src="",context)
     input.initSelf();
     this.input = input;
     this.tapped = false;
-    this.speed = 10;
+    this.speed = 5;
     this.swipped = false;
     this.held=false;
     this.timer =0;
@@ -33,6 +33,7 @@ function Player(init_position={x:0.0,y:0.0}, name="",src="",context)
     this.targetCircleX = this.transform.position.getX() + 20;
     this.targetCircleY = this.transform.position.getY() - 10;
     this.enemyPosDist = 16;
+    this.insideCircle = false;
     document.addEventListener("touchstart", () => this.onTouchStart(event)); 
     document.addEventListener("touchmove", () => this.onTouchMove(event)); 
     document.addEventListener("touchend", () => this.onTouchEnd(event)); 
@@ -100,23 +101,24 @@ Player.prototype.renderPlayer = function(ctx)
 
 
 // Update player behaviour in here
-Player.prototype.update = function(tappedX, tappedY,enemyBrowBoy)
+Player.prototype.update = function(tappedX, tappedY,enemyBrowBoy,ctx)
 {
     this.targetCircleX = this.transform.position.getX() -80;
     this.targetCircleY = this.transform.position.getY() - 50;
     this.attackX = this.transform.position.getX() + this.attackRadius;
     this.attackY = this.transform.position.getY() + this.attackRadius;
+    console.log("PLayerPOS : " + this.transform.position.getX());
+
  
 
-    
-
-    if(this.startX < this.stationaryCircleX + this.outerRadius || this.startX > this.stationaryCircleX -this.outerRadius
-        || this.startY < this.stationaryCircleY +this.outerRadius || this.startY > this.stationaryCircleY -this.outerRadius)
+    if(this.held === true )
     {
+        this.tapped = false;
         this.xCircle = this.startX;
         this.yCircle = this.startY;
+        
     }
-    if(this.held === true)
+    else if(this.held === false)
     {
         this.xCircle = this.stationaryCircleX;
         this.yCircle = this.stationaryCircleY;
@@ -128,11 +130,14 @@ Player.prototype.update = function(tappedX, tappedY,enemyBrowBoy)
     if(this.enemyPos.x <= this.attackX + this.innerRadius && this.enemyPos.x >= this.attackX -this.innerRadius
         && this.enemyPos.y +this.enemyPosDist <= this.attackY +this.innerRadius && this.enemyPos.y + this.enemyPosDist>= this.attackY -this.innerRadius && this.tapped === true)
     {
-        console.log("Attacked");
+        //console.log("Attacked");
+        this.tapped = false;
+        enemyBrowBoy.takeDamage();
+        
     }
     
     
-    this.move(tappedX, tappedY);
+    this.move(tappedX, tappedY,ctx);
 } // end update
 Player.prototype.getTargetPos = function()
 {
@@ -140,7 +145,7 @@ Player.prototype.getTargetPos = function()
 }
 
 // Move funstion for player
-Player.prototype.move = function(tappedX , tappedY)
+Player.prototype.move = function(tappedX , tappedY,ctx)
 {
    /**  this.timeMove1 = new Date();
     this.timeMove2 = new Date();
@@ -175,12 +180,14 @@ Player.prototype.move = function(tappedX , tappedY)
     }
     */
 
-
+    if(this.tapped === false)
+    {
     ///right
     if(this.xCircle > this.stationaryCircleX + this.deadZone || this.input.pressedRight)
     {
         // get current x position and then subtract speed
         this.transform.position.setX(this.transform.position.getX() + this.speed);
+        ctx.translate(this.speed, 0);
     }
 
     //left
@@ -188,6 +195,7 @@ Player.prototype.move = function(tappedX , tappedY)
     {
         // get current x position and then add speed
         this.transform.position.setX(this.transform.position.getX() - this.speed);
+        ctx.translate(-this.speed, 0);
         
     } // end left right movement check
 
@@ -195,19 +203,21 @@ Player.prototype.move = function(tappedX , tappedY)
     {
         // get current y position and then subtract speed
         this.transform.position.setY(this.transform.position.getY() + this.speed);
+        ctx.translate(0, this.speed);
     }
     if(this.yCircle < this.stationaryCircleY - this.deadZone || this.input.pressedUp)
     {
         // get current y position and then add speed
         this.transform.position.setY(this.transform.position.getY() - this.speed);
+        ctx.translate(0, -this.speed);
     } // end up down movement check
-
+    }
 
 
 } // end move
 Player.prototype.onTouchStart = function(e)
 {
-    this.held=false;
+    this.held =true;
     this.touches = e.touches;
 /**
   get the start of touch position x and y create two variables and store the start x and y
@@ -254,6 +264,8 @@ Player.prototype.onTouchMove = function(e)
 */
 Player.prototype.onTouchEnd = function(e)
 {
+
+    
     this.tapped = false;
     var x;
     var y;
@@ -285,16 +297,17 @@ Player.prototype.onTouchEnd = function(e)
     if(timeLapsed >= 360 && this.LeghtOfSwipe >= 240)
     {
         this.tapped = false;
-        this.swipped = true;
+        this.swipped = false;
+       
         console.log("A swipe was done in game");
     }
-    else if(timeLapsed >= 10)
+
+    this.held = false;
+
+    if(timeLapsed >= 1)
     {
-        this.held=true;
-    }
-    else if(timeLapsed >= 3)
-    {
-        this.tapped = false;
+    
+        this.tapped = true;
     }
    
 

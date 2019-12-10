@@ -20,11 +20,12 @@ function Enemy(init_position={x:0.0,y:0.0},src="",context,player)
     this.speed = 5;
     this.position = init_position;
     this.playerIndexTargetChoice = 0;
-
+    this.deathTime = 10;
     this.initSpritesheet(src, context);
     this.offsetX = 2.4;
     this.offsetY = 3;
-
+    this.health = 100;
+    this.healthCost = 10;
    
     //=======================
     this.targets = 
@@ -59,8 +60,6 @@ function Enemy(init_position={x:0.0,y:0.0},src="",context,player)
 
 
 }
-
-
 Enemy.prototype.initSpritesheet = function(src="",context)
 {
     this.sprites = new Sprite();
@@ -96,13 +95,23 @@ Enemy.prototype.render = function()
 {
     // Draw Player Sprite in here
     this.enemySprite.update();
-    this.enemySprite.render(this.transform.position.get());
+    if(this.health <= 0)
+    {
+        this.deathTime =  this.deathTime -1;
+    }
+    if(this.health > 0 && this.deathTime !== 0 || this.deathTime === 2 
+        || this.deathTime === 4 || this.deathTime === 6 || this.deathTime === 8)
+    {
+        this.enemySprite.render(this.transform.position.get());
+    }
 }
 
 
 // Update player behaviour in here
 Enemy.prototype.update = function()
 {
+
+    //console.log("Health: " + this.health);
     this.move();
 } // end update
 
@@ -112,14 +121,19 @@ Enemy.prototype.setPosition = function(pos = {x:0,y:0})
     this.transform.position.setX(pos.x);
     this.transform.position.setY(pos.y);
 
-} // end move
+} 
+Enemy.prototype.takeDamage = function()
+{
+    this.health = this.health - this.healthCost;
+    
+}
 Enemy.prototype.move = function()
 {
     var targetX;
     var targetY;
    
     this.target = this.player.getTargetPos();
-    console.log("GG" +this.target.x);
+   
     switch (this.target)
     {
         case this.targets.BOTTOM:
@@ -167,4 +181,27 @@ Enemy.prototype.move = function()
     }
 
 
+}
+Enemy.prototype.moveTowards = function(current_position={x:0.0,y:0.0},target_position={x:0.0,y:0.0} ,maxDistace)
+{
+
+    this.target = target_position;
+    this.current = current_position;
+    this.maxDistance = maxDistace;
+
+
+    this.toVecX = this.target.x - this.current.x;
+    this.toVecY = this.target.y - this.current.y; 
+
+    this.squaredDistance = this.toVecX * this.toVecX + this.toVecY * this.toVecY;
+
+    if(this.squaredDistance == 0 || this.maxDistance >= 0 
+        && this.squaredDistance <= this.maxDistance * this.maxDistance)
+    {
+       return this.target;
+       var dist = Math.sqrt(this.squaredDistance);
+    }
+
+    return  this.current.x + this.toVecX / dist * this.maxDistance , this.current.y + this.toVecY / dist * this.maxDistance;
+   
 }
