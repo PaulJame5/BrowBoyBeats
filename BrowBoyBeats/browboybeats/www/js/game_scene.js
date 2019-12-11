@@ -10,16 +10,25 @@ class GameScene extends Scene
         super(title);
         this.title = title;
         this.ctx = ctx;
-
+        this.timer =0;
         this.camera = new Camera();
-
-    
+        this.spritePosition ={x:0 ,y:40};
 
         
     }
 
     initScene(ctx)
     {
+        this.img = new Image();   
+        this.img.addEventListener('load', function() 
+        {
+           
+
+        }, false);
+        this.img.src = 'sprites/tutorial.png';
+
+
+
 
         // DEBUG CAMERA
         this.offsetX = 0;
@@ -37,7 +46,6 @@ class GameScene extends Scene
            // End Initialisation of players
           
            // Init enemy
-           
            var level = new LevelLoading(); 
 
            this.levelLoader = new LevelLoading("tilemap/BrowBoyMap/json");
@@ -75,6 +83,8 @@ class GameScene extends Scene
  */
     render(ctx)
     {
+        
+
        // ctx.clearRect(0,0,ctx.canvas.width, ctx.canvas.height);
         ctx.font = '48px serif';
         ctx.save();
@@ -100,7 +110,11 @@ class GameScene extends Scene
             console.log("l");
             this.camera.setPositionX(this.camera.getPosition().x - 1);
         }
-        
+        if(this.timer >= 30)
+        {
+            //draw tutorial sprite
+            ctx.drawImage(this.img, this.spritePosition.x , this.spritePosition.y);
+        }
         //ctx.fillStyle = rgb( this.color);
         document.body.style.background = 'White';
     }
@@ -108,7 +122,11 @@ class GameScene extends Scene
 
     update(tappedX , tappedY , ctx)
     {
-
+        if(this.timer !== 30)
+        {
+            this.timer  = this.timer +1 ;
+            
+        }
         this.tappedXPos = tappedX;
         this.tappedYPos = tappedY;
         this.playerOne.update( this.tappedXPos ,  this.tappedYPos,this.enemyBrowBoy,ctx);
@@ -116,10 +134,5 @@ class GameScene extends Scene
         this.enemyBrowBoy.update();
 
     //this.playerTwo.update();
-    
-    
-
-
-
     }
 }
