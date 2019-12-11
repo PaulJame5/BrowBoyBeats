@@ -11,6 +11,8 @@ class GameScene extends Scene
         this.title = title;
         this.ctx = ctx;
 
+        this.camera = new Camera();
+
     
 
         
@@ -72,7 +74,7 @@ class GameScene extends Scene
        // ctx.clearRect(0,0,ctx.canvas.width, ctx.canvas.height);
         ctx.font = '48px serif';
         ctx.save();
-        ctx.translate(this.offsetX,this.offsetY);
+        ctx.translate(this.camera.getPosition().x,this.camera.getPosition().y);
         
         
         //this.playerTwo.renderPlayer(ctx);
@@ -87,12 +89,12 @@ class GameScene extends Scene
         if(this.playerOne.getRight() == true)
         {
             console.log("p");
-            this.offsetX++;
+            this.camera.setPositionX(this.camera.getPosition().x + 1);
         }
         if(this.playerOne.getLeft() == true)
         {
             console.log("l");
-            this.offsetX--;
+            this.camera.setPositionX(this.camera.getPosition().x - 1);
         }
         
         //ctx.fillStyle = rgb( this.color);
