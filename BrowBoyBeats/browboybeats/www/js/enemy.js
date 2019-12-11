@@ -110,7 +110,6 @@ Enemy.prototype.render = function()
 // Update player behaviour in here
 Enemy.prototype.update = function()
 {
-
     //console.log("Health: " + this.health);
     this.move();
 } // end update
@@ -125,60 +124,52 @@ Enemy.prototype.setPosition = function(pos = {x:0,y:0})
 Enemy.prototype.takeDamage = function()
 {
     this.health = this.health - this.healthCost;
-    
 }
 Enemy.prototype.move = function()
 {
-    var targetX;
-    var targetY;
-   
     this.target = this.player.getTargetPos();
    
     switch (this.target)
     {
         case this.targets.BOTTOM:
-            targetY -= this.offsetY;
+            this.target.y -= this.offsetY;
             break;
-
         case this.targets.TOP:
-            target.y += this.offsetY;
+            this.target.y += this.offsetY;
             break;
-
         case this.targets.LEFT:
-            targetX -= this.offsetX ;
+            this.target.x -= this.offsetX ;
             break;
-
         case this.targets.RIGHT:
-            targetX+= this.offsetX ;
+            this.target.x+= this.offsetX ;
             break;
-
         case this.targets.TOP_LEFT:
-            targetY += this.offsetY;
-            targetX -= this.offsetX ;
+            this.target.y += this.offsetY;
+            this.target.x -= this.offsetX ;
             break;
-
         case this.targets.TOP_RIGHT:
-            targetX += this.offsetX ;
-            targetY += this.offsetY;
+            this.target.x += this.offsetX ;
+            this.target.y += this.offsetY;
             break;
-
         case this.targets.BOTTOM_LEFT:
-            targetY -= this.offsetY;
-            targetX -= this.offsetX ;
+            this.target.y -= this.offsetY;
+            this.target.x -= this.offsetX ;
             break;
-
         case this.targets.BOTTOM_RIGHT:
-            targetX += this.offsetX ;
-            targetY -= this.offsetY;
+            this.target.x += this.offsetX ;
+            this.target.y -= this.offsetY;
             break;
-
-        case this.targets.WAIT:
-            
+        case this.targets.WAIT: 
             break;
         default:
             this.target= this.targets.WAIT;
             break;
     }
+  
+    this.current = {x:this.transform.position.getX() ,y:this.transform.position.getY()};
+    this.distance = this.transform.distance(this.current , this.target);
+    this.moveTo = this.moveTowards(this.current,this.target ,this.distance)
+    console.log("moveTO" +this.moveTo);
 
 
 }

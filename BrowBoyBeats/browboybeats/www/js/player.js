@@ -187,7 +187,7 @@ Player.prototype.move = function(tappedX , tappedY,ctx)
     {
         // get current x position and then subtract speed
         this.transform.position.setX(this.transform.position.getX() + this.speed);
-        ctx.translate(this.speed, 0);
+        //ctx.translate(this.speed, 0);
     }
 
     //left
@@ -195,7 +195,7 @@ Player.prototype.move = function(tappedX , tappedY,ctx)
     {
         // get current x position and then add speed
         this.transform.position.setX(this.transform.position.getX() - this.speed);
-        ctx.translate(-this.speed, 0);
+        //ctx.translate(-this.speed, 0);
         
     } // end left right movement check
 
@@ -203,13 +203,13 @@ Player.prototype.move = function(tappedX , tappedY,ctx)
     {
         // get current y position and then subtract speed
         this.transform.position.setY(this.transform.position.getY() + this.speed);
-        ctx.translate(0, this.speed);
+        //ctx.translate(0, this.speed);
     }
     if(this.yCircle < this.stationaryCircleY - this.deadZone || this.input.pressedUp)
     {
         // get current y position and then add speed
         this.transform.position.setY(this.transform.position.getY() - this.speed);
-        ctx.translate(0, -this.speed);
+        //ctx.translate(0, -this.speed);
     } // end up down movement check
     }
 
