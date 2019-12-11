@@ -17,13 +17,19 @@ function Transform(position={x:0.0, y:0.0})
 
 
 // Returns the distance of two points in 2D space
-Transform.prototype.distance = function(position1 = {x: 0.0, y: 0.0}, position2 = {x: 0.0, y: 0.0})
+Transform.prototype.distance = function(position1 = Position(), position2 = Position())
 {
-    const distX = position1.x - position2.x;
-    const distY = position1.y - position2.y;
+
+    console.log("X: " +position1.x +"Y: " +position1.y);
+    const distX = position1.getX() - position2.getX();
+    const distY = position1.getY() - position2.getY();
+
+    var dist = 0.0;
+    dist = Math.hypot(distX,distY);
+    console.log(dist + "distance");
     
     // Returns the hyptonuse of a triangle in other words the distance between these two points
-    return Math.hypot(distX,distY);
+    return dist;
 } // end distance
 
 

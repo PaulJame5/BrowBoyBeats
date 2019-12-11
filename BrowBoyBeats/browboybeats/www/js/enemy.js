@@ -1,8 +1,8 @@
-// This is the player class where there are fuctions readily availble to be used
+// This is the enemy class where there are fuctions readily availble to be used
 
 
 
-// Player Class
+// enemy Class
 function Enemy(init_position={x:0.0,y:0.0},src="",context,player)
 {
     this.name = name;
@@ -41,7 +41,7 @@ function Enemy(init_position={x:0.0,y:0.0},src="",context,player)
         WAIT: 8
     }
     
-    this.target = this.targets.LEFT
+    this.target = this.targets;
     
     //--------------------------------------------------------------------
     //Exaple switch statement
@@ -166,10 +166,17 @@ Enemy.prototype.move = function()
             break;
     }
   
-    this.current = {x:this.transform.position.getX() ,y:this.transform.position.getY()};
+    this.current = this.position;
     this.distance = this.transform.distance(this.current , this.target);
-    this.moveTo = this.moveTowards(this.current,this.target ,this.distance)
-    console.log("moveTO" +this.moveTo);
+    this.moveTo = this.moveTowards(this.current,this.target ,this.distance);
+
+
+    console.log("Distance: " + this.distance);
+
+    if(this.distancs < 0.5)
+    {
+        
+    }
 
 
 }

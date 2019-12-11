@@ -34,6 +34,7 @@ function Player(init_position={x:0.0,y:0.0}, name="",src="",context)
     this.targetCircleY = this.transform.position.getY() - 10;
     this.enemyPosDist = 16;
     this.insideCircle = false;
+    this.playerSize = 16;
     document.addEventListener("touchstart", () => this.onTouchStart(event)); 
     document.addEventListener("touchmove", () => this.onTouchMove(event)); 
     document.addEventListener("touchend", () => this.onTouchEnd(event)); 
@@ -141,7 +142,7 @@ Player.prototype.update = function(tappedX, tappedY,enemyBrowBoy,ctx)
 } // end update
 Player.prototype.getTargetPos = function()
 {
-    return targetPos={x:this.targetCircleX,y:this.targetCircleY};
+    return targetPos={x:this.transform.position.getX() + this.playerSize,y:this.transform.position.getY() + this.playerSize};
 }
 
 // Move funstion for player
