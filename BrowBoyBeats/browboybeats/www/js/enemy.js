@@ -177,9 +177,9 @@ Enemy.prototype.move = function()
     this.moveTo = this.transform.moveTowards(this.current,this.target ,this.distance);
 
     console.log("Move to X : " + this.moveTo.x + " Move to Y : " + this.moveTo.y);
-    
+    this.transform.position.setPosition(this.moveTo);
 
-    if(this.distancs < 0.5)
+    if(this.distance < 0.5)
     {
         
     }

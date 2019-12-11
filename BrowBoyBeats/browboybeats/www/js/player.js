@@ -148,39 +148,7 @@ Player.prototype.getTargetPos = function()
 // Move funstion for player
 Player.prototype.move = function(tappedX , tappedY,ctx)
 {
-   /**  this.timeMove1 = new Date();
-    this.timeMove2 = new Date();
-    var moveTimeLapse =this.timeMove2-this.timeMove1;
-    //console.log(this.timeMove1);
-    // Up Down Movement
    
-    var startPos =  new Vector2(this.startForX , this.startForY);
-    var endPos = new Vector2(this.endSwipeX ,this.endSwipeY);
-    
-    //newDirection = Vector3.Normalize(direction);
-    this.direction = new Vector2(startPos.x - endPos.x , startPos.y - endPos.y); 
-    this.newDirection = new Vector2(this.direction.normalise());
-
-    this.testVec = new Vector2(this.startForX  , this.startForY);
-    console.log(this.endSwipeX +"," + this.endSwipeY);*/
-
-
-
-
-    /**if(this.swipped === true && this.timer !== 10)
-    {
-        this.timer = this.timer +1;
-
-        this.transform.position.setX(this.transform.position.getX() + this.startX * this.speed);
-        this.transform.position.setY(this.transform.position.getY() + this.startY * this.speed);
-    }
-    else if( this.timer === 10)
-    {
-        this.timer =0;
-        this.swipped = false
-    }
-    */
-
     if(this.tapped === false)
     {
     ///right
