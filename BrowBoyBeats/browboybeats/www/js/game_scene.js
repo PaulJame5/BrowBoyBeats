@@ -71,10 +71,10 @@ class GameScene extends Scene
     {
        // ctx.clearRect(0,0,ctx.canvas.width, ctx.canvas.height);
         ctx.font = '48px serif';
-       // ctx.save();
-        //ctx.translate(this.offsetX,this.offsetY);
+        ctx.save();
+        ctx.translate(this.offsetX,this.offsetY);
         
-         // console.log("Rendering");
+        
         //this.playerTwo.renderPlayer(ctx);
         this.playerOne.renderPlayer(ctx);
         this.enemyBrowBoy.render();
@@ -84,7 +84,16 @@ class GameScene extends Scene
           this.enemyArray[i].render();
         }
 
-  
+        if(this.playerOne.getRight() == true)
+        {
+            console.log("p");
+            this.offsetX++;
+        }
+        if(this.playerOne.getLeft() == true)
+        {
+            console.log("l");
+            this.offsetX--;
+        }
         
         //ctx.fillStyle = rgb( this.color);
         document.body.style.background = 'White';
@@ -102,7 +111,7 @@ class GameScene extends Scene
 
     //this.playerTwo.update();
     
-   // console.log("Finished Updating");
+    
 
 
 

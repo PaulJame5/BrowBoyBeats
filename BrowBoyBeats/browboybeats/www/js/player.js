@@ -100,7 +100,15 @@ Player.prototype.renderPlayer = function(ctx)
     this.playerSprite.render(this.transform.position.get());
 }
 
+Player.prototype.getRight = function()
+{
+    return this.input.pressedRight;
+}
 
+Player.prototype.getLeft = function()
+{
+    return this.input.pressedLeft;
+}
 // Update player behaviour in here
 Player.prototype.update = function(tappedX, tappedY,enemyBrowBoy,ctx)
 {
