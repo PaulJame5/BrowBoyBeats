@@ -175,10 +175,12 @@ Enemy.prototype.move = function()
 
     this.moveTo = this.transform.moveTowards(this.transform.position.get(),this.target ,this.distance);
 
-    
-    
 
-    if(this.distancs < 0.5)
+    console.log("Move to X : " + this.moveTo.x + " Move to Y : " + this.moveTo.y);
+    this.transform.position.setPosition(this.moveTo);
+
+
+    if(this.distance < 0.5)
     {
         
     }

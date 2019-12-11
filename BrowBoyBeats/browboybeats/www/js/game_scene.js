@@ -38,6 +38,10 @@ class GameScene extends Scene
           
            // Init enemy
            
+           var level = new LevelLoading(); 
+
+           this.levelLoader = new LevelLoading("tilemap/BrowBoyMap/json");
+
            this.enemyBrowPosition = {x: 50.0, y: 50.0};
            this.enemyBrowBoy = new Enemy(this.enemyBrowPosition,"sprites/browBoy.png",this.ctx,this.playerOne);
            
