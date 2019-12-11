@@ -19,7 +19,12 @@ class GameScene extends Scene
     initScene(ctx)
     {
 
-         
+        // DEBUG CAMERA
+        this.offsetX = 0;
+        this.offsetY = 0;
+        //================
+        
+
            // initialise Players
            this.playerOnePosition = {x: 100.0, y:500.0};
            this.playerTwoPosition = {x: 100.0, y:100.0};
@@ -66,6 +71,8 @@ class GameScene extends Scene
     {
        // ctx.clearRect(0,0,ctx.canvas.width, ctx.canvas.height);
         ctx.font = '48px serif';
+       // ctx.save();
+        //ctx.translate(this.offsetX,this.offsetY);
         
          // console.log("Rendering");
         //this.playerTwo.renderPlayer(ctx);
@@ -82,6 +89,8 @@ class GameScene extends Scene
         //ctx.fillStyle = rgb( this.color);
         document.body.style.background = 'White';
     }
+
+
     update(tappedX , tappedY , ctx)
     {
 

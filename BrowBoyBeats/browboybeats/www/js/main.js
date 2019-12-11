@@ -26,7 +26,8 @@ function main()
     /**
      * log whether its a touch device
      */
-    console.log(is_touch_device());
+    
+     
     /**
      * create game object and call Game constructor
      */

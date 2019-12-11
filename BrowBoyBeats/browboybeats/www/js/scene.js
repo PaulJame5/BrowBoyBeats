@@ -16,7 +16,7 @@ class Scene
     */
     start()
     {
-        console.log("Starting");
+        
     }
 
     /**
@@ -25,7 +25,7 @@ class Scene
     */
     stop()
     {
-        console.log("Stopping");
+        
     }
 
     /**

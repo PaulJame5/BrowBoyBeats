@@ -110,7 +110,7 @@ Enemy.prototype.render = function()
 // Update player behaviour in here
 Enemy.prototype.update = function()
 {
-    //console.log("Health: " + this.health);
+    
     this.move();
 } // end update
 
@@ -129,7 +129,8 @@ Enemy.prototype.move = function()
 {
     
     this.target = this.player.getTargetPos();
-    console.log("X:  " + this.target.x +"Y:  " + this.target.y);
+    
+    
     switch (this.currentTarget)
     {
         case this.Targets.BOTTOM:
@@ -167,16 +168,14 @@ Enemy.prototype.move = function()
             break;
     }
   
-    this.currentTest = {x: 100 , y: 500};
-    this.test = {x:300 , y: 550};
-    this.current = {x:this.transform.position.getX() ,y:this.transform.position.getY()}
-    this.distance = this.transform.distance(this.current , this.target );
+    
+    
+    this.distance = this.transform.distance(this.transform.position.get() , this.target );
 
 
-    this.moveTo = {x:0,y:0};
-    this.moveTo = this.transform.moveTowards(this.current,this.target ,this.distance);
+    this.moveTo = this.transform.moveTowards(this.transform.position.get(),this.target ,this.distance);
 
-    console.log("Move to X : " + this.moveTo.x + " Move to Y : " + this.moveTo.y);
+    
     
 
     if(this.distancs < 0.5)

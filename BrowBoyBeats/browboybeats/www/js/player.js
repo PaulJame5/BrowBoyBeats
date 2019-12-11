@@ -108,7 +108,7 @@ Player.prototype.update = function(tappedX, tappedY,enemyBrowBoy,ctx)
     this.targetCircleY = this.transform.position.getY() - 50;
     this.attackX = this.transform.position.getX() + this.attackRadius;
     this.attackY = this.transform.position.getY() + this.attackRadius;
-    console.log("PLayerPOS : " + this.transform.position.getX());
+    
 
  
 
@@ -126,12 +126,12 @@ Player.prototype.update = function(tappedX, tappedY,enemyBrowBoy,ctx)
     }
     
     this.enemyPos = enemyBrowBoy.getEnemyPosition(); 
-    console.log("EnemyPos: " +this.enemyPos.x);
+    
 
     if(this.enemyPos.x <= this.attackX + this.innerRadius && this.enemyPos.x >= this.attackX -this.innerRadius
         && this.enemyPos.y +this.enemyPosDist <= this.attackY +this.innerRadius && this.enemyPos.y + this.enemyPosDist>= this.attackY -this.innerRadius && this.tapped === true)
     {
-        //console.log("Attacked");
+        
         this.tapped = false;
         enemyBrowBoy.takeDamage();
         
@@ -151,7 +151,7 @@ Player.prototype.move = function(tappedX , tappedY,ctx)
    /**  this.timeMove1 = new Date();
     this.timeMove2 = new Date();
     var moveTimeLapse =this.timeMove2-this.timeMove1;
-    //console.log(this.timeMove1);
+    
     // Up Down Movement
    
     var startPos =  new Vector2(this.startForX , this.startForY);
@@ -162,7 +162,7 @@ Player.prototype.move = function(tappedX , tappedY,ctx)
     this.newDirection = new Vector2(this.direction.normalise());
 
     this.testVec = new Vector2(this.startForX  , this.startForY);
-    console.log(this.endSwipeX +"," + this.endSwipeY);*/
+    */
 
 
 
@@ -218,7 +218,7 @@ Player.prototype.move = function(tappedX , tappedY,ctx)
 
     this.playerTextX = this.transform.position.getX() + this.playerSize ;
     this.playerTextY = this.transform.position.getY() + this.playerSize ;
-    console.log("PlayerX: " +this.playerTextX+ " PlayerY: " + this.playerTextY);
+    
 
 } // end move
 Player.prototype.onTouchStart = function(e)
@@ -237,7 +237,7 @@ Player.prototype.onTouchStart = function(e)
     this.tappedY =this.startForY;
     this.tapped = true;
 
-    //console.log("Start of swipe " +this.startX +  "," + this.startY);
+    
 }
 
 /**
@@ -311,7 +311,7 @@ Player.prototype.onTouchEnd = function(e)
         this.tapped = false;
         this.swipped = false;
        
-        console.log("A swipe was done in game");
+        
     }
 
     this.held = false;

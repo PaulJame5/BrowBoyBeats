@@ -8,8 +8,8 @@ function Transform(position={x:0.0, y:0.0})
  // Finds Distance From Self to passed in target
  Transform.prototype.distanceFromSelf = function (otherPosition = {x: 0.0, y: 0.0})
  {
-     const distX = otherPosition.getX() - this.position.getX();
-     const distY = otherPosition.getY() - this.position.getY();
+     const distX = otherPosition.x - this.position.getX();
+     const distY = otherPosition.y - this.position.getY();
 
      // Returns the hyptonuse of a triangle in other words the distance between these two points
      return Math.hypot(distX,distY);
@@ -19,18 +19,14 @@ function Transform(position={x:0.0, y:0.0})
 // Returns the distance of two points in 2D space
 Transform.prototype.distance = function(position1 = {x:0 , y:0}, position2 = {x:0 , y:0})
 {
-    /**this.pos = position1;
-    this.targetPos = position2;*/
+    
     
     const distX = position1.x - position2.x;
     const distY = position1.y - position2.y;
-
-    var dist = 0.0;
-    dist = Math.hypot(distX,distY);
-    console.log(dist + "distance");
+    
     
     // Returns the hyptonuse of a triangle in other words the distance between these two points
-    return dist;
+    return Math.hypot(distX,distY);
 } // end distance
 
 
@@ -39,7 +35,7 @@ Transform.prototype.moveTowards = function(current_position={x:0.0,y:0.0},target
 {
     
 
-    //console.log("Target to X : " + this.target.x + " Current to X : " + this.current.x + " MaxDistance" + this.maxDistance );
+    
     this.toVecX = target_position.x - current_position.x;
     this.toVecY = target_position.y - current_position.y; 
     
