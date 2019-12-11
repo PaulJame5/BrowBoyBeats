@@ -173,9 +173,10 @@ Enemy.prototype.move = function()
     this.distance = this.transform.distance(this.current , this.target );
 
 
-    this.moveTo = this.moveTowards(this.current,this.target ,this.distance);
+    this.moveTo = {x:0,y:0};
+    this.moveTo = this.transform.moveTowards(this.current,this.target ,this.distance);
 
-    //console.log("Move to X : " + this.moveTo.x + " Move to Y : " + this.moveTo.y);
+    console.log("Move to X : " + this.moveTo.x + " Move to Y : " + this.moveTo.y);
     
 
     if(this.distancs < 0.5)
@@ -185,27 +186,6 @@ Enemy.prototype.move = function()
 
 
 }
-Enemy.prototype.moveTowards = function(current_position={x:0.0,y:0.0},target_position={x:0.0,y:0.0} ,maxDistace)
-{
-    this.target = target_position;
-    this.current = current_position;
-    this.maxDistance = maxDistace;
 
-    //console.log("Target to X : " + this.target.x + " Current to X : " + this.current.x + " MaxDistance" + this.maxDistance );
-    this.toVecX = this.target.x - this.current.x;
-    this.toVecY = this.target.y - this.current.y; 
-    
-    this.squaredDistance = this.toVecX * this.toVecX + this.toVecY * this.toVecY;
-
-    if(this.squaredDistance == 0 || this.maxDistance >= 0 
-        && this.squaredDistance <= this.maxDistance * this.maxDistance)
-    {
-       return this.target;
-      
-    }
-    var dist = Math.sqrt(this.squaredDistance);
-    return  this.current.x + this.toVecX / dist * this.maxDistance , this.current.y + this.toVecY / dist * this.maxDistance;
-   
-}
 
 

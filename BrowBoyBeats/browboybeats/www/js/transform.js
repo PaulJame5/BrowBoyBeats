@@ -35,4 +35,27 @@ Transform.prototype.distance = function(position1 = {x:0 , y:0}, position2 = {x:
 
 
 
+Transform.prototype.moveTowards = function(current_position={x:0.0,y:0.0},target_position={x:0.0,y:0.0} ,maxDistance)
+{
+    
+
+    //console.log("Target to X : " + this.target.x + " Current to X : " + this.current.x + " MaxDistance" + this.maxDistance );
+    this.toVecX = target_position.x - current_position.x;
+    this.toVecY = target_position.y - current_position.y; 
+    
+    this.squaredDistance = this.toVecX * this.toVecX + this.toVecY * this.toVecY;
+
+    if(this.squaredDistance == 0 || maxDistance >= 0 
+        && this.squaredDistance <= maxDistance * maxDistance)
+    {
+       return target_position;
+      
+    }
+    var dist = Math.sqrt(this.squaredDistance);
+    return  {x: current_position.x + this.toVecX / dist * maxDistance , y: current_position.y + this.toVecY / dist * maxDistance};
+   
+}
+
+
+
     
