@@ -77,6 +77,7 @@ class GameScene extends Scene
     {
         ctx.clearRect(0,0, 100,100);
         ctx.save();
+        this.camera.setPositionX(-this.playerOne.transform.position.getX()+ 50);
         //ctx.setPosition(this.camera.getPosition().x,this.camera.getPosition().y);
         ctx.translate(this.camera.getPosition().x,this.camera.getPosition().y);
         
