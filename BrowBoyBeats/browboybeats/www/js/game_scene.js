@@ -102,22 +102,22 @@ class GameScene extends Scene
           this.enemyArray[i].update();
         }
 
+        // Camera move debug ===============
         if(this.playerOne.getRight() == true)
         {
-            console.log("ff");
             this.camera.setPositionX(this.camera.getPosition().x += 5);
         }
+
         if(this.playerOne.getLeft() == true)
         {
-            
-            console.log("dd");
             this.camera.setPositionX(this.camera.getPosition().x -= 5);
         }
+        // end camera move debug ================
         
         ctx.restore();
-        //ctx.fillStyle = rgb( this.color);
+        
         document.body.style.background = 'White'; 
-        //ctx = null;
+        
     }
 
 
