@@ -10,6 +10,9 @@ class GameScene extends Scene
         super(title);
         this.title = title;
         this.ctx = ctx;
+
+    
+
         
     }
 
@@ -18,19 +21,20 @@ class GameScene extends Scene
 
          
            // initialise Players
-           this.playerOnePosition = {x: 500.0, y:500.0};
+           this.playerOnePosition = {x: 100.0, y:500.0};
            this.playerTwoPosition = {x: 100.0, y:100.0};
    
            var playerOneName = "Player1";
            this.playerOne = new Player(this.playerOnePosition, playerOneName,"sprites/PlayerOne.png", this.ctx);
-           this.playerTwo = new Player(this.playerTwoPosition, "Player Two","sprites/PlayerTwo.png", this.ctx);
+           //this.playerTwo = new Player(this.playerTwoPosition, "Player Two","sprites/PlayerTwo.png", this.ctx);
            // End Initialisation of players
           
            // Init enemy
            
            this.enemyBrowPosition = {x: 50.0, y: 50.0};
-           this.enemyBrowBoy = new Enemy(this.enemyBrowPosition,"sprites/browBoy.png",this.ctx);
-
+           this.enemyBrowBoy = new Enemy(this.enemyBrowPosition,"sprites/browBoy.png",this.ctx,this.playerOne);
+           
+         
              
         /* INITIALISE ENEMY POOL */
         this.enemyPos = new Array(10);
@@ -64,8 +68,8 @@ class GameScene extends Scene
         ctx.font = '48px serif';
         
          // console.log("Rendering");
-        this.playerTwo.renderPlayer();
-        this.playerOne.renderPlayer();
+        //this.playerTwo.renderPlayer(ctx);
+        this.playerOne.renderPlayer(ctx);
         this.enemyBrowBoy.render();
 
         for(var i = 0; i < 10; i++)
@@ -73,14 +77,18 @@ class GameScene extends Scene
           this.enemyArray[i].render();
         }
 
+  
         
         //ctx.fillStyle = rgb( this.color);
         document.body.style.background = 'White';
     }
-    update()
+    update(tappedX , tappedY , ctx)
     {
-        this.playerOne.update();
-        this.playerTwo.update();
+
+        this.tappedXPos = tappedX;
+        this.tappedYPos = tappedY;
+        this.playerOne.update( this.tappedXPos ,  this.tappedYPos,this.enemyBrowBoy,ctx);
+        //this.playerTwo.update();
         this.enemyBrowBoy.update();
 
     //this.playerTwo.update();

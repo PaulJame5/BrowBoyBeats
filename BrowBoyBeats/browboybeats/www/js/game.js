@@ -21,6 +21,8 @@ class Game
         this.tappedY = 0;
         this.timer =0;
         this.buttonTimer = 0;
+
+       
     }
 
     inputs()

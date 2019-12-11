@@ -17,12 +17,13 @@ function Transform(position={x:0.0, y:0.0})
 
 
 // Returns the distance of two points in 2D space
-Transform.prototype.distance = function(position1 = Position(), position2 = Position())
+Transform.prototype.distance = function(position1 = {x:0 , y:0}, position2 = {x:0 , y:0})
 {
-
-    console.log("X: " +position1.x +"Y: " +position1.y);
-    const distX = position1.getX() - position2.getX();
-    const distY = position1.getY() - position2.getY();
+    /**this.pos = position1;
+    this.targetPos = position2;*/
+    
+    const distX = position1.x - position2.x;
+    const distY = position1.y - position2.y;
 
     var dist = 0.0;
     dist = Math.hypot(distX,distY);

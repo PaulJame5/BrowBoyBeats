@@ -100,12 +100,9 @@ class SceneManager
     {
        this.currentScene.initScene(ctx);
     }
-    update()
+    update(tappedX , tappedY ,ctx)
     {
-     
-        
-
-        this.currentScene.update();
+        this.currentScene.update(tappedX , tappedY,ctx);
     }
 
     
