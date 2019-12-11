@@ -142,7 +142,7 @@ Player.prototype.update = function(tappedX, tappedY,enemyBrowBoy,ctx)
 } // end update
 Player.prototype.getTargetPos = function()
 {
-    return targetPos={x:this.transform.position.getX() + this.playerSize,y:this.transform.position.getY() + this.playerSize};
+    return targetPos={x:this.transform.position.getX() + this.playerSize , y:this.transform.position.getY() + this.playerSize};
 }
 
 // Move funstion for player
@@ -184,36 +184,41 @@ Player.prototype.move = function(tappedX , tappedY,ctx)
     if(this.tapped === false)
     {
     ///right
-    if(this.xCircle > this.stationaryCircleX + this.deadZone || this.input.pressedRight)
-    {
-        // get current x position and then subtract speed
-        this.transform.position.setX(this.transform.position.getX() + this.speed);
-        //ctx.translate(this.speed, 0);
+        if(this.xCircle > this.stationaryCircleX + this.deadZone || this.input.pressedRight)
+        {
+            // get current x position and then subtract speed
+            this.transform.position.setX(this.transform.position.getX() + this.speed);
+            //ctx.translate(this.speed, 0);
+        }
+
+        //left
+        if(this.xCircle < this.stationaryCircleX - this.deadZone ||this.input.pressedLeft )
+        {
+            // get current x position and then add speed
+            this.transform.position.setX(this.transform.position.getX() - this.speed);
+            //ctx.translate(-this.speed, 0);
+            
+        } // end left right movement check
+
+        if(this.yCircle > this.stationaryCircleY + this.deadZone || this.input.pressedDown)
+        {
+            // get current y position and then subtract speed
+            this.transform.position.setY(this.transform.position.getY() + this.speed);
+            //ctx.translate(0, this.speed);
+        }
+        if(this.yCircle < this.stationaryCircleY - this.deadZone || this.input.pressedUp)
+        {
+            // get current y position and then add speed
+            this.transform.position.setY(this.transform.position.getY() - this.speed);
+            //ctx.translate(0, -this.speed);
+        } // end up down movement check
+
+       
     }
 
-    //left
-    if(this.xCircle < this.stationaryCircleX - this.deadZone ||this.input.pressedLeft )
-    {
-        // get current x position and then add speed
-        this.transform.position.setX(this.transform.position.getX() - this.speed);
-        //ctx.translate(-this.speed, 0);
-        
-    } // end left right movement check
-
-    if(this.yCircle > this.stationaryCircleY + this.deadZone || this.input.pressedDown)
-    {
-        // get current y position and then subtract speed
-        this.transform.position.setY(this.transform.position.getY() + this.speed);
-        //ctx.translate(0, this.speed);
-    }
-    if(this.yCircle < this.stationaryCircleY - this.deadZone || this.input.pressedUp)
-    {
-        // get current y position and then add speed
-        this.transform.position.setY(this.transform.position.getY() - this.speed);
-        //ctx.translate(0, -this.speed);
-    } // end up down movement check
-    }
-
+    this.playerTextX = this.transform.position.getX() + this.playerSize ;
+    this.playerTextY = this.transform.position.getY() + this.playerSize ;
+    console.log("PlayerX: " +this.playerTextX+ " PlayerY: " + this.playerTextY);
 
 } // end move
 Player.prototype.onTouchStart = function(e)
@@ -254,6 +259,12 @@ Player.prototype.onTouchMove = function(e)
     this.startX = this.endX;
     this.startY = this.endY;
 
+}
+
+
+Player.prototype.getName = function()
+{
+    return this.name;
 }
 
 /**

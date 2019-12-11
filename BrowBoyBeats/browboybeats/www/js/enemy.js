@@ -28,7 +28,7 @@ function Enemy(init_position={x:0.0,y:0.0},src="",context,player)
     this.healthCost = 10;
    
     //=======================
-    this.targets = 
+    this.Targets = 
     {
         LEFT : 0,
         RIGHT : 1,
@@ -41,7 +41,7 @@ function Enemy(init_position={x:0.0,y:0.0},src="",context,player)
         WAIT: 8
     }
     
-    this.target = this.targets;
+    this.currentTarget = this.Targets.LEFT;
     
     //--------------------------------------------------------------------
     //Exaple switch statement
@@ -127,51 +127,56 @@ Enemy.prototype.takeDamage = function()
 }
 Enemy.prototype.move = function()
 {
+    
     this.target = this.player.getTargetPos();
-   
-    switch (this.target)
+    console.log("X:  " + this.target.x +"Y:  " + this.target.y);
+    switch (this.currentTarget)
     {
-        case this.targets.BOTTOM:
+        case this.Targets.BOTTOM:
             this.target.y -= this.offsetY;
             break;
-        case this.targets.TOP:
+        case this.Targets.TOP:
             this.target.y += this.offsetY;
             break;
-        case this.targets.LEFT:
+        case this.Targets.LEFT:
             this.target.x -= this.offsetX ;
             break;
-        case this.targets.RIGHT:
+        case this.Targets.RIGHT:
             this.target.x+= this.offsetX ;
             break;
-        case this.targets.TOP_LEFT:
+        case this.Targets.TOP_LEFT:
             this.target.y += this.offsetY;
             this.target.x -= this.offsetX ;
             break;
-        case this.targets.TOP_RIGHT:
+        case this.Targets.TOP_RIGHT:
             this.target.x += this.offsetX ;
             this.target.y += this.offsetY;
             break;
-        case this.targets.BOTTOM_LEFT:
+        case this.Targets.BOTTOM_LEFT:
             this.target.y -= this.offsetY;
             this.target.x -= this.offsetX ;
             break;
-        case this.targets.BOTTOM_RIGHT:
+        case this.Targets.BOTTOM_RIGHT:
             this.target.x += this.offsetX ;
             this.target.y -= this.offsetY;
             break;
-        case this.targets.WAIT: 
+        case this.Targets.WAIT: 
             break;
         default:
-            this.target= this.targets.WAIT;
+            this.target= this.Targets.WAIT;
             break;
     }
   
-    this.current = this.position;
-    this.distance = this.transform.distance(this.current , this.target);
+    this.currentTest = {x: 100 , y: 500};
+    this.test = {x:300 , y: 550};
+    this.current = {x:this.transform.position.getX() ,y:this.transform.position.getY()}
+    this.distance = this.transform.distance(this.current , this.target );
+
+
     this.moveTo = this.moveTowards(this.current,this.target ,this.distance);
 
-
-    console.log("Distance: " + this.distance);
+    //console.log("Move to X : " + this.moveTo.x + " Move to Y : " + this.moveTo.y);
+    
 
     if(this.distancs < 0.5)
     {
@@ -182,24 +187,25 @@ Enemy.prototype.move = function()
 }
 Enemy.prototype.moveTowards = function(current_position={x:0.0,y:0.0},target_position={x:0.0,y:0.0} ,maxDistace)
 {
-
     this.target = target_position;
     this.current = current_position;
     this.maxDistance = maxDistace;
 
-
+    //console.log("Target to X : " + this.target.x + " Current to X : " + this.current.x + " MaxDistance" + this.maxDistance );
     this.toVecX = this.target.x - this.current.x;
     this.toVecY = this.target.y - this.current.y; 
-
+    
     this.squaredDistance = this.toVecX * this.toVecX + this.toVecY * this.toVecY;
 
     if(this.squaredDistance == 0 || this.maxDistance >= 0 
         && this.squaredDistance <= this.maxDistance * this.maxDistance)
     {
        return this.target;
-       var dist = Math.sqrt(this.squaredDistance);
+      
     }
-
+    var dist = Math.sqrt(this.squaredDistance);
     return  this.current.x + this.toVecX / dist * this.maxDistance , this.current.y + this.toVecY / dist * this.maxDistance;
    
 }
+
+

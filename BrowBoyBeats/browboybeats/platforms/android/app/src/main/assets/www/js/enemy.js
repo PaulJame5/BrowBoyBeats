@@ -1,9 +1,9 @@
-// This is the player class where there are fuctions readily availble to be used
+// This is the enemy class where there are fuctions readily availble to be used
 
 
 
-// Player Class
-function Enemy(init_position={x:0.0,y:0.0},src="",context)
+// enemy Class
+function Enemy(init_position={x:0.0,y:0.0},src="",context,player)
 {
     this.name = name;
     
@@ -12,20 +12,54 @@ function Enemy(init_position={x:0.0,y:0.0},src="",context)
     input = new Input();
     input.initSelf();
     this.input = input;
-
+    this.player = player;
+    this.HIVE_MIND_ID = 0;
+    this.attackMode = false;
+    this.timeInbetweenAttacking = 1.8;
+    this.timeSinceLastAttack;
     this.speed = 5;
-
+    this.position = init_position;
+    this.playerIndexTargetChoice = 0;
+    this.deathTime = 10;
     this.initSpritesheet(src, context);
-    
-    console.log("Initialised Enemy");
+    this.offsetX = 2.4;
+    this.offsetY = 3;
+    this.health = 100;
+    this.healthCost = 10;
    
     //=======================
-
+    this.targets = 
+    {
+        LEFT : 0,
+        RIGHT : 1,
+        TOP: 2,
+        BOTTOM: 3,
+        TOP_LEFT: 4,
+        TOP_RIGHT: 5,
+        BOTTOM_LEFT: 6,
+        BOTTOM_RIGHT: 7,
+        WAIT: 8
+    }
+    
+    this.target = this.targets;
+    
+    //--------------------------------------------------------------------
+    //Exaple switch statement
+    //--------------------------------------------------------------------
+    /** 
+    switch(target){
+        case targets.LEFT:
+        
+        case targets.RIGHT:
+       
+        case targets.TOP:
+        
+        case targets.BOTTOM:
+        
+    }*/
 
 
 }
-
-
 Enemy.prototype.initSpritesheet = function(src="",context)
 {
     this.sprites = new Sprite();
@@ -49,7 +83,10 @@ Enemy.prototype.initSpritesheet = function(src="",context)
         numberOfFrames: 4
     });
 }
-
+Enemy.prototype.getEnemyPosition = function()
+{
+    return pos={x:this.transform.position.getX(),y:this.transform.position.getY()};
+}
 
   
 
@@ -58,14 +95,23 @@ Enemy.prototype.render = function()
 {
     // Draw Player Sprite in here
     this.enemySprite.update();
-    this.enemySprite.render(this.transform.position.get());
+    if(this.health <= 0)
+    {
+        this.deathTime =  this.deathTime -1;
+    }
+    if(this.health > 0 && this.deathTime !== 0 || this.deathTime === 2 
+        || this.deathTime === 4 || this.deathTime === 6 || this.deathTime === 8)
+    {
+        this.enemySprite.render(this.transform.position.get());
+    }
 }
 
 
 // Update player behaviour in here
 Enemy.prototype.update = function()
 {
-
+    //console.log("Health: " + this.health);
+    this.move();
 } // end update
 
 // Move funstion for player
@@ -74,4 +120,87 @@ Enemy.prototype.setPosition = function(pos = {x:0,y:0})
     this.transform.position.setX(pos.x);
     this.transform.position.setY(pos.y);
 
-} // end move
+} 
+Enemy.prototype.takeDamage = function()
+{
+    this.health = this.health - this.healthCost;
+}
+Enemy.prototype.move = function()
+{
+    this.target = this.player.getTargetPos();
+   
+    switch (this.target)
+    {
+        case this.targets.BOTTOM:
+            this.target.y -= this.offsetY;
+            break;
+        case this.targets.TOP:
+            this.target.y += this.offsetY;
+            break;
+        case this.targets.LEFT:
+            this.target.x -= this.offsetX ;
+            break;
+        case this.targets.RIGHT:
+            this.target.x+= this.offsetX ;
+            break;
+        case this.targets.TOP_LEFT:
+            this.target.y += this.offsetY;
+            this.target.x -= this.offsetX ;
+            break;
+        case this.targets.TOP_RIGHT:
+            this.target.x += this.offsetX ;
+            this.target.y += this.offsetY;
+            break;
+        case this.targets.BOTTOM_LEFT:
+            this.target.y -= this.offsetY;
+            this.target.x -= this.offsetX ;
+            break;
+        case this.targets.BOTTOM_RIGHT:
+            this.target.x += this.offsetX ;
+            this.target.y -= this.offsetY;
+            break;
+        case this.targets.WAIT: 
+            break;
+        default:
+            this.target= this.targets.WAIT;
+            break;
+    }
+  
+    this.current = {x: 100 , y: 500};
+    this.test = {x:300 , y: 550};
+    this.distance = this.transform.distance(this.current , this.test);
+    this.moveTo = this.moveTowards(this.current,this.target ,this.distance);
+
+
+    console.log("Distance: " + this.distance);
+
+    if(this.distancs < 0.5)
+    {
+        
+    }
+
+
+}
+Enemy.prototype.moveTowards = function(current_position={x:0.0,y:0.0},target_position={x:0.0,y:0.0} ,maxDistace)
+{
+
+    this.target = target_position;
+    this.current = current_position;
+    this.maxDistance = maxDistace;
+
+
+    this.toVecX = this.target.x - this.current.x;
+    this.toVecY = this.target.y - this.current.y; 
+
+    this.squaredDistance = this.toVecX * this.toVecX + this.toVecY * this.toVecY;
+
+    if(this.squaredDistance == 0 || this.maxDistance >= 0 
+        && this.squaredDistance <= this.maxDistance * this.maxDistance)
+    {
+       return this.target;
+       var dist = Math.sqrt(this.squaredDistance);
+    }
+
+    return  this.current.x + this.toVecX / dist * this.maxDistance , this.current.y + this.toVecY / dist * this.maxDistance;
+   
+}
