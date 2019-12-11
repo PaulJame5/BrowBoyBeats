@@ -1,6 +1,8 @@
-function Camera()
+function Camera(player_one, player_two)
 {
-
+    this.player_one = player_one;
+    this.player_two = player_two;
+    
     this.position = {x: 0, y: 0};
     this.canFollow = true;
 }
