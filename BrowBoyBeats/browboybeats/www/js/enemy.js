@@ -128,52 +128,52 @@ Enemy.prototype.takeDamage = function()
 Enemy.prototype.move = function()
 {
     
-    this.target = this.player.getTargetPos();
     
-    this.currentTarget = this.Targets.BOTTOM;
-    switch (this.currentTarget)
-    {
-        case this.Targets.BOTTOM:
-            this.target.y -= this.offsetY;
-            break;
-        case this.Targets.TOP:
-            this.target.y += this.offsetY;
-            break;
-        case this.Targets.LEFT:
-            this.target.x -= this.offsetX ;
-            break;
-        case this.Targets.RIGHT:
-            this.target.x+= this.offsetX ;
-            break;
-        case this.Targets.TOP_LEFT:
-            this.target.y += this.offsetY;
-            this.target.x -= this.offsetX ;
-            break;
-        case this.Targets.TOP_RIGHT:
-            this.target.x += this.offsetX ;
-            this.target.y += this.offsetY;
-            break;
-        case this.Targets.BOTTOM_LEFT:
-            this.target.y -= this.offsetY;
-            this.target.x -= this.offsetX ;
-            break;
-        case this.Targets.BOTTOM_RIGHT:
-            this.target.x += this.offsetX ;
-            this.target.y -= this.offsetY;
-            break;
-        case this.Targets.WAIT: 
-            break;
-        default:
-            this.target= this.Targets.WAIT;
-            break;
-    }
+    
+    // this.currentTarget = this.Targets.BOTTOM;
+    // switch (this.currentTarget)
+    // {
+    //     case this.Targets.BOTTOM:
+    //         this.target.y -= this.offsetY;
+    //         break;
+    //     case this.Targets.TOP:
+    //         this.target.y += this.offsetY;
+    //         break;
+    //     case this.Targets.LEFT:
+    //         this.target.x -= this.offsetX ;
+    //         break;
+    //     case this.Targets.RIGHT:
+    //         this.target.x+= this.offsetX ;
+    //         break;
+    //     case this.Targets.TOP_LEFT:
+    //         this.target.y += this.offsetY;
+    //         this.target.x -= this.offsetX ;
+    //         break;
+    //     case this.Targets.TOP_RIGHT:
+    //         this.target.x += this.offsetX ;
+    //         this.target.y += this.offsetY;
+    //         break;
+    //     case this.Targets.BOTTOM_LEFT:
+    //         this.target.y -= this.offsetY;
+    //         this.target.x -= this.offsetX ;
+    //         break;
+    //     case this.Targets.BOTTOM_RIGHT:
+    //         this.target.x += this.offsetX ;
+    //         this.target.y -= this.offsetY;
+    //         break;
+    //     case this.Targets.WAIT: 
+    //         break;
+    //     default:
+    //         this.target= this.Targets.WAIT;
+    //         break;
+    // }
   
     
     
-    this.distance = this.transform.distance(this.transform.position.get(), this.target);
+    this.distance = this.transform.distance(this.transform.position.get(), this.player.transform.position.get());
 
-
-    this.moveTo = this.transform.moveTowards(this.transform.position.get(),this.target ,this.distance, this.speed);
+    // works
+    this.moveTo = this.transform.moveTowards(this.transform.position.get(),this.player.transform.position.get(), this.speed);
 
 
     console.log("Move to X : " + this.moveTo.x + " Move to Y : " + this.moveTo.y);

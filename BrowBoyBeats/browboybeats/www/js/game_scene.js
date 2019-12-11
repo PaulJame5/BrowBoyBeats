@@ -61,7 +61,7 @@ class GameScene extends Scene
         {
             this.enemyPos[i].x = Math.floor(Math.random() * 300);
             this.enemyPos[i].y = Math.floor(Math.random() * 300);
-            this.enemyArray[i] = new Enemy(this.enemyPos[i],"sprites/browBoy.png",this.ctx);
+            this.enemyArray[i] = new Enemy(this.enemyPos[i],"sprites/browBoy.png",this.ctx,this.playerOne);
             this.enemyArray[i].setPosition(this.enemyPos[i]);
         }
         
@@ -99,6 +99,7 @@ class GameScene extends Scene
         for(var i = 0; i < 10; i++)
         {
           this.enemyArray[i].render();
+          this.enemyArray[i].update();
         }
 
         if(this.playerOne.getRight() == true)
