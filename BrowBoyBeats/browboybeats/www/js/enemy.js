@@ -130,7 +130,7 @@ Enemy.prototype.move = function()
     
     this.target = this.player.getTargetPos();
     
-    
+    this.currentTarget = this.Targets.BOTTOM;
     switch (this.currentTarget)
     {
         case this.Targets.BOTTOM:
@@ -170,10 +170,10 @@ Enemy.prototype.move = function()
   
     
     
-    this.distance = this.transform.distance(this.transform.position.get() , this.target );
+    this.distance = this.transform.distance(this.transform.position.get(), this.target);
 
 
-    this.moveTo = this.transform.moveTowards(this.transform.position.get(),this.target ,this.distance);
+    this.moveTo = this.transform.moveTowards(this.transform.position.get(),this.target ,this.distance, this.speed);
 
     
     

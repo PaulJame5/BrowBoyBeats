@@ -71,15 +71,26 @@ class GameScene extends Scene
  */
     render(ctx)
     {
-       // ctx.clearRect(0,0,ctx.canvas.width, ctx.canvas.height);
-        ctx.font = '48px serif';
+        ctx.clearRect(0,0, 100,100);
         ctx.save();
+        //ctx.setPosition(this.camera.getPosition().x,this.camera.getPosition().y);
         ctx.translate(this.camera.getPosition().x,this.camera.getPosition().y);
+        
+        
+       
+       
+        ctx.font = '48px serif';
+        
+        
+
+        
+        
         
         
         //this.playerTwo.renderPlayer(ctx);
         this.playerOne.renderPlayer(ctx);
         this.enemyBrowBoy.render();
+
 
         for(var i = 0; i < 10; i++)
         {
@@ -88,17 +99,20 @@ class GameScene extends Scene
 
         if(this.playerOne.getRight() == true)
         {
-            console.log("p");
-            this.camera.setPositionX(this.camera.getPosition().x + 1);
+            console.log("ff");
+            this.camera.setPositionX(this.camera.getPosition().x += 5);
         }
         if(this.playerOne.getLeft() == true)
         {
-            console.log("l");
-            this.camera.setPositionX(this.camera.getPosition().x - 1);
+            
+            console.log("dd");
+            this.camera.setPositionX(this.camera.getPosition().x -= 5);
         }
         
+        ctx.restore();
         //ctx.fillStyle = rgb( this.color);
-        document.body.style.background = 'White';
+        document.body.style.background = 'White'; 
+        //ctx = null;
     }
 
 

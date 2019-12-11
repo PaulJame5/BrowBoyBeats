@@ -59,6 +59,8 @@ class Game
         */
        
         this.ctx = canvas.getContext("2d");
+        this.ctx.width = 2000;
+        this.ctx.height = 2000;
         /**
         *Adds the canvas element to the document.
         */
@@ -225,7 +227,7 @@ class Game
         // Throttle the frame rate.    
         if (Date.now() < this.lastFrameTimeMs + (1000 / this.maxFPS)) 
         {
-           // console.log("Frame Buffer");
+            
             window.requestAnimationFrame(this.boundRecursiveUpdate);
 
 
@@ -297,7 +299,7 @@ class Game
         */
         
 
-      //  console.log("Rendering Completed");
+        
       
         window.requestAnimationFrame(this.boundRecursiveUpdate);
 
