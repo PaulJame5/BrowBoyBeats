@@ -56,8 +56,8 @@ class Input
     this.timeTouchBeganAt = Date.now();
 
     
-    console.log("start");
-    console.log(this.direction);
+    
+    
 
     
     }
@@ -75,8 +75,6 @@ class Input
         this.direction.x = e.changedTouches[0].clientX - this.startPosition.x;
         this.direction.y = e.changedTouches[0].clientY - this.startPosition.y;
 
-        console.log("moved");
-        console.log(this.direction);
         this.directionalInputCheck();
         
     
@@ -150,8 +148,7 @@ class Input
             this.pressedUp = false;
         }
         
-        console.log("directionalinput");
-        console.log(this.direction);
+        
 
 
     }

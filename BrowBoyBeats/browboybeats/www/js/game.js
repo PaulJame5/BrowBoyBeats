@@ -48,10 +48,10 @@ class Game
         var canvas = document.createElement("canvas");
         canvas.id = 'mycanvas';
     
-        const DEFAULT_HEIGHT = 768;
-        const DEFAULT_WIDTH = (window.innerWidth / window.innerHeight) * DEFAULT_HEIGHT;
-        canvas.width = DEFAULT_WIDTH;
-        canvas.height = DEFAULT_HEIGHT;
+        const DEFAULT_HEIGHT = window.innerHeight;
+        const DEFAULT_WIDTH = window.innerWidth
+        canvas.width = DEFAULT_WIDTH
+        canvas.height = DEFAULT_HEIGHT
 
        
         /**
