@@ -176,7 +176,6 @@ Enemy.prototype.move = function()
     this.moveTo = this.transform.moveTowards(this.transform.position.get(),this.player.transform.position.get(), this.speed);
 
 
-    console.log("Move to X : " + this.moveTo.x + " Move to Y : " + this.moveTo.y);
     this.transform.position.setPosition(this.moveTo);
 
 
