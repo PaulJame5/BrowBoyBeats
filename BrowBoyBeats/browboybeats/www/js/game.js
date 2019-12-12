@@ -21,11 +21,10 @@ class Game
         this.tappedY = 0;
         this.timer =0;
         this.buttonTimer = 0;
+
         
         this.myMusic = new Sound("bgm/Main.wav");
         
-        
-        this.myMusic.loop();
        
     }
 
@@ -53,7 +52,7 @@ class Game
         canvas.id = 'mycanvas';
     
         const DEFAULT_HEIGHT = window.innerHeight;
-        const DEFAULT_WIDTH = window.innerWidth
+        const DEFAULT_WIDTH = window.innerWidth;
         canvas.width = DEFAULT_WIDTH
         canvas.height = DEFAULT_HEIGHT
 
@@ -168,6 +167,8 @@ class Game
 
         this.startX = this.endX;
         this.startY = this.endY;
+
+        this.loadedGame = false;
     }
         
     /**
@@ -229,6 +230,7 @@ class Game
     update()
     { 
         
+        
         // Throttle the frame rate.    
         if (Date.now() < this.lastFrameTimeMs + (1000 / this.maxFPS)) 
         {
@@ -288,6 +290,9 @@ class Game
         
         if(this.tapped = true && this.sceneManager.getScene() == "GameScreen")
         {
+            
+            
+            this.myMusic.loopSong();
             this.sceneManager.update(this.tappedX , this.tappedY,this.ctx);
         }
         else

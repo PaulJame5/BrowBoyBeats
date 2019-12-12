@@ -173,10 +173,10 @@ Enemy.prototype.move = function()
     this.distance = this.transform.distance(this.transform.position.get(), this.player.transform.position.get());
 
     // works
-    this.moveTo = this.transform.moveTowards(this.transform.position.get(),this.player.transform.position.get(), this.speed);
+    //this.moveTo = this.transform.moveTowards(this.transform.position.get(),this.player.transform.position.get(), this.speed);
 
 
-    this.transform.position.setPosition(this.moveTo);
+    //this.transform.position.setPosition(this.moveTo);
 
 
     if(this.distance < 0.5)

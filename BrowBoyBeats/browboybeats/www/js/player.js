@@ -86,6 +86,16 @@ Player.prototype.getLeft = function()
 {
     return this.input.pressedLeft;
 }
+
+Player.prototype.getUp = function()
+{
+    return this.input.pressedUp;
+}
+
+Player.prototype.getDown = function()
+{
+    return this.input.pressedDown;
+}
 // Update player behaviour in here
 Player.prototype.update = function()
 {    

@@ -20,10 +20,7 @@ class GameScene extends Scene
 
     initScene(ctx)
     {
-
         
-        this.myMusic = new Sound("bgm/Main.wav");
-        this.myMusic.play();
 
         // DEBUG CAMERA
         this.offsetX = 0;
@@ -79,9 +76,13 @@ class GameScene extends Scene
  */
     render(ctx)
     {
+        ctx.resetTransform();
+       // ctx.style(pixel)
         ctx.clearRect(0,0, 100,100);
+        ctx.scale(2,2);
         ctx.save();
-        this.camera.setPositionX(-this.playerOne.transform.position.getX()+ 50);
+        this.camera.setPositionX(-this.playerOne.transform.position.getX() + -273 + window.innerWidth/2);
+        this.camera.setPositionY(-this.playerOne.transform.position.getY() + -435 + window.innerHeight/2);
         //ctx.setPosition(this.camera.getPosition().x,this.camera.getPosition().y);
         ctx.translate(this.camera.getPosition().x,this.camera.getPosition().y);
         
@@ -110,12 +111,22 @@ class GameScene extends Scene
         // Camera move debug ===============
         if(this.playerOne.getRight() == true)
         {
-            this.camera.setPositionX(this.camera.getPosition().x += 5);
+            this.offsetX--;
         }
 
         if(this.playerOne.getLeft() == true)
         {
-            this.camera.setPositionX(this.camera.getPosition().x -= 5);
+            this.offsetX++;
+        } 
+        
+        if(this.playerOne.getUp() == true)
+        {
+            this.offsetY++;
+        }
+
+        if(this.playerOne.getDown() == true)
+        {
+            this.offsetY--;
         }
         // end camera move debug ================
         

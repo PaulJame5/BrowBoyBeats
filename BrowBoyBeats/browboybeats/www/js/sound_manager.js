@@ -1,4 +1,4 @@
-function Sound(src, loop = false) 
+function Sound(src) 
 {
     this.sound = document.createElement("audio");
     this.sound.src = src;
@@ -8,13 +8,11 @@ function Sound(src, loop = false)
 
     document.body.appendChild(this.sound);
 
-    this.loop = function()
+    this.loopSong = function()
     {
-        this.sound.addEventListener('ended', function() 
-        {
-            this.currentTime = this.startTime;
-            this.play();
-        }, false);
+        
+        this.sound.loop = true;
+        this.sound.play();
     }
     this.play = function()
     {

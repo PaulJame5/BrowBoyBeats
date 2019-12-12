@@ -22,3 +22,9 @@ var Key = {
       delete this._pressed[event.keyCode];
     }
   };
+
+
+  this.myMusic = new Sound("bgm/Main.wav");
+        
+        
+  this.myMusic.loop();

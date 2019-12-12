@@ -1,3 +1,11 @@
+function setpixelated(context){
+  context['imageSmoothingEnabled'] = false;       /* standard */
+  context['mozImageSmoothingEnabled'] = false;    /* Firefox */
+  context['oImageSmoothingEnabled'] = false;      /* Opera */
+  context['webkitImageSmoothingEnabled'] = false; /* Safari */
+  context['msImageSmoothingEnabled'] = false;     /* IE */
+}
+
 class Sprite
 {
     
@@ -28,6 +36,7 @@ class Sprite
     
     that.render = function (psotion = {x:0,y:0},offset) 
     {
+      setpixelated(that.context);
       this.context.clearRect(0, 0,that.width,that.height);
       this.context.drawImage(that.image, frameIndex * that.width / that.numberOfFrames, 0, that.width / that.numberOfFrames, 32, psotion.x, psotion.y, that.width / that.numberOfFrames, 32);
     };
