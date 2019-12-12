@@ -21,6 +21,10 @@ class GameScene extends Scene
     initScene(ctx)
     {
 
+        
+        this.myMusic = new Sound("bgm/Main.wav");
+        this.myMusic.play();
+
         // DEBUG CAMERA
         this.offsetX = 0;
         this.offsetY = 0;

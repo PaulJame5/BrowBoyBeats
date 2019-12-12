@@ -21,7 +21,11 @@ class Game
         this.tappedY = 0;
         this.timer =0;
         this.buttonTimer = 0;
-
+        
+        this.myMusic = new Sound("bgm/Main.wav");
+        
+        
+        this.myMusic.loop();
        
     }
 
@@ -224,6 +228,7 @@ class Game
     */
     update()
     { 
+        
         // Throttle the frame rate.    
         if (Date.now() < this.lastFrameTimeMs + (1000 / this.maxFPS)) 
         {
