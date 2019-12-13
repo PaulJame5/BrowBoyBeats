@@ -1,71 +1,43 @@
-function LevelLoading()
-{
-    var context;
-    var data;
-    var layers = [];
-
-    this.getMap = function(name,ctx)
-    {
-        context = ctx;
-        $.getJSON('tilemap/'+ name + '.json' , function(json)
-        {
-            getTileset(json);
-        });
+this.loadJSON = function( path, success, error ) {
+    
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                if (success)
+                    success(JSON.parse(xhr.responseText));
+            } else {
+                if (error)
+                    error(xhr);
+            }
+        }
     };
+    xhr.open("GET", path, true);
+    xhr.send();
+}
 
-    function getTileset(json)
+this.loadJSON("maps/level" + this.level + ".json?",function( map ) {
+    dw.map = map;
+    dw.load_map_resources();
+    dw.on_load_completed();
+}, false); 
+
+this.load_map_resources = function() 
+{
+
+    var dw = this;
+    var imagePath = "img";
+
+    for ( var i = 0 ; i <  this.map.tilesets.length ; i++ ) 
     {
-        data = json;
-        this.tileset = $("<sprites/>" , {src: json.tilesets[o].image})[0];
-        this.tileset.onload = renderLayers(this);
+        if ( this.map.tilesets[i].name == "TileMap" ) {
 
-    }
-    function renderLayers(layers)
-    {
-        layers = $.isArray(layers) ? layers :data.layers;
-        layers.forEach(renderLayer);
-            
-        
-    }
-    function renderLayer(layer)
-    {
-        if(layer.type !== "tilelayer" || !layer.opacity)
-        {
-            alert("Not tilelayer");
-        }
-        var s = c.canvas.cloneNode(),size = data.tileWidth;
-        s = s.getContext("2d");
-
-        if(layers.length < data.layers.length)
-        {
-            layer.data.forEach(function(title_idx, i)
-            {
-                if(!title_idx)
-                {
-                    return;
-                }
-
-                var imgX ,imgY ,sX,sY,title=data.tileset[0];
-                title_idx--;
-                imgX = (title_idx % (tile.imagewidth / size)) * size;
-                imgY = ~~(title_idx / (tile.imagewidth / size)) * size;
-                sX = (i % layer.width) * size;
-                sY = ~~(i / layer.width) * size;
-
-                s.drawImage(this.tileset , imgX ,imgY ,size ,size ,sX,sY,size,size)
-            });
-
-            layers.push(s.canvas.toDataURL());
-            context.drawImage(s.canvas, 0 ,0);
-
-        }
-        else
-        {
-            layers.forEach(function(src)
-            {
-                var i =$("<img />", { src: src })[0];
-                context.drawImage(i,0,0);
-            })
-        }
+            // Tiles
+            this.sprite_bgtiles = new Image();
+            this.sprite_bgtiles.src = imagePath + "/" + this.baseName( this.map.tilesets[i].image  );
+            this.sprite_bgtiles.addEventListener('load', function() {
+                dw.on_load_completed();
+            },false);
+        } 
     }
 }

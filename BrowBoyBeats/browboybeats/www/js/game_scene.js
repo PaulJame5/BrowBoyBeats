@@ -36,12 +36,16 @@ class GameScene extends Scene
            this.playerOne = new Player(this.playerOnePosition, playerOneName,"sprites/PlayerOne.png", this.ctx);
            //this.playerTwo = new Player(this.playerTwoPosition, "Player Two","sprites/PlayerTwo.png", this.ctx);
            // End Initialisation of players
+           console.log("aa");
+          // this.value = ;
+           //handleFiles("tilemap/Level_One.txt");
+          
+          loadJSON("tilemap/Level_One.json");
+          
+          console.log("aa");
           
            // Init enemy
            
-           var level = new LevelLoading(); 
-
-           this.levelLoader = new LevelLoading("tilemap/BrowBoyMap/json");
 
            this.enemyBrowPosition = {x: 50.0, y: 50.0};
            this.enemyBrowBoy = new Enemy(this.enemyBrowPosition,"sprites/browBoy.png",this.ctx,this.playerOne);
