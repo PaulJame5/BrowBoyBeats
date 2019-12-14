@@ -17,6 +17,7 @@ class Input
         this.pressedRight = false;
         this.pressedUp = false;
         this.pressedDown = false;
+        this.attack =false;
 
         // values for use with touch input
         this.direction = {x:0,y:0};
@@ -54,11 +55,6 @@ class Input
     this.startPosition.y = e.touches[0].clientY;
 
     this.timeTouchBeganAt = Date.now();
-
-    
-    
-    
-
     
     }
 
@@ -93,7 +89,8 @@ class Input
     {  
         if(this.timeTouchBeganAt + this.timeDelayToCountAsAttackInput < Date.now())
         {
-            // Attack is true
+            // Attack is true(Used fo the tutorial)
+            this.attack =true;
         }
 
         this.startPosition.x = 0;
