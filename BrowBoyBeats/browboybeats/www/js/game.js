@@ -11,6 +11,8 @@ class Game
 {
     constructor()
     {
+        document.cookie = "Set-Cookie: widget_session=abc123; SameSite=None; Secure";
+
         document.addEventListener('touchstart', function(e) {e.preventDefault();}, {passive: false});
         this.boundRecursiveUpdate = () => this.update(this);
 
@@ -22,6 +24,9 @@ class Game
         this.timer =0;
         this.buttonTimer = 0;
 
+        
+        this.myMusic = new Sound("bgm/Main.wav");
+        
        
     }
 
@@ -48,10 +53,10 @@ class Game
         var canvas = document.createElement("canvas");
         canvas.id = 'mycanvas';
     
-        const DEFAULT_HEIGHT = 768;
-        const DEFAULT_WIDTH = (window.innerWidth / window.innerHeight) * DEFAULT_HEIGHT;
-        canvas.width = DEFAULT_WIDTH;
-        canvas.height = DEFAULT_HEIGHT;
+        const DEFAULT_HEIGHT = window.innerHeight;
+        const DEFAULT_WIDTH = window.innerWidth;
+        canvas.width = DEFAULT_WIDTH
+        canvas.height = DEFAULT_HEIGHT
 
        
         /**
@@ -59,6 +64,8 @@ class Game
         */
        
         this.ctx = canvas.getContext("2d");
+        this.ctx.width = 2000;
+        this.ctx.height = 2000;
         /**
         *Adds the canvas element to the document.
         */
@@ -162,6 +169,8 @@ class Game
 
         this.startX = this.endX;
         this.startY = this.endY;
+
+        this.loadedGame = false;
     }
         
     /**
@@ -222,10 +231,12 @@ class Game
     */
     update()
     { 
+        
+        
         // Throttle the frame rate.    
         if (Date.now() < this.lastFrameTimeMs + (1000 / this.maxFPS)) 
         {
-           // console.log("Frame Buffer");
+            
             window.requestAnimationFrame(this.boundRecursiveUpdate);
 
 
@@ -281,6 +292,9 @@ class Game
         
         if(this.tapped = true && this.sceneManager.getScene() == "GameScreen")
         {
+            
+            
+           // this.myMusic.loopSong();
             this.sceneManager.update(this.tappedX , this.tappedY,this.ctx);
         }
         else
@@ -295,14 +309,8 @@ class Game
         /**var scene = this.sceneManager.getScene();
         this.sceneManager.update();
         */
-        
-
-      //  console.log("Rendering Completed");
-      
         window.requestAnimationFrame(this.boundRecursiveUpdate);
 
-
-        
          
     }
     render()

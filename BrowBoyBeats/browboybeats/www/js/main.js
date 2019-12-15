@@ -35,6 +35,7 @@ function main()
     //document.addEventListener("keydown", () => this.keyDownHandler(game , event)); 
     //document.addEventListener("keyup", () => this.keyUpHandler(game , event)); 
     this.pressed = false;
+    
     /**
      * call functions to init the world and update game
      */
