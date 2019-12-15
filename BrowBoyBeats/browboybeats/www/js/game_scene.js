@@ -12,15 +12,15 @@ class GameScene extends Scene
         this.ctx = ctx;
         this.input = new Input();
         this.camera = new Camera();
-        this.spritePosition ={x:50 ,y:50};
-        this.timer = 0;
+        
+        
 
         
     }
 
     initScene(ctx)
     {
-
+        this.timer = 0;
         // DEBUG CAMERA
         this.offsetX = 0;
         this.offsetY = 0;
@@ -38,7 +38,7 @@ class GameScene extends Scene
            // initialise Players
            this.playerOnePosition = {x: 100.0, y:500.0};
            this.playerTwoPosition = {x: 100.0, y:100.0};
-   
+           this.spritePosition ={x:50 ,y:50};
            var playerOneName = "Player1";
            this.playerOne = new Player(this.playerOnePosition, playerOneName,"sprites/PlayerOne.png", this.ctx ,this.input);
            //this.playerTwo = new Player(this.playerTwoPosition, "Player Two","sprites/PlayerTwo.png", this.ctx);
@@ -47,9 +47,7 @@ class GameScene extends Scene
            // Init enemy
            
            var level = new LevelLoading(); 
-
            this.levelLoader = new LevelLoading("tilemap/BrowBoyMap/json");
-
            this.enemyBrowPosition = {x: 50.0, y: 50.0};
            this.enemyBrowBoy = new Enemy(this.enemyBrowPosition,"sprites/browBoy.png",this.ctx,this.playerOne);
            
@@ -119,13 +117,20 @@ class GameScene extends Scene
         // end camera move debug ================
         //draw tutorial sprite
         ctx.drawImage(this.img, this.spritePosition.x  , this.spritePosition.y);
-        
         ctx.restore();
-        
         document.body.style.background = 'White'; 
         
     }
     update(tappedX , tappedY , ctx)
+    {       
+        this.tutorialManager();
+        this.tappedXPos = tappedX;
+        this.tappedYPos = tappedY;
+        this.playerOne.update( this.tappedXPos ,  this.tappedYPos,this.enemyBrowBoy,ctx);
+        //this.playerTwo.update();
+        this.enemyBrowBoy.update();
+    }
+    tutorialManager()
     {
         if(this.timer !== 120)
         {
@@ -136,22 +141,10 @@ class GameScene extends Scene
         {
             this.img.src = 'sprites/tutorial1.png';
         }
-        if(this.timer >= 60 && this.input.attack === true 
-            && this.input.pressedDown === false )
+        else if(this.timer >= 60 && this.input.attack === true 
+            && this.input.pressedDown === false)
         {
             this.img.src = 'sprites/tutorial2.png';
         }
-        this.tappedXPos = tappedX;
-        this.tappedYPos = tappedY;
-        this.playerOne.update( this.tappedXPos ,  this.tappedYPos,this.enemyBrowBoy,ctx);
-        //this.playerTwo.update();
-        this.enemyBrowBoy.update();
-
-    //this.playerTwo.update();
-    
-    
-
-
-
     }
 }

@@ -75,11 +75,7 @@ class Input
         
     
     } // on touch
-
-
-    
     /**
-    * 
     * Function to get the end of a touch and the time when touch ends
     * also gets lenght of swipe to determine if its long enough to swipe.
     * @param {Object} e event hanlder
@@ -89,9 +85,10 @@ class Input
     {  
         if(this.timeTouchBeganAt + this.timeDelayToCountAsAttackInput < Date.now())
         {
-            // Attack is true(Used fo the tutorial)
-            this.attack =true;
+            // Attack is true(Used for the tutorial)
+            this.attack = true;
         }
+       
 
         this.startPosition.x = 0;
         this.startPosition.y = 0;
