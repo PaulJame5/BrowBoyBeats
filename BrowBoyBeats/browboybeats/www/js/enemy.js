@@ -110,7 +110,7 @@ Enemy.prototype.render = function()
 // Update player behaviour in here
 Enemy.prototype.update = function()
 {
-    
+    console.log("HEalth" + this.health);
     this.move();
 } // end update
 
@@ -127,66 +127,57 @@ Enemy.prototype.takeDamage = function()
 }
 Enemy.prototype.move = function()
 {
-    
-    this.target = this.player.getTargetPos();
-    
-    
-    switch (this.currentTarget)
-    {
-        case this.Targets.BOTTOM:
-            this.target.y -= this.offsetY;
-            break;
-        case this.Targets.TOP:
-            this.target.y += this.offsetY;
-            break;
-        case this.Targets.LEFT:
-            this.target.x -= this.offsetX ;
-            break;
-        case this.Targets.RIGHT:
-            this.target.x+= this.offsetX ;
-            break;
-        case this.Targets.TOP_LEFT:
-            this.target.y += this.offsetY;
-            this.target.x -= this.offsetX ;
-            break;
-        case this.Targets.TOP_RIGHT:
-            this.target.x += this.offsetX ;
-            this.target.y += this.offsetY;
-            break;
-        case this.Targets.BOTTOM_LEFT:
-            this.target.y -= this.offsetY;
-            this.target.x -= this.offsetX ;
-            break;
-        case this.Targets.BOTTOM_RIGHT:
-            this.target.x += this.offsetX ;
-            this.target.y -= this.offsetY;
-            break;
-        case this.Targets.WAIT: 
-            break;
-        default:
-            this.target= this.Targets.WAIT;
-            break;
-    }
+    // this.currentTarget = this.Targets.BOTTOM;
+    // switch (this.currentTarget)
+    // {
+    //     case this.Targets.BOTTOM:
+    //         this.target.y -= this.offsetY;
+    //         break;
+    //     case this.Targets.TOP:
+    //         this.target.y += this.offsetY;
+    //         break;
+    //     case this.Targets.LEFT:
+    //         this.target.x -= this.offsetX ;
+    //         break;
+    //     case this.Targets.RIGHT:
+    //         this.target.x+= this.offsetX ;
+    //         break;
+    //     case this.Targets.TOP_LEFT:
+    //         this.target.y += this.offsetY;
+    //         this.target.x -= this.offsetX ;
+    //         break;
+    //     case this.Targets.TOP_RIGHT:
+    //         this.target.x += this.offsetX ;
+    //         this.target.y += this.offsetY;
+    //         break;
+    //     case this.Targets.BOTTOM_LEFT:
+    //         this.target.y -= this.offsetY;
+    //         this.target.x -= this.offsetX ;
+    //         break;
+    //     case this.Targets.BOTTOM_RIGHT:
+    //         this.target.x += this.offsetX ;
+    //         this.target.y -= this.offsetY;
+    //         break;
+    //     case this.Targets.WAIT: 
+    //         break;
+    //     default:
+    //         this.target= this.Targets.WAIT;
+    //         break;
+    // }
   
-    
-    
-    this.distance = this.transform.distance(this.transform.position.get() , this.target );
-
-
-    this.moveTo = this.transform.moveTowards(this.transform.position.get(),this.target ,this.distance);
-
-
-    console.log("Move to X : " + this.moveTo.x + " Move to Y : " + this.moveTo.y);
+    this.distance = this.transform.distance(this.transform.position.get(), this.player.transform.position.get());
+    // works
+    this.moveTo = this.transform.moveTowards(this.transform.position.get(),this.player.transform.position.get(), this.speed);
     this.transform.position.setPosition(this.moveTo);
-
-
-    if(this.distance < 0.5)
-    {
-        
-    }
+    
 
 
 }
+Enemy.prototype.takeDamage = function()
+{
+    this.health = this.health - this.healthCost;
+}
+
 
 
 
