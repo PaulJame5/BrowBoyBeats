@@ -70,9 +70,7 @@ class GameScene extends Scene
             this.enemyArray[i] = new Enemy(this.enemyPos[i],"sprites/browBoy.png",this.ctx,this.playerOne);
             this.enemyArray[i].setPosition(this.enemyPos[i]);
         }
-      
-
-        
+         
         /* END ENEMY INITIALISE POOL */
     }
     /**
@@ -126,25 +124,28 @@ class GameScene extends Scene
         this.tutorialManager();
         this.tappedXPos = tappedX;
         this.tappedYPos = tappedY;
-        this.playerOne.update( this.tappedXPos ,  this.tappedYPos,this.enemyBrowBoy,ctx);
+        this.playerOne.update( this.tappedXPos ,  this.tappedYPos,this.enemyBrowBoy);
         //this.playerTwo.update();
         this.enemyBrowBoy.update();
     }
     tutorialManager()
     {
+        /**
+         * to keep the messages on screen for limited time
+         */
         if(this.timer !== 120)
         {
             this.timer  = this.timer +1;
         }
         //this changes turorial message only tempory for test
-        if(this.timer >= 30 && this.input.pressedDown === true)
+        if(this.timer >= 30 && this.timer < 60 && this.input.pressedDown === true)
         {
             this.img.src = 'sprites/tutorial1.png';
         }
-        else if(this.timer >= 60 && this.input.attack === true 
-            && this.input.pressedDown === false)
+        else if(this.timer >= 60 && this.timer <= 120 && this.input.attack === true 
+            && this.input.pressedDown === false ) 
         {
             this.img.src = 'sprites/tutorial2.png';
         }
-    }
+    }/* End of the tutorial manager */
 }

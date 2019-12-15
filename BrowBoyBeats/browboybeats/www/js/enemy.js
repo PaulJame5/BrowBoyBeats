@@ -110,7 +110,7 @@ Enemy.prototype.render = function()
 // Update player behaviour in here
 Enemy.prototype.update = function()
 {
-    
+    console.log("HEalth" + this.health);
     this.move();
 } // end update
 
@@ -173,6 +173,11 @@ Enemy.prototype.move = function()
 
 
 }
+Enemy.prototype.takeDamage = function()
+{
+    this.health = this.health - this.healthCost;
+}
+
 
 
 
