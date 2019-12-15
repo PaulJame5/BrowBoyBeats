@@ -39,6 +39,7 @@ class GameScene extends Scene
            this.playerOnePosition = {x: 100.0, y:500.0};
            this.playerTwoPosition = {x: 100.0, y:100.0};
            this.spritePosition ={x:50 ,y:50};
+           this.bgPos ={x:400 ,y:0};
            var playerOneName = "Player1";
            this.playerOne = new Player(this.playerOnePosition, playerOneName,"sprites/PlayerOne.png", this.ctx ,this.input);
            //this.playerTwo = new Player(this.playerTwoPosition, "Player Two","sprites/PlayerTwo.png", this.ctx);
@@ -105,7 +106,7 @@ this.mapLayout =[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 
            }, false);
 
            this.mapImg.src = "tilemap/BrowBoyMap.png"; // Set source path
-           this.map = this.map.sprite
+          /**  this.map = this.map.sprite
            ({
                xVal : 400,
                yVal : 500,
@@ -115,7 +116,7 @@ this.mapLayout =[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 
                image: this.mapImg,
                numberOfFrames: 1
            });
-         
+         */
              
         /* INITIALISE ENEMY POOL */
         this.enemyPos = new Array(10);
@@ -163,8 +164,15 @@ this.mapLayout =[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 
        
         ctx.font = '48px serif';
         
-        this.map.render({x: 0,y: 0});
-        // Not drawing 
+        
+        
+        
+
+        
+        ctx.drawImage(this.mapImg, this.bgPos.x  , this.bgPos.y);
+        ctx.drawImage(this.img, this.spritePosition.x  , this.spritePosition.y);
+        
+        
         var x = 0;
         var y = 0;
 
@@ -173,7 +181,7 @@ this.mapLayout =[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 
         {
             for(x = 0; x < this._map[y].length; x++)
             {
-                if(this._map[y][x] == 4)
+                if(this._map[x][y] == 4)
                 {
                 ctx.drawImage(this.floorImg, this.spritePosition.x + x * 32  , this.spritePosition.y + y * 32);
                 }
@@ -223,12 +231,9 @@ this.mapLayout =[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 
         // }
         // // end camera move debug ================
         //draw tutorial sprite
-
-        
         
         // end debug draw tile test
         ctx.drawImage(this.img, this.spritePosition.x  , this.spritePosition.y);
-        
         ctx.restore();
         document.body.style.background = 'White'; 
         

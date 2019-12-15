@@ -309,14 +309,8 @@ class Game
         /**var scene = this.sceneManager.getScene();
         this.sceneManager.update();
         */
-        
-
-        
-      
         window.requestAnimationFrame(this.boundRecursiveUpdate);
 
-
-        
          
     }
     render()

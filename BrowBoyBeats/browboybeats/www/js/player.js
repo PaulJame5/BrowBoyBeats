@@ -52,22 +52,7 @@ Player.prototype.initSpritesheet = function(src="",context)
 // All rendering calls for player should go in here
 Player.prototype.renderPlayer = function(ctx)
 {
-    ctx.beginPath();
-    ctx.arc(this.xCircle, this.yCircle, this.innerRadius, 0, 2 * Math.PI);
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.arc(this.stationaryCircleX, this.stationaryCircleY, this.outerRadius, 0, 2 * Math.PI);
-    ctx.stroke();
-    /**creates and draws a circle at a target position */
-    ctx.beginPath();
-    ctx.arc(this.targetCircleX, this.targetCircleY, this.innerRadius, 0, 2 * Math.PI);
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.arc(this.attackX, this.attackY, this.innerRadius, 0, 2 * Math.PI);
-    ctx.stroke();
-
+  
     // Draw Player Sprite in here
     this.playerSprite.update();
     this.playerSprite.render(this.transform.position.get());
