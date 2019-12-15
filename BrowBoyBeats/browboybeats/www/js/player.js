@@ -5,20 +5,16 @@
 
 
 // Player Class
-function Player(init_position={x:0.0,y:0.0}, name="",src="",context)
+function Player(init_position={x:0.0,y:0.0}, name="",src="",context,input)
 {
     this.name = name;
     
     this.transform = new Transform(init_position); // initilised Values
     this.sceneManager = new SceneManager();
-    input = new Input();
     input.initSelf();
     this.input = input;
-
     this.tapped = false;
     this.speed = 5;
-
-    
     this.initSpritesheet(src, context);
     
     
