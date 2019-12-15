@@ -36,13 +36,9 @@ class GameScene extends Scene
            this.playerOne = new Player(this.playerOnePosition, playerOneName,"sprites/PlayerOne.png", this.ctx);
            //this.playerTwo = new Player(this.playerTwoPosition, "Player Two","sprites/PlayerTwo.png", this.ctx);
            // End Initialisation of players
-           console.log("aa");
           // this.value = ;
            //handleFiles("tilemap/Level_One.txt");
           
-          loadJSON("tilemap/Level_One.json");
-          
-          console.log("aa");
           
            // Init enemy
            
@@ -50,6 +46,25 @@ class GameScene extends Scene
            this.enemyBrowPosition = {x: 50.0, y: 50.0};
            this.enemyBrowBoy = new Enemy(this.enemyBrowPosition,"sprites/browBoy.png",this.ctx,this.playerOne);
            
+           this.map = new Sprite();
+
+           this.mapImg = new Image();   // Create new img element
+           this.mapImg.addEventListener('load', function() 
+           {
+               // execute drawImage statements here
+           }, false);
+
+           this.mapImg.src = "tilemap/BrowBoyMap.png"; // Set source path
+           this.map = this.map.sprite
+           ({
+               xVal : 400,
+               yVal : 0,
+               context: this.ctx,
+               width: 792,
+               height: 264,
+               image: this.mapImg,
+               numberOfFrames: 1
+           });
          
              
         /* INITIALISE ENEMY POOL */
@@ -81,6 +96,7 @@ class GameScene extends Scene
     render(ctx)
     {
         ctx.resetTransform();
+        
        // ctx.style(pixel)
         ctx.clearRect(0,0, 100,100);
         ctx.scale(2,2);
@@ -90,20 +106,19 @@ class GameScene extends Scene
         //ctx.setPosition(this.camera.getPosition().x,this.camera.getPosition().y);
         ctx.translate(this.camera.getPosition().x,this.camera.getPosition().y);
         
-        
        
        
         ctx.font = '48px serif';
         
-        
-
-        
-        
+        this.map.render();
+        // Not drawing 
         
         
         //this.playerTwo.renderPlayer(ctx);
         this.playerOne.renderPlayer(ctx);
         this.enemyBrowBoy.render();
+        //scene.call(renderL)
+        
 
 
         for(var i = 0; i < 10; i++)

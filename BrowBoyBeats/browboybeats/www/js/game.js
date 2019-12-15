@@ -11,6 +11,8 @@ class Game
 {
     constructor()
     {
+        document.cookie = "Set-Cookie: widget_session=abc123; SameSite=None; Secure";
+
         document.addEventListener('touchstart', function(e) {e.preventDefault();}, {passive: false});
         this.boundRecursiveUpdate = () => this.update(this);
 
@@ -292,7 +294,7 @@ class Game
         {
             
             
-            this.myMusic.loopSong();
+           // this.myMusic.loopSong();
             this.sceneManager.update(this.tappedX , this.tappedY,this.ctx);
         }
         else
