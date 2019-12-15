@@ -177,6 +177,7 @@ Enemy.prototype.move = function()
     if(this.distance < 0.5)
     {
         // Attack Player
+        console.log("killing player");
     }
 
 
