@@ -39,6 +39,7 @@ class GameScene extends Scene
            this.playerOnePosition = {x: 100.0, y:500.0};
            this.playerTwoPosition = {x: 100.0, y:100.0};
            this.spritePosition ={x:50 ,y:50};
+           this.bgPos ={x:400 ,y:0};
            var playerOneName = "Player1";
            this.playerOne = new Player(this.playerOnePosition, playerOneName,"sprites/PlayerOne.png", this.ctx ,this.input);
            //this.playerTwo = new Player(this.playerTwoPosition, "Player Two","sprites/PlayerTwo.png", this.ctx);
@@ -50,8 +51,8 @@ class GameScene extends Scene
            // Init enemy
            
            
-           var level = new LevelLoading(); 
-           this.levelLoader = new LevelLoading("tilemap/BrowBoyMap/json");
+           //var level = new LevelLoading(); 
+           //this.levelLoader = new LevelLoading("tilemap/BrowBoyMap/json");
            
            this.enemyBrowPosition = {x: 50.0, y: 50.0};
            this.enemyBrowBoy = new Enemy(this.enemyBrowPosition,"sprites/browBoy.png",this.ctx,this.playerOne);
@@ -65,7 +66,7 @@ class GameScene extends Scene
            }, false);
 
            this.mapImg.src = "tilemap/BrowBoyMap.png"; // Set source path
-           this.map = this.map.sprite
+          /**  this.map = this.map.sprite
            ({
                xVal : 400,
                yVal : 0,
@@ -75,7 +76,7 @@ class GameScene extends Scene
                image: this.mapImg,
                numberOfFrames: 1
            });
-         
+         */
              
         /* INITIALISE ENEMY POOL */
         this.enemyPos = new Array(10);
@@ -123,7 +124,11 @@ class GameScene extends Scene
        
         ctx.font = '48px serif';
         
-        this.map.render();
+        //this.map.render();
+
+        
+        ctx.drawImage(this.mapImg, this.bgPos.x  , this.bgPos.y);
+        ctx.drawImage(this.img, this.spritePosition.x  , this.spritePosition.y);
         // Not drawing 
         
         //this.playerTwo.renderPlayer(ctx);
@@ -162,7 +167,7 @@ class GameScene extends Scene
         // }
         // // end camera move debug ================
         //draw tutorial sprite
-        ctx.drawImage(this.img, this.spritePosition.x  , this.spritePosition.y);
+     
         ctx.restore();
         document.body.style.background = 'White'; 
         
