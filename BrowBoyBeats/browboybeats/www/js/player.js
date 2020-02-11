@@ -5,11 +5,11 @@
 
 
 // Player Class
-function Player(init_position={x:0.0,y:0.0}, name="",src="",context,input)
+function Player( name="",src="",context,input)
 {
     this.name = name;
     
-    this.transform = new Transform(init_position); // initilised Values
+   // this.transform = new Transform(init_position); // initilised Values
     this.sceneManager = new SceneManager();
     input.initSelf();
     this.input = input;
@@ -22,7 +22,11 @@ function Player(init_position={x:0.0,y:0.0}, name="",src="",context,input)
     //===========================================
 }
 
-
+Player.prototype.setPos = function(x,y)
+{
+    var init_position={x:x,y:y}
+    this.transform = new Transform(init_position); // initilised Values
+}
 Player.prototype.initSpritesheet = function(src="",context)
 {
     
@@ -126,14 +130,8 @@ Player.prototype.move = function()
 Player.prototype.updateFromNet = function(x,y)
 {
     // Set pos of other player
-
-
-
     this.transform.position.setX(x);
     this.transform.position.setY(y);
-   
-
-
 }
 
 Player.prototype.getName = function()

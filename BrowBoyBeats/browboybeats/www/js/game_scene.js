@@ -6,15 +6,15 @@ class GameScene extends Scene
  */
     constructor(title , ctx)
     {
-           /**this.object ={};
-    this.message ={};
-    this.message.type = "test";
-    this.message.data = "hello";
-    this.alive = true;
-    this.ws = new WebSocket("ws://localhost:8080/wstest?Id="+this.createUUID());
-    document.addEventListener('click',() =>this.updateState(this.ws, event));
-    this.ws.addEventListener('open', () => this.handleOpen(event));
-    this.ws.addEventListener('message', () => this.handleMessage(this, event));*/
+        this.object ={};
+        this.message ={};
+        this.message.type = "test";
+        this.message.data = "hello";
+        this.alive = true;
+        this.ws = new WebSocket("ws://localhost:8080/wstest?Id="+this.createUUID());
+        document.addEventListener('click',() =>this.updateState(this.ws, event));
+        this.ws.addEventListener('open', () => this.handleOpen(event));
+        this.ws.addEventListener('message', () => this.handleMessage(this, event));
     
         super(title);
         this.title = title;
@@ -66,13 +66,9 @@ class GameScene extends Scene
     initScene(ctx)
     {
 
-
-
-   
-
-    /**var joinButton = document.getElementById("join");
-    joinButton.addEventListener("click",() => this.join());
-    document.addEventListener("keydown", () => this.keyDownHandler(event));*/
+        var joinButton = document.getElementById("join");
+        joinButton.addEventListener("click",() => this.join());
+        document.addEventListener("keydown", () => this.keyDownHandler(event));
         
         this.timer = 0;
         // DEBUG CAMERA
@@ -95,8 +91,8 @@ class GameScene extends Scene
         this.spritePosition ={x:50 ,y:50};
         this.bgPos ={x:400 ,y:0};
         var playerOneName = "Player1";
-        this.playerOne = new Player(this.playerOnePosition, playerOneName,"sprites/PlayerOne.png", this.ctx ,this.input);
-        //this.playerTwo = new Player(this.playerTwoPosition, "Player Two","sprites/PlayerTwo.png", this.ctx);
+        this.playerOne = new Player( playerOneName,"sprites/PlayerOne.png", this.ctx ,this.input);
+        this.playerTwo = new Player( "Player Two","sprites/PlayerTwo.png", this.ctx);
         // End Initialisation of players
         // this.value = ;
         //handleFiles("tilemap/Level_One.txt");
@@ -219,9 +215,7 @@ class GameScene extends Scene
             }
         }
 
-           
-        
-        //this.playerTwo.renderPlayer(ctx);
+        this.playerTwo.renderPlayer(ctx);
         this.playerOne.renderPlayer(ctx);
         this.enemyBrowBoy.render();
         //this.sF.render({x: 0,y: 0});
@@ -266,21 +260,18 @@ class GameScene extends Scene
           else
           {
             this.alive =true;
-            
-            
           }
         }*/
-        /**if(moved !== 0 )
+        
+        this.obj ={};
+        this.obj.type = "updateState";
+        this.obj.data = {x:this.playerOne.x, y:this.playerOne.y};
+
+        if (this.ws.readyState === WebSocket.OPEN)
         {
-          this.obj ={};
-          this.obj.type = "updateState";
-          this.obj.data = {x:this.player.x, y:this.player.y};
-  
-          if (this.ws.readyState === WebSocket.OPEN)
-          {
-              this.ws.send(JSON.stringify(this.obj));
-          }
-        }*/
+            this.ws.send(JSON.stringify(this.obj));
+        }
+        
 
 
 
@@ -288,7 +279,7 @@ class GameScene extends Scene
         this.tappedXPos = tappedX;
         this.tappedYPos = tappedY;
         this.playerOne.update( this.tappedXPos ,  this.tappedYPos,this.enemyBrowBoy,ctx);
-        //this.playerTwo.update();
+        this.playerTwo.update();
         this.enemyBrowBoy.update();
     }
     tutorialManager()
@@ -312,7 +303,7 @@ class GameScene extends Scene
     {
         var message={};
         message.type = 'join';
-        this.player.setPos(Math.floor(Math.random() * 501) , Math.floor(Math.random() * 501) );
+        this.playerOne.setPos(Math.floor(Math.random() * 501) , Math.floor(Math.random() * 501) );
     }
 
     handleMessage(game, evt) 
@@ -322,7 +313,7 @@ class GameScene extends Scene
         {
             game.updateLocalState(message.data);
             // call updateFromNet on the other (remote)player            
-            game.otherPlayer.updateFromNet(message.data.x,message.data.y);
+            game.playerTwo.updateFromNet(message.data.x,message.data.y);
 
         }
         else if (message.type === 'gameover')
