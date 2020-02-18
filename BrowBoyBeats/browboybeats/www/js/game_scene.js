@@ -250,7 +250,7 @@ console.log(this.map[1][1]);
         }
 
 
-        if(this.moved === false )
+        if(this.moved === true )
         {
           this.obj ={};
           this.obj.type = "updateState";
