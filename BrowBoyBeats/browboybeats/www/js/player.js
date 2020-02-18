@@ -17,10 +17,6 @@ function Player(init_position={x:0.0,y:0.0}, name="",src="",context,input)
     this.speed = 5;
     this.initSpritesheet(src, context);
     
-    
-    
-    
-   
     //===========================================
 }
 
@@ -121,9 +117,19 @@ Player.prototype.move = function()
  
 
 } // end move
-
-
-
+Player.prototype.updateFromNet(x,y)
+{
+    colsole.log("update from net")
+    // Set pos of other player
+    this.transform.position.setX(x);
+    this.transform.position.setY(y);
+}//end update from net
+Player.prototype.setPos()
+{
+    // Set pos of player
+    this.x = x;
+    this.y = y;
+}//end set pos
 
 Player.prototype.getName = function()
 {
