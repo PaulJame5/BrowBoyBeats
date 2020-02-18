@@ -117,14 +117,14 @@ Player.prototype.move = function()
  
 
 } // end move
-Player.prototype.updateFromNet(x,y)
+Player.prototype.updateFromNet = function(position = {x: 0.0,y: 0.0})
 {
-    colsole.log("update from net")
+    
     // Set pos of other player
-    this.transform.position.setX(x);
-    this.transform.position.setY(y);
+    this.transform.position.setX(position.x);
+    this.transform.position.setY(position.y);
 }//end update from net
-Player.prototype.setPos()
+Player.prototype.setPos = function()
 {
     // Set pos of player
     this.x = x;

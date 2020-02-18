@@ -320,8 +320,10 @@ console.log(this.map[1][1]);
         if( message.type === 'updateState')
         {
             game.updateLocalState(message.data);
+            var position= {x:message.data.x,y:message.data.y}
+
             // call updateFromNet on the other (remote)player            
-            game.playerTwo.updateFromNet(message.data.x,message.data.y);
+            game.playerTwo.updateFromNet(position);
 
         }
         else if (message.type === 'gameover')
