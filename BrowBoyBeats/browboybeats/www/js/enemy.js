@@ -17,14 +17,14 @@ function Enemy(init_position={x:0.0,y:0.0},src="",context,player)
     this.attackMode = false;
     this.timeInbetweenAttacking = 1.8;
     this.timeSinceLastAttack;
-    this.speed = 2;
+    this.speed = 3;
     this.position = init_position;
     this.playerIndexTargetChoice = 0;
     this.deathTime = 10;
     this.initSpritesheet(src, context);
-    this.offsetX = 50;
-    this.offsetY = 50;
+    this.offset = {x:75,y: 100};
     this.health = 100;
+    this.attack = false;
     this.healthCost = 10;
    
     //=======================
@@ -34,7 +34,11 @@ function Enemy(init_position={x:0.0,y:0.0},src="",context,player)
         TOP_RIGHT: 1,
         BOTTOM_LEFT: 2,
         BOTTOM_RIGHT: 3,
-        ATTACK_PLAYER: 4
+        RIGHT: 4,
+        LEFT: 5,
+        UP:6,
+        DOWN: 7,
+        ATTACK_PLAYER: 8
     }
     
     this.currentTarget = this.Targets.TOP_LEFT;
@@ -90,25 +94,6 @@ Enemy.prototype.render = function()
 // Update player behaviour in here
 Enemy.prototype.update = function()
 {
-
-    //this.random = Math.floor(Math.random() * (5 - 1 + 1));
-    
-
-    this.random =3;
-
-    if(this.random == 0)
-    this.currentTarget = this.Targets.TOP_LEFT;
-    else if(this.random == 1)
-    this.currentTarget = this.Targets.TOP_RIGHT;
-    else if(this.random == 2)
-    this.currentTarget = this.Targets.BOTTOM_LEFT;
-    else if(this.random == 3)
-    this.currentTarget = this.Targets.BOTTOM_RIGHT;
-    else if(this.random == 4)
-    this.currentTarget = this.Targets.ATTACK_PLAYER;
-
-    console.log("random num" + this.currentTarget);
-    
     this.move();
 } // end update
 
@@ -125,29 +110,63 @@ Enemy.prototype.takeDamage = function()
 }
 Enemy.prototype.move = function()
 {
-    
+    this.targetPosition={x:this.position.x,y:this.position.y};
+
+   // this.offset = {x:Math.floor(Math.random() * (7 -   + 1)),y: 100};
+
+    console.log("OFFSET " + this.random);
+    if(this.transform.position.getX() === this.targetPosition.x
+    && this.transform.position.getY() === this.targetPosition.y)
+    {
+       this.random = Math.floor(Math.random() * (7 - 1 + 1));
+    }
+    console.log("OFFSET " + this.random);
+    if(this.random == 0)
+    this.currentTarget = this.Targets.TOP_LEFT;
+    else if(this.random == 1)
+    this.currentTarget = this.Targets.TOP_RIGHT;
+    else if(this.random == 2)
+    this.currentTarget = this.Targets.BOTTOM_LEFT;
+    else if(this.random == 3)
+    this.currentTarget = this.Targets.BOTTOM_RIGHT;
+    else if(this.random == 4)
+    this.currentTarget = this.Targets.ATTACK_PLAYER;
+
     switch (this.currentTarget)
     {
         case this.Targets.TOP_LEFT:
-            this.target.y = this.player.transform.position.getY() - this.offsetY;
-            this.target.x = this.player.transform.position.getX() - this.offsetX;
+            this.target.y = this.player.transform.position.getY() - this.offset.y;
+            this.target.x = this.player.transform.position.getX() - this.offset.x;
          break;
         case this.Targets.TOP_RIGHT:
-             this.target.y = this.player.transform.position.getY() - this.offsetY;
-             this.target.x = this.player.transform.position.getX() +this.offsetX ;
+             this.target.y = this.player.transform.position.getY() - this.offset.y;
+             this.target.x = this.player.transform.position.getX() +this.offset.x ;
          break;
         case this.Targets.BOTTOM_LEFT:
-            this.target.y = this.player.transform.position.getY()+this.offsetY;
-            this.target.x = this.player.transform.position.getX()-this.offsetX ;
+            this.target.y = this.player.transform.position.getY()+this.offset.y;
+            this.target.x = this.player.transform.position.getX()-this.offset.x ;
             break;
         case this.Targets.BOTTOM_RIGHT:
-            this.target.y = this.player.transform.position.getY()+this.offsetY;
-            this.target.x = this.player.transform.position.getX()+this.offsetX ;
+            this.target.y = this.player.transform.position.getY()+this.offset.y;
+            this.target.x = this.player.transform.position.getX()+this.offset.x ;
              break;
         case this.Targets.ATTACK_PLAYER:
             this.target.y = this.player.transform.position.getY();
             this.target.x = this.player.transform.position.getX() ;
+            this.attack = true;
              break;
+        case this.Targets.UP:
+            this.target.y = this.player.transform.position.getY() - this.offset.y;
+            break;
+        case this.Targets.DOWN:
+            this.target.y = this.player.transform.position.getY() +this.offset.y;
+             break;
+        case this.Targets.RIGHT:
+            this.target.x = this.player.transform.position.getX()+this.offset.x;
+            break;
+            case this.Targets.LEFT:
+            this.target.x = this.player.transform.position.getX() -this.offset.x;
+            break;      
          default:
              this.target= this.Targets.WAIT;
              break;
@@ -155,21 +174,20 @@ Enemy.prototype.move = function()
     this.position={x:this.target.x,y:this.target.y};
     //this.distance = this.transform.distance(this.transform.position.get(), this.player.transform.position.get());
     // works
-    
     this.moveTo = this.transform.moveTowards(this.transform.position.get(),this.position, this.speed);
-
-
     this.transform.position.setPosition(this.moveTo);
-
-
-    if(this.distance < 0.5)
+    if(this.distance < 0.5 && Date.now() > last + wait)
     {
+        
         // Attack Player
         //console.log("killing player");
     }
 
 
 }
+
+
+
 
 
 
