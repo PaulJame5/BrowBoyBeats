@@ -206,6 +206,11 @@ Enemy.prototype.getPosition = function()
     return this.transform.position.getPosition();
 }
 
+Enemy.prototype.isAlive = function()
+{
+    return this.attributes.isAlive();
+}
+
 
 
 

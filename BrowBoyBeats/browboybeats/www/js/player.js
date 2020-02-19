@@ -8,7 +8,8 @@
 function Player(init_position={x:0.0,y:0.0}, name="",src="",context,input)
 {
     this.name = name;
-    
+
+    this.score = new Score(0);
     this.transform = new Transform(init_position); // initilised Values
     this.sceneManager = new SceneManager();
     input.initSelf();
@@ -17,7 +18,7 @@ function Player(init_position={x:0.0,y:0.0}, name="",src="",context,input)
     this.speed = 5;
     this.initSpritesheet(src, context);
 
-    this.attributes = new Attributes(100,35,25,false,true);;
+    this.attributes = new Attributes(100,35,25,false,true);
     this.attributes.init();
     
     //===========================================
@@ -141,5 +142,10 @@ Player.prototype.getName = function()
 
 Player.prototype.attack = function()
 {
-    return input.attack;
+    return this.input.attack;
+}
+
+Player.prototype.attackReset = function()
+{
+    this.input.attack = false;
 }
