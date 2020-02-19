@@ -13,11 +13,14 @@ function Camera(player_one, player_two)
 
 Camera.prototype.setPositionX = function(x)
 {
+    
     this.position.x = x;
 }
 
 Camera.prototype.setPositionY = function(y)
 {
+    
+        
     this.position.y = y;
 }
 

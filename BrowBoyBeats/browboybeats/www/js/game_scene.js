@@ -162,17 +162,46 @@ console.log(this.map[1][1]);
  */
     render(ctx)
     {
+        ctx.restore();
         ctx.resetTransform();
         
        // ctx.style(pixel)
         ctx.clearRect(0,0, 100,100);
         ctx.scale(2,2);
         ctx.save();
+
+        console.log(this.camera.getPosition().y);
+
+        // camera north bound
+        if(-this.playerOne.transform.position.getY() + -435 + window.innerHeight/2 >= -60)
+        {
+            
+            this.camera.setPositionY(-65);
+       
+        }
+        else
+        {     
+            this.camera.setPositionY(-this.playerOne.transform.position.getY() + -435 + window.innerHeight/2);
         
-        this.camera.setPositionX(-this.playerOne.transform.position.getX() + -273 + window.innerWidth/2);
-        this.camera.setPositionY(-this.playerOne.transform.position.getY() + -435 + window.innerHeight/2);
-        //ctx.setPosition(this.camera.getPosition().x,this.camera.getPosition().y);
+            
+        
+        } // end north bound
+        // left side
+        if(-this.playerOne.transform.position.getX() + -273 + window.innerWidth/2 < -53.5)
+        {
+         this.camera.setPositionX(-this.playerOne.transform.position.getX() + -273 + window.innerWidth/2);
+         
+        }
+        else
+        {
+            this.camera.setPositionX(-53.5);
+        } // end left side
         ctx.translate(this.camera.getPosition().x,this.camera.getPosition().y);
+        
+        
+        
+        
+        //ctx.setPosition(this.camera.getPosition().x,this.camera.getPosition().y);
         
        
        
@@ -229,7 +258,7 @@ console.log(this.map[1][1]);
         
         // end debug draw tile test
         ctx.drawImage(this.img, this.spritePosition.x  , this.spritePosition.y);
-        ctx.restore();
+        
         document.body.style.background = 'White'; 
         
     }
