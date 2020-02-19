@@ -80,6 +80,8 @@ console.log(this.map[0].length);
            this.playerOnePosition = {x: 100.0, y:500.0};
            this.playerTwoPosition = {x: 100.0, y:100.0};
            this.spritePosition ={x:50 ,y:50};
+           this.tutorialPosition ={x:0 ,y:0};
+           this.tutorialOffset = {x:100 ,y:200};
            this.bgPos ={x:400 ,y:0};
            var playerOneName = "Player1";
            
@@ -258,7 +260,7 @@ console.log(this.map[1][1]);
         
         
         // end debug draw tile test
-        //ctx.drawImage(this.img, this.spritePosition.x  , this.spritePosition.y);
+        ctx.drawImage(this.img, this.tutorialPosition.x  , this.tutorialPosition.y);
         
         ctx.restore();
         
@@ -270,7 +272,8 @@ console.log(this.map[1][1]);
         this.tutorialManager();
         this.tappedXPos = tappedX;
         this.tappedYPos = tappedY;
-        
+        this.tutorialPosition = {x:this.playerOne.transform.position.getX() - this.tutorialOffset.x ,
+            y:this.playerOne.transform.position.getY() - this.tutorialOffset.y};
         this.playerOne.update();
         if(this.playerOne.attack())
         {
