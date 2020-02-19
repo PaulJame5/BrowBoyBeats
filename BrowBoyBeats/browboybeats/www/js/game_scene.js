@@ -340,10 +340,8 @@ console.log(this.map[1][1]);
                 this.obj.type = "one";
                 console.log(this.obj);
                 
-                var x2 = this.playerOne.transform.position.getX();
-                var y2 = this.playerOne.transform.position.getY();
                 
-                this.obj.data = {x:x2, y:y2}; 
+                this.obj.data = {x:0, y:0}; 
                 
                 if (this.ws.readyState === WebSocket.OPEN)
                 {
@@ -412,13 +410,21 @@ console.log(this.map[1][1]);
         console.log("me");
         console.log(this.message)
 
+        // we send a message back letting them know they are player two
         if( this.message.type === 'one')
         {
-            console.log("hellone"); 
-            this.playerTwo = new Player(this.playerOnePosition,"Player One","sprites/PlayerOne.png", this.ctx ,this.input);
-            this.playerOne = new Player(this.playerTwoPosition, "Player Two","sprites/PlayerTwo.png", this.ctx,this.input);
-           
-            this.check = false;
+            
+            this.obj = {}
+            this.obj.type = "two"
+            
+            if (this.ws.readyState === WebSocket.OPEN)
+            {
+                console.log("set");
+                this.ws.send(JSON.stringify(this.obj));
+                this.check = false;
+            }
+            
+            
             // game.updateLocalState(message.data);
             // var position= {x:message.data.x,y:message.data.y}
         }
@@ -439,9 +445,13 @@ console.log(this.map[1][1]);
             game.playerTwo.updateFromNet(position);
 
         }
+        // we swap visual identity like the movie face off
         if(this.message.type === 'two')
         {
+            this.playerTwo = new Player(this.playerOnePosition,"Player One","sprites/PlayerOne.png", this.ctx ,this.input);
+            this.playerOne = new Player(this.playerTwoPosition, "Player Two","sprites/PlayerTwo.png", this.ctx,this.input);
            
+            this.check = false;
         }
         else if (this.message.type === 'gameover')
         {

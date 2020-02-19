@@ -35,6 +35,9 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         if(self.msg['type'] == 'one'):
             print("something")
             self.send_to_other_player(message)
+        if(self.msg['type'] == 'two'):
+            print("something")
+            self.send_to_other_player(message)
             self.write_message(json.dumps(message))
         if(self.msg['type'] == 'killEnemy'):
             print("something")
