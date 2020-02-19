@@ -163,7 +163,7 @@ console.log(this.map[1][1]);
     render(ctx)
     {
         // ctx.style(pixel)
-        ctx.clearRect(0,0, 5000,5000);
+        ctx.clearRect(0,0, 500,500);
         ctx.resetTransform();
         
         ctx.scale(2,2);
@@ -239,8 +239,7 @@ console.log(this.map[1][1]);
         this.playerTwo.renderPlayer(ctx);
         this.playerOne.renderPlayer(ctx);
         
-        //this.sF.render({x: 0,y: 0});
-        //scene.call(renderL)
+        
 
         
         
@@ -278,15 +277,22 @@ console.log(this.map[1][1]);
             console.log("player attacking");
             for(var i = 0; i < 10; i++)
             {     
-                if(this.playerOne.transform.distance(this.playerOne.transform.position.getPosition(),
-                this.enemyArray[i].getPosition()) < 40)
+                if(this.enemyArray[i].isAlive())
                 {
-                    this.enemyArray[i].reduceHealth(100);
+                    if(this.playerOne.transform.distance(this.playerOne.transform.position.getPosition(),
+                        this.enemyArray[i].getPosition()) < 40)
+                    {
+                        this.enemyArray[i].reduceHealth(100);
+                        this.playerOne.score.AddPoints(20);
+                    }
                 }
 
                 // console.log(this.playerOne.transform.distance(this.playerOne.transform.position.getPosition(),
                 //     this.enemyArray[i].getPosition()));
             }
+
+            this.playerOne.attackReset();
+            console.log("Score: " + this.playerOne.score.score);
         }
 
         if(this.playerOne.input.pressedRight||this.playerOne.input.pressedDown 
