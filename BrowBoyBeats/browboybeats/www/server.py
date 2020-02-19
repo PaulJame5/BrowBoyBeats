@@ -7,6 +7,8 @@ WAITING_FOR_PLAYERS=0
 GAME_IN_PROGRESS=1
 
 
+
+
 class WSHandler(tornado.websocket.WebSocketHandler):
     def check_origin(self, origin):
         return True
@@ -26,6 +28,9 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         if(self.msg['type'] == 'updateState'):
             self.send_to_other_player(message)
         if(self.msg['type'] == 'gameover'):
+            self.send_to_other_player(message)
+            self.write_message(json.dumps(message))
+        if(self.msg['type'] == 'one'):
             self.send_to_other_player(message)
             self.write_message(json.dumps(message))
 

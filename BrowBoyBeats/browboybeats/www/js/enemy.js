@@ -17,7 +17,7 @@ function Enemy(init_position={x:0.0,y:0.0},src="",context,player)
     this.attackMode = false;
     this.timeInbetweenAttacking = 1.8;
     this.timeSinceLastAttack;
-    this.speed = 5;
+    this.speed = 2;
     this.position = init_position;
     this.playerIndexTargetChoice = 0;
     this.deathTime = 10;

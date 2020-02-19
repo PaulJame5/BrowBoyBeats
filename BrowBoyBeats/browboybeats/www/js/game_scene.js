@@ -241,7 +241,6 @@ console.log(this.map[1][1]);
         if(this.playerOne.input.pressedRight||this.playerOne.input.pressedDown 
         || this.playerOne.input.pressedLeft||this.playerOne.input.pressedUp)
         {
-            console.log("left baby lleft");
             this.moved =true;
         }
         else 
@@ -252,15 +251,27 @@ console.log(this.map[1][1]);
 
         if(this.moved === true )
         {
-          this.obj ={};
-          this.obj.type = "updateState";
-          var x = this.playerOne.transform.position.getX();
-          var y = this.playerOne.transform.position.getY();
-          this.obj.data = {x:x, y:y};
+            this.obj ={};
+            this.obj.type = "updateState";
+            var x = this.playerOne.transform.position.getX();
+            var y = this.playerOne.transform.position.getY();
+            this.obj.data = {x:x, y:y};
+    
+            if (this.ws.readyState === WebSocket.OPEN)
+            {
+                this.ws.send(JSON.stringify(this.obj));
+            }
+
+            console.log("help me");
+            this.obj2 ={};
+            this.obj2.type = "one";
+            var x2 = this.playerOne.transform.position.getX();
+            var y2 = this.playerOne.transform.position.getY();
+            this.obj2.data = {x:x2, y:y2};
   
           if (this.ws.readyState === WebSocket.OPEN)
           {
-              this.ws.send(JSON.stringify(this.obj));
+              this.ws.send(JSON.stringify(this.obj2));
           }
         }
         //this.playerTwo.update();
@@ -317,8 +328,16 @@ console.log(this.map[1][1]);
     handleMessage(game, evt) 
     {        
         var message = JSON.parse(evt.data);
+
+
+        if(message.type === 'one')
+        {
+            console.log("hello");
+        }
+
         if( message.type === 'updateState')
         {
+            console.log("hello update");
             game.updateLocalState(message.data);
             var position= {x:message.data.x,y:message.data.y}
 
