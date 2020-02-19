@@ -37,7 +37,7 @@ class Sprite
     that.render = function (psotion = {x:0,y:0},offset) 
     {
       setpixelated(that.context);
-      this.context.clearRect(0, 0,2500,500);
+      this.context.clearRect(0, 0,that.width,that.height);
       this.context.drawImage(that.image, frameIndex * that.width / that.numberOfFrames, 0, that.width / that.numberOfFrames, 32, psotion.x, psotion.y, that.width / that.numberOfFrames, 32);
     };
 
