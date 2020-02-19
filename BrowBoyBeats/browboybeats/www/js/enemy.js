@@ -6,7 +6,6 @@
 function Enemy(init_position={x:0.0,y:0.0},src="",context,player)
 {
     this.name = name;
-
     this.transform = new Transform(init_position); // initilised Values
 
     this.target={x:0,y:0};
@@ -20,7 +19,6 @@ function Enemy(init_position={x:0.0,y:0.0},src="",context,player)
     this.timeSinceLastAttack;
     this.speed = 3;
     this.position = init_position;
-
     this.playerIndexTargetChoice = 0;
     this.deathTime = 10;
     this.initSpritesheet(src, context);
@@ -56,9 +54,7 @@ Enemy.prototype.initSpritesheet = function(src="",context)
         // execute drawImage statements here
     }, false);
     
-    
     this.spritesheet.src = src; // Set source path
-    
     this.enemySprite = this.sprites.sprite
     ({
         xVal : this.transform.position.getX(),
@@ -74,8 +70,6 @@ Enemy.prototype.getEnemyPosition = function()
 {
     return pos={x:this.transform.position.getX(),y:this.transform.position.getY()};
 }
-
-  
 
 // All rendering calls for player should go in here
 Enemy.prototype.render = function()
@@ -93,7 +87,6 @@ Enemy.prototype.render = function()
     }
 }
 
-
 // Update player behaviour in here
 Enemy.prototype.update = function()
 {
@@ -105,7 +98,6 @@ Enemy.prototype.setPosition = function(pos = {x:0,y:0})
 {
     this.transform.position.setX(pos.x);
     this.transform.position.setY(pos.y);
-
 } 
 Enemy.prototype.takeDamage = function()
 {
@@ -122,17 +114,24 @@ Enemy.prototype.move = function(Player)
     {
        this.random = Math.floor(Math.random() * (7 - 1 + 1));
     }
-    
     if(this.random == 0)
     this.currentTarget = this.Targets.TOP_LEFT;
-    else if(this.random == 1)
+    else if(this.random === 1)
     this.currentTarget = this.Targets.TOP_RIGHT;
-    else if(this.random == 2)
+    else if(this.random === 2)
     this.currentTarget = this.Targets.BOTTOM_LEFT;
-    else if(this.random == 3)
+    else if(this.random === 3)
     this.currentTarget = this.Targets.BOTTOM_RIGHT;
-    else if(this.random == 4)
+    else if(this.random === 4)
     this.currentTarget = this.Targets.ATTACK_PLAYER;
+    else if(this.random === 5)
+    this.currentTarget = this.Targets.UP;
+    else if(this.random === 6)
+    this.currentTarget = this.Targets.DOWN;
+    else if(this.random === 7)
+    this.currentTarget = this.Targets.RIGHT;
+    else if(this.random === 8)
+    this.currentTarget = this.Targets.LEFT;
 
     switch (this.currentTarget)
     {
@@ -154,7 +153,7 @@ Enemy.prototype.move = function(Player)
              break;
         case this.Targets.ATTACK_PLAYER:
             this.target.y = this.player.transform.position.getY();
-            this.target.x = this.player.transform.position.getX() ;
+            this.target.x = this.player.transform.position.getX();
             this.attack = true;
              break;
         case this.Targets.UP:
@@ -187,10 +186,7 @@ Enemy.prototype.move = function(Player)
         //this.player.health-=1;
         
     }
-
-
 } // end eney move
-
 Enemy.prototype.reduceHealth = function(x = 0)
 {
     this.attributes.setHealth(this.attributes.getHealth() - x);
