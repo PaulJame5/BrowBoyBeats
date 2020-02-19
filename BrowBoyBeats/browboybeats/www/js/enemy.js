@@ -207,6 +207,11 @@ Enemy.prototype.isAlive = function()
     return this.attributes.isAlive();
 }
 
+Enemy.prototype.setDead = function()
+{
+    this.attributes.setAlive(false);
+}
+
 
 
 

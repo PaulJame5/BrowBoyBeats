@@ -36,6 +36,9 @@ class WSHandler(tornado.websocket.WebSocketHandler):
             print("something")
             self.send_to_other_player(message)
             self.write_message(json.dumps(message))
+        if(self.msg['type'] == 'killEnemy'):
+            print("something")
+            self.send_to_other_player(message)
 
     def join(self):  
         if(len(session) < 2 ):
