@@ -128,7 +128,7 @@ console.log(this.map[1][1]);
                // execute drawImage statements here
            }, false);
 
-           this.mapImg.src = "tilemap/BrowBoyMap.png"; // Set source path
+           //this.mapImg.src = "tilemap/BrowBoyMap.png"; // Set source path
           
            
              
@@ -163,7 +163,7 @@ console.log(this.map[1][1]);
     render(ctx)
     {
         // ctx.style(pixel)
-        ctx.clearRect(0,0, 500,500);
+        ctx.clearRect(0,0,0,0);
         ctx.resetTransform();
         
         ctx.scale(2,2);
@@ -207,8 +207,8 @@ console.log(this.map[1][1]);
         ctx.font = '48px serif';
         
         
-        ctx.drawImage(this.mapImg, this.bgPos.x  , this.bgPos.y);
-        ctx.drawImage(this.img, this.spritePosition.x  , this.spritePosition.y);
+        //ctx.drawImage(this.mapImg, this.bgPos.x  , this.bgPos.y);
+        //ctx.drawImage(this.img, this.spritePosition.x  , this.spritePosition.y);
         
         
          
@@ -258,7 +258,7 @@ console.log(this.map[1][1]);
         
         
         // end debug draw tile test
-        ctx.drawImage(this.img, this.spritePosition.x  , this.spritePosition.y);
+        //ctx.drawImage(this.img, this.spritePosition.x  , this.spritePosition.y);
         
         ctx.restore();
         
@@ -274,7 +274,7 @@ console.log(this.map[1][1]);
         this.playerOne.update();
         if(this.playerOne.attack())
         {
-            console.log("player attacking");
+            
             for(var i = 0; i < 10; i++)
             {     
                 if(this.enemyArray[i].isAlive())
@@ -284,6 +284,17 @@ console.log(this.map[1][1]);
                     {
                         this.enemyArray[i].reduceHealth(100);
                         this.playerOne.score.AddPoints(20);
+
+                        this.obj = {};
+                        this.obj.type = "killEnemy"
+                        this.obj.data = {index:i};
+
+                        if (this.ws.readyState === WebSocket.OPEN)
+                        {
+                            console.log("setKill");
+                            this.ws.send(JSON.stringify(this.obj));
+                        }
+
                     }
                 }
 
@@ -322,7 +333,7 @@ console.log(this.map[1][1]);
             }
 
             console.log(this.obj);
-            console.log("help me");
+            
 
             if(this.check == true)
             {
@@ -411,8 +422,14 @@ console.log(this.map[1][1]);
             // game.updateLocalState(message.data);
             // var position= {x:message.data.x,y:message.data.y}
         }
+        else if (this.message.type === 'killEnemy')
+        {
+            console.log("Should be dying here");
+            var index = this.message.data.index;
+            this.enemyArray[index].setDead();
+        }
 
-        if( this.message.type === 'updateState')
+        else if( this.message.type === 'updateState')
         {
             console.log("hello update");
             game.updateLocalState(this.message.data);
