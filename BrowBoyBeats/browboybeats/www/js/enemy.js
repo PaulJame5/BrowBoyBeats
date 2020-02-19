@@ -8,6 +8,7 @@ function Enemy(init_position={x:0.0,y:0.0},src="",context,player)
     this.name = name;
 
     this.transform = new Transform(init_position); // initilised Values
+
     this.target={x:0,y:0};
     input = new Input();
     input.initSelf();
@@ -19,6 +20,7 @@ function Enemy(init_position={x:0.0,y:0.0},src="",context,player)
     this.timeSinceLastAttack;
     this.speed = 3;
     this.position = init_position;
+
     this.playerIndexTargetChoice = 0;
     this.deathTime = 10;
     this.initSpritesheet(src, context);
@@ -26,6 +28,7 @@ function Enemy(init_position={x:0.0,y:0.0},src="",context,player)
     this.health = 100;
     this.attack = false;
     this.healthCost = 10;
+    this.attributes = new Attributes(70,10,25,false,true);
    
     //=======================
     this.Targets = 
@@ -108,19 +111,18 @@ Enemy.prototype.takeDamage = function()
 {
     this.health = this.health - this.healthCost;
 }
-Enemy.prototype.move = function()
+Enemy.prototype.move = function(Player)
 {
     this.targetPosition={x:this.position.x,y:this.position.y};
 
    // this.offset = {x:Math.floor(Math.random() * (7 -   + 1)),y: 100};
 
-    console.log("OFFSET " + this.random);
     if(this.transform.position.getX() === this.targetPosition.x
     && this.transform.position.getY() === this.targetPosition.y)
     {
        this.random = Math.floor(Math.random() * (7 - 1 + 1));
     }
-    console.log("OFFSET " + this.random);
+    
     if(this.random == 0)
     this.currentTarget = this.Targets.TOP_LEFT;
     else if(this.random == 1)
@@ -176,14 +178,32 @@ Enemy.prototype.move = function()
     // works
     this.moveTo = this.transform.moveTowards(this.transform.position.get(),this.position, this.speed);
     this.transform.position.setPosition(this.moveTo);
-    if(this.distance < 0.5 && Date.now() > last + wait)
+
+    if(this.distance < 0.5)
     {
         
         // Attack Player
-        //console.log("killing player");
+        
+        //this.player.health-=1;
+        
     }
 
 
+} // end eney move
+
+Enemy.prototype.reduceHealth = function(x = 0)
+{
+    this.attributes.setHealth(this.attributes.getHealth() - x);
+
+    if(this.attributes.getHealth() <= 0)
+    {
+        this.attributes.setAlive(false);
+    }
+}
+
+Enemy.prototype.getPosition = function()
+{
+    return this.transform.position.getPosition();
 }
 
 
