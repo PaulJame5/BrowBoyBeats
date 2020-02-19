@@ -106,8 +106,6 @@ console.log(this.map[1][1]);
 
            
            
-           this.enemyBrowPosition = {x: 50.0, y: 50.0};
-           this.enemyBrowBoy = new Enemy(this.enemyBrowPosition,"sprites/browBoy.png",this.ctx,this.playerOne);
            
            this.map = new Sprite();
 
@@ -164,10 +162,10 @@ console.log(this.map[1][1]);
  */
     render(ctx)
     {
+        // ctx.style(pixel)
+        ctx.clearRect(0,0, 5000,5000);
         ctx.resetTransform();
         
-       // ctx.style(pixel)
-        ctx.clearRect(0,0, 5000,5000);
         ctx.scale(2,2);
         ctx.save();
 
@@ -209,7 +207,7 @@ console.log(this.map[1][1]);
         ctx.font = '48px serif';
         
         
-        //ctx.drawImage(this.mapImg, this.bgPos.x  , this.bgPos.y);
+        ctx.drawImage(this.mapImg, this.bgPos.x  , this.bgPos.y);
         ctx.drawImage(this.img, this.spritePosition.x  , this.spritePosition.y);
         
         
@@ -240,7 +238,7 @@ console.log(this.map[1][1]);
         
         this.playerTwo.renderPlayer(ctx);
         this.playerOne.renderPlayer(ctx);
-        this.enemyBrowBoy.render();
+        
         //this.sF.render({x: 0,y: 0});
         //scene.call(renderL)
 
@@ -250,8 +248,11 @@ console.log(this.map[1][1]);
 
         for(var i = 0; i < 10; i++)
         {
-          this.enemyArray[i].render();
-          this.enemyArray[i].update();
+            if(this.enemyArray[i].attributes.isAlive())
+            {
+                this.enemyArray[i].render();
+                this.enemyArray[i].update();
+            }
         }
 
         
@@ -271,10 +272,21 @@ console.log(this.map[1][1]);
         this.tappedXPos = tappedX;
         this.tappedYPos = tappedY;
         
-        this.playerOne.update( this.tappedXPos ,  this.tappedYPos,this.enemyBrowBoy,ctx);
+        this.playerOne.update();
         if(this.playerOne.attack())
         {
             console.log("player attacking");
+            for(var i = 0; i < 10; i++)
+            {     
+                if(this.playerOne.transform.distance(this.playerOne.transform.position.getPosition(),
+                this.enemyArray[i].getPosition()) < 40)
+                {
+                    this.enemyArray[i].reduceHealth(100);
+                }
+
+                // console.log(this.playerOne.transform.distance(this.playerOne.transform.position.getPosition(),
+                //     this.enemyArray[i].getPosition()));
+            }
         }
 
         if(this.playerOne.input.pressedRight||this.playerOne.input.pressedDown 
@@ -327,7 +339,6 @@ console.log(this.map[1][1]);
          
         }
         //this.playerTwo.update();
-        this.enemyBrowBoy.update();
     }
     tutorialManager()
     {
