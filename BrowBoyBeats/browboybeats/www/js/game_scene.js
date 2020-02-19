@@ -23,6 +23,7 @@ this.mapLayout =[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 
     this.message.type = "test";
     this.message.data = "hello";
     this.alive = true;
+    this.check = false;
     this.ws = new WebSocket("ws://localhost:8080/wstest?Id="+this.createUUID());
     document.addEventListener('click',() =>this.updateState(this.ws, event));
     this.ws.addEventListener('open', () => this.handleOpen(event));
@@ -57,6 +58,7 @@ console.log(this.map[0].length);
     initScene(ctx)
     {
 
+        this.check = true;
         var joinButton = document.getElementById("join");
         joinButton.addEventListener("click",() => this.join());
         this.timer = 0;
@@ -266,17 +268,26 @@ console.log(this.map[1][1]);
 
             console.log(this.obj);
             console.log("help me");
-            
-            this.obj.type = "one";
-            console.log(this.obj);
-            var x2 = this.playerOne.transform.position.getX();
-            var y2 = this.playerOne.transform.position.getY();
-            this.obj.data = {x:x2, y:y2};
+
+            if(this.check == true)
+            {
+                this.obj.type = "one";
+                console.log(this.obj);
+                
+                var x2 = this.playerOne.transform.position.getX();
+                var y2 = this.playerOne.transform.position.getY();
+                
+                this.obj.data = {x:x2, y:y2}; 
+                
+                if (this.ws.readyState === WebSocket.OPEN)
+                {
+                    console.log("set");
+                    this.ws.send(JSON.stringify(this.obj));
+                    this.check = false;
+                }
+            }
   
-          if (this.ws.readyState === WebSocket.OPEN)
-          {
-              this.ws.send(JSON.stringify(this.obj));
-          }
+         
         }
         //this.playerTwo.update();
         this.enemyBrowBoy.update();
@@ -338,7 +349,11 @@ console.log(this.map[1][1]);
 
         if( this.message.type === 'one')
         {
-            console.log("hellone");
+            console.log("hellone"); 
+            this.playerTwo = new Player(this.playerOnePosition,"Player One","sprites/PlayerOne.png", this.ctx ,this.input);
+            this.playerOne = new Player(this.playerTwoPosition, "Player Two","sprites/PlayerTwo.png", this.ctx,this.input);
+           
+            this.check = false;
             // game.updateLocalState(message.data);
             // var position= {x:message.data.x,y:message.data.y}
         }
@@ -352,6 +367,10 @@ console.log(this.map[1][1]);
             // call updateFromNet on the other (remote)player            
             game.playerTwo.updateFromNet(position);
 
+        }
+        if(this.message.type === 'two')
+        {
+           
         }
         else if (this.message.type === 'gameover')
         {

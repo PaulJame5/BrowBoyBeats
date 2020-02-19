@@ -25,7 +25,7 @@ class Game
         this.buttonTimer = 0;
 
         
-        //this.myMusic = new Sound("bgm/Main.wav");
+        this.myMusic = new Sound("bgm/Main.wav");
         
        
     }
@@ -294,7 +294,7 @@ class Game
         {
             
             
-           // this.myMusic.loopSong();
+            this.myMusic.loopSong();
             this.sceneManager.update(this.tappedX , this.tappedY,this.ctx);
         }
         else
