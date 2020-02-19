@@ -82,8 +82,10 @@ console.log(this.map[0].length);
            this.spritePosition ={x:50 ,y:50};
            this.bgPos ={x:400 ,y:0};
            var playerOneName = "Player1";
-           this.playerOne = new Player(this.playerOnePosition, playerOneName,"sprites/PlayerOne.png", this.ctx ,this.input);
+           
            this.playerTwo = new Player(this.playerTwoPosition, "Player Two","sprites/PlayerTwo.png", this.ctx,this.input);
+           
+           this.playerOne = new Player(this.playerOnePosition, playerOneName,"sprites/PlayerOne.png", this.ctx ,this.input);
            // End Initialisation of players
           // this.value = ;
            //handleFiles("tilemap/Level_One.txt");
@@ -162,11 +164,10 @@ console.log(this.map[1][1]);
  */
     render(ctx)
     {
-        ctx.restore();
         ctx.resetTransform();
         
        // ctx.style(pixel)
-        ctx.clearRect(0,0, 100,100);
+        ctx.clearRect(0,0, 5000,5000);
         ctx.scale(2,2);
         ctx.save();
 
@@ -208,7 +209,7 @@ console.log(this.map[1][1]);
         ctx.font = '48px serif';
         
         
-        ctx.drawImage(this.mapImg, this.bgPos.x  , this.bgPos.y);
+        //ctx.drawImage(this.mapImg, this.bgPos.x  , this.bgPos.y);
         ctx.drawImage(this.img, this.spritePosition.x  , this.spritePosition.y);
         
         
@@ -259,6 +260,8 @@ console.log(this.map[1][1]);
         // end debug draw tile test
         ctx.drawImage(this.img, this.spritePosition.x  , this.spritePosition.y);
         
+        ctx.restore();
+        
         document.body.style.background = 'White'; 
         
     }
@@ -267,7 +270,12 @@ console.log(this.map[1][1]);
         this.tutorialManager();
         this.tappedXPos = tappedX;
         this.tappedYPos = tappedY;
+        
         this.playerOne.update( this.tappedXPos ,  this.tappedYPos,this.enemyBrowBoy,ctx);
+        if(this.playerOne.attack())
+        {
+            console.log("player attacking");
+        }
 
         if(this.playerOne.input.pressedRight||this.playerOne.input.pressedDown 
         || this.playerOne.input.pressedLeft||this.playerOne.input.pressedUp)

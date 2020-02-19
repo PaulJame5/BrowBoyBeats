@@ -16,6 +16,9 @@ function Player(init_position={x:0.0,y:0.0}, name="",src="",context,input)
     this.tapped = false;
     this.speed = 5;
     this.initSpritesheet(src, context);
+
+    this.attributes = new Attributes(100,35,25,false,true);;
+    this.attributes.init();
     
     //===========================================
 }
@@ -134,4 +137,9 @@ Player.prototype.setPos = function()
 Player.prototype.getName = function()
 {
     return this.name;
+}
+
+Player.prototype.attack = function()
+{
+    return input.attack;
 }

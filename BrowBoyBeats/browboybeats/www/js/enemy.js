@@ -108,7 +108,7 @@ Enemy.prototype.takeDamage = function()
 {
     this.health = this.health - this.healthCost;
 }
-Enemy.prototype.move = function()
+Enemy.prototype.move = function(Player)
 {
     this.targetPosition={x:this.position.x,y:this.position.y};
 
@@ -176,11 +176,14 @@ Enemy.prototype.move = function()
     // works
     this.moveTo = this.transform.moveTowards(this.transform.position.get(),this.position, this.speed);
     this.transform.position.setPosition(this.moveTo);
-    if(this.distance < 0.5 && Date.now() > last + wait)
+
+    if(this.distance < 0.5)
     {
         
         // Attack Player
-        //console.log("killing player");
+        console.log("killing player");
+        this.player.health-=1;
+        console.log(this.player.health);
     }
 
 
