@@ -25,7 +25,7 @@ class Game
         this.buttonTimer = 0;
 
         
-        this.myMusic = new Sound("bgm/Main.wav");
+        //this.myMusic = new Sound("bgm/Main.wav");
         
        
     }

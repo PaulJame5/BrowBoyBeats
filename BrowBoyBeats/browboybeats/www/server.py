@@ -25,12 +25,15 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         
     def on_message(self, message):
         self.msg = json.loads(message)
+        print(message + " pre load")
+        print(self.msg)
         if(self.msg['type'] == 'updateState'):
             self.send_to_other_player(message)
         if(self.msg['type'] == 'gameover'):
             self.send_to_other_player(message)
             self.write_message(json.dumps(message))
         if(self.msg['type'] == 'one'):
+            print("something")
             self.send_to_other_player(message)
             self.write_message(json.dumps(message))
 
@@ -59,6 +62,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
             del session[self.player_address]
 
     def send_to_other_player(self, message):
+        print (message + "s.t.o.p")
         for key, value in session.items():
         #if the key is not the socket the message came in on - what does that mean?
             if(key != self.get_player_address()):

@@ -253,6 +253,8 @@ console.log(this.map[1][1]);
         {
             this.obj ={};
             this.obj.type = "updateState";
+            
+            console.log(this.obj);
             var x = this.playerOne.transform.position.getX();
             var y = this.playerOne.transform.position.getY();
             this.obj.data = {x:x, y:y};
@@ -262,16 +264,18 @@ console.log(this.map[1][1]);
                 this.ws.send(JSON.stringify(this.obj));
             }
 
+            console.log(this.obj);
             console.log("help me");
-            this.obj2 ={};
-            this.obj2.type = "one";
+            
+            this.obj.type = "one";
+            console.log(this.obj);
             var x2 = this.playerOne.transform.position.getX();
             var y2 = this.playerOne.transform.position.getY();
-            this.obj2.data = {x:x2, y:y2};
+            this.obj.data = {x:x2, y:y2};
   
           if (this.ws.readyState === WebSocket.OPEN)
           {
-              this.ws.send(JSON.stringify(this.obj2));
+              this.ws.send(JSON.stringify(this.obj));
           }
         }
         //this.playerTwo.update();
@@ -327,25 +331,29 @@ console.log(this.map[1][1]);
     }; 
     handleMessage(game, evt) 
     {        
-        var message = JSON.parse(evt.data);
+        this.message = JSON.parse(evt.data);
+        //var msg = JSON.parse(evt.type);
+        console.log("me");
+        console.log(this.message)
 
-
-        if(message.type === 'one')
+        if( this.message.type === 'one')
         {
-            console.log("hello");
+            console.log("hellone");
+            // game.updateLocalState(message.data);
+            // var position= {x:message.data.x,y:message.data.y}
         }
 
-        if( message.type === 'updateState')
+        if( this.message.type === 'updateState')
         {
             console.log("hello update");
-            game.updateLocalState(message.data);
-            var position= {x:message.data.x,y:message.data.y}
+            game.updateLocalState(this.message.data);
+            var position= {x:this.message.data.x,y:this.message.data.y}
 
             // call updateFromNet on the other (remote)player            
             game.playerTwo.updateFromNet(position);
 
         }
-        else if (message.type === 'gameover')
+        else if (this.message.type === 'gameover')
         {
           game.gameOver = true;
         }
