@@ -35,7 +35,7 @@ this.mapLayout =[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 
     this.map = new Array(120); 
 
     this.timeSinceMsg = Date.now();
-    this.timeToWait = 2 *(1000);
+    this.timeToWait = 1 *(100);
   
 //document.write("Creating 2D array <br>"); 
   
@@ -513,18 +513,19 @@ console.log(this.map[1][1]);
         if(this.message.type === 'aiSetup')
         {
             console.log("aiSetUpCall");
-                // var pos = {x:this.message.data.x,y:this.message.data.y};
+                
 
-                // if(this.message.data.alive === false)
-                // {
-                //     this.enemyArray[this.message.data.index].setDead();
-                // }
+            if(this.message.data.alive === false)
+            {
+                this.enemyArray[this.message.data.index].setDead();
+            }
 
-                // else
-                // {
-                //     this.enemyArray[this.message.data.index].transform.position.setPosition(pos);
-                //     this.enemyArray[this.message.data.index].setTarget(this.message.data.target);
-                // }
+            else
+            {
+                var pos = {x:this.message.data.x,y:this.message.data.y};
+                this.enemyArray[this.message.data.index].transform.position.setPosition(pos);
+                this.enemyArray[this.message.data.index].setTarget(this.message.data.target);
+            }
                 
             
         }
