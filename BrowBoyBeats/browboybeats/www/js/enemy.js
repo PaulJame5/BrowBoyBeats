@@ -217,7 +217,7 @@ Enemy.prototype.setDead = function()
     this.attributes.setAlive(false);
 }
 
-Enemy.prototype.setTarget(game_target = 0)
+Enemy.prototype.setTarget = function(game_target = 0)
 {
     this.random = game_target;
 }
