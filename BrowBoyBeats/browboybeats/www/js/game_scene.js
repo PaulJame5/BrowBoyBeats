@@ -185,7 +185,7 @@ console.log(this.map[0].length);
         ctx.scale(2,2);
         ctx.save();
 
-        console.log(this.camera.getPosition());
+        console.log(this.playerOne.transform.position.getPosition());
 
         if(this.enemiesNear == false)
         {
@@ -410,12 +410,34 @@ console.log(this.map[0].length);
     reInitEnemyArray(x = 0, y = 0)
     {
         this.enemyPos = {x,y};
+
         for(var i = 0; i < 10; i++)
         {
 
             this.enemyArray[i].setPosition(this.enemyPos);
+            this.enemyArray[i].attributes.setHealth(100);
             this.enemyArray[i].setAlive(true);
+
+
+            this.obj = {};
+                    this.obj.type = "aiSetup";
+
+                    
+                    var x = this.enemyArray[i].getPosition().x;
+                    var y = this.enemyArray[i].getPosition().y;
+                    var alive = this.enemyArray[i].isAlive();
+                    var target = this.enemyArray[i].random;
+
+                    this.obj.data = {x:x,y:y,index:i,alive:alive,target:target};
+
+                    if (this.ws.readyState === WebSocket.OPEN)
+                    {
+                            this.ws.send(JSON.stringify(this.obj));
+                    }
         }
+
+
+        
     }
 
     checkNearSpawn(position = {x: 0,y: 0} , width = 0)
@@ -451,7 +473,7 @@ console.log(this.map[0].length);
         {
             this.gameTimer  = this.gameTimer +0.05;
         }
-        console.log("TIMER: " +  this.gameTimer);
+        
     }
 
     updateState(ws, event)
@@ -473,14 +495,13 @@ console.log(this.map[0].length);
     {
         if(this.wave == 0)
         {
-            if(this.camera.getPosition().x < -715)
+            if(this.playerOne.transform.position.getPosition().x > 750)
             {
-                for(var i = 0; i < 10; i ++)
-                {
-                    this.reInitEnemyArray(-715, 0);
-                }
-                this.wave++;
+                
+                this.reInitEnemyArray(750, 50);
+                
                 console.log("Spawning enemies");
+                this.wave++;
             }
         }
     }
@@ -575,11 +596,13 @@ console.log(this.map[0].length);
             {
                 this.enemyArray[this.message.data.index].setDead();
             }
+            
 
             else
             {
+                this.enemyArray[this.message.data.index].setAlive(true);
                 var pos = {x:this.message.data.x,y:this.message.data.y};
-                this.enemyArray[this.message.data.index].transform.position.setPosition(pos);
+                this.enemyArray[this.message.data.index].transform.position = pos;
                 this.enemyArray[this.message.data.index].setTarget(this.message.data.target);
             }
                 

@@ -227,7 +227,11 @@ Enemy.prototype.setAlive = function(bool = false)
 {
     this.attributes.setAlive(bool);
 }
-
+Enemy.prototype.setPos(x = 0, y = 0)
+{
+    pos = {x,y};
+    this.transform.position.setPosition(pos);
+}
 
 
 
