@@ -223,6 +223,11 @@ Enemy.prototype.setTarget = function(game_target = 0)
     this.random = game_target;
 }
 
+Enemy.prototype.setAlive = function(bool = false)
+{
+    this.attributes.setAlive(bool);
+}
+
 
 
 
