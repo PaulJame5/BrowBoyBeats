@@ -77,7 +77,7 @@ console.log(this.map[0].length);
 
         this.img.src = 'sprites/tutorial.png';
 
-
+        this.gameTimer = 0;
            // initialise Players
            this.playerOnePosition = {x: 100.0, y:500.0};
            this.playerTwoPosition = {x: 100.0, y:100.0};
@@ -86,7 +86,7 @@ console.log(this.map[0].length);
            this.tutorialOffset = {x:100 ,y:200};
            this.bgPos ={x:400 ,y:0};
            var playerOneName = "Player1";
-           
+           this.timerOffset ={x:-70,y:100};
            this.playerTwo = new Player(this.playerTwoPosition, "Player Two","sprites/PlayerTwo.png", this.ctx,this.input);
            
            this.playerOne = new Player(this.playerOnePosition, playerOneName,"sprites/PlayerOne.png", this.ctx ,this.input);
@@ -232,7 +232,9 @@ console.log(this.map[0].length);
         this.score = this.playerOne.score.getScore()
         ctx.font = '48px serif';
         ctx.fillStyle = "red";
+        
         ctx.fillText("Score: " + this.score , this.playerOne.transform.position.getX() - 100 , this.playerOne.transform.position.getY() -100);
+        ctx.fillText("Time: " + this.gameTimer.toPrecision(2) , this.playerOne.transform.position.getX() - this.timerOffset.x, this.playerOne.transform.position.getY() -this.timerOffset.y);
         ctx.restore();
         document.body.style.background = 'White'; 
     }
@@ -348,6 +350,11 @@ console.log(this.map[0].length);
         {
             this.draw = false;
         }
+        if( this.gameTimer !== 120.0)
+        {
+            this.gameTimer  = this.gameTimer +0.05;
+        }
+        console.log("TIMER: " +  this.gameTimer);
     }
 
     updateState(ws, event)
