@@ -29,8 +29,13 @@ this.mapLayout =[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 
     this.ws.addEventListener('open', () => this.handleOpen(event));
     this.ws.addEventListener('message', () => this.handleMessage(this, event));
 
+    this.decideAI = true;
+
     // Create one dimensional array 
     this.map = new Array(120); 
+
+    this.timeSinceMsg = Date.now();
+    this.timeToWait = 2 *(1000);
   
 //document.write("Creating 2D array <br>"); 
   
@@ -250,7 +255,6 @@ console.log(this.map[1][1]);
             if(this.enemyArray[i].attributes.isAlive())
             {
                 this.enemyArray[i].render();
-                this.enemyArray[i].update();
             }
         }
 
@@ -272,6 +276,45 @@ console.log(this.map[1][1]);
         this.tappedYPos = tappedY;
         
         this.playerOne.update();
+
+        if(this.decideAI === true && Date.now() >= this.timeSinceMsg + this.timeToWait)
+        {
+            for(var i = 0; i < 10; i++)
+            {
+                if(this.enemyArray[i].isAlive())
+                {
+                    this.obj = {};
+                    this.obj.type = "aiSetup";
+
+                    
+                    var x = this.enemyArray[i].getPosition().x;
+                    var y = this.enemyArray[i].getPosition().y;
+                    var alive = this.enemyArray[i].isAlive();
+                    var target = this.enemyArray[i].random;
+
+                    this.obj.data = {x:x,y:y,index:i,alive:alive,target:target};
+
+                    if (this.ws.readyState === WebSocket.OPEN)
+                    {
+                            this.ws.send(JSON.stringify(this.obj));
+                    }
+                    
+                }
+            }
+            this.timeSinceMsg = Date.now();
+        }
+
+        else 
+        {
+            for(var i = 0; i < 10; i++)
+            { 
+                if(this.enemyArray[i].isAlive())
+                {
+                this.enemyArray[i].update();
+                }
+            }
+        }
+
         if(this.playerOne.attack())
         {
             
@@ -279,6 +322,7 @@ console.log(this.map[1][1]);
             {     
                 if(this.enemyArray[i].isAlive())
                 {
+                    
                     if(this.playerOne.transform.distance(this.playerOne.transform.position.getPosition(),
                         this.enemyArray[i].getPosition()) < 40)
                     {
@@ -454,6 +498,13 @@ console.log(this.map[1][1]);
             this.playerOne = new Player(this.playerTwoPosition, "Player Two","sprites/PlayerTwo.png", this.ctx,this.input);
            
             this.check = false;
+            this.decideAI = false;
+
+
+            for(var i = 0; i < 10; i++)
+            {
+                this.enemyArray[i].setSelf = false;
+            }
 
         
 
@@ -461,19 +512,19 @@ console.log(this.map[1][1]);
 
         if(this.message.type === 'aiSetup')
         {
-            
-                var pos = {x:this.message.data.x,y:this.message.data.y};
+            console.log("aiSetUpCall");
+                // var pos = {x:this.message.data.x,y:this.message.data.y};
 
-                if(this.message.data.alive === false)
-                {
-                    this.enemyArray[this.message.data.index].setDead();
-                }
+                // if(this.message.data.alive === false)
+                // {
+                //     this.enemyArray[this.message.data.index].setDead();
+                // }
 
-                else
-                {
-                    this.enemyArray[this.message.data.index].transform.position.setPosition(pos);
-                    this.enemyArray[this.message.data.index].setTarget(this.message.data.target);
-                }
+                // else
+                // {
+                //     this.enemyArray[this.message.data.index].transform.position.setPosition(pos);
+                //     this.enemyArray[this.message.data.index].setTarget(this.message.data.target);
+                // }
                 
             
         }
