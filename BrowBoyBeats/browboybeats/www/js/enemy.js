@@ -29,6 +29,7 @@ function Enemy(init_position={x:0.0,y:0.0},src="",context,player)
     this.attributes = new Attributes(70,10,25,false,true);
 
     this.setSelf = true;
+    this.random = 0;
    
     //=======================
     this.Targets = 
@@ -217,7 +218,7 @@ Enemy.prototype.setDead = function()
     this.attributes.setAlive(false);
 }
 
-Enemy.prototype.setTarget(game_target = 0)
+Enemy.prototype.setTarget = function(game_target = 0)
 {
     this.random = game_target;
 }
