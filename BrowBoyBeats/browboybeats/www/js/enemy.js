@@ -27,6 +27,8 @@ function Enemy(init_position={x:0.0,y:0.0},src="",context,player)
     this.attack = false;
     this.healthCost = 10;
     this.attributes = new Attributes(70,10,25,false,true);
+
+    this.setSelf = true;
    
     //=======================
     this.Targets = 
@@ -108,12 +110,15 @@ Enemy.prototype.move = function(Player)
     this.targetPosition={x:this.position.x,y:this.position.y};
 
    // this.offset = {x:Math.floor(Math.random() * (7 -   + 1)),y: 100};
-
-    if(this.transform.position.getX() === this.targetPosition.x
-    && this.transform.position.getY() === this.targetPosition.y)
+    if(this.setSelf === true)
     {
-       this.random = Math.floor(Math.random() * (7 - 1 + 1));
+        if(this.transform.position.getX() === this.targetPosition.x
+        && this.transform.position.getY() === this.targetPosition.y)
+        {
+            this.random = Math.floor(Math.random() * (7 - 1 + 1));
+        }
     }
+
     if(this.random == 0)
     this.currentTarget = this.Targets.TOP_LEFT;
     else if(this.random === 1)
@@ -210,6 +215,11 @@ Enemy.prototype.isAlive = function()
 Enemy.prototype.setDead = function()
 {
     this.attributes.setAlive(false);
+}
+
+Enemy.prototype.setTarget(game_target = 0)
+{
+    this.random = game_target;
 }
 
 

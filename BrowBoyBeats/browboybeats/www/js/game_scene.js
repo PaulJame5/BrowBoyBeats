@@ -335,7 +335,7 @@ console.log(this.map[1][1]);
             console.log(this.obj);
             
 
-            if(this.check == true)
+            if(this.check === true)
             {
                 this.obj.type = "one";
                 console.log(this.obj);
