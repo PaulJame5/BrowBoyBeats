@@ -416,6 +416,8 @@ console.log(this.map[1][1]);
             
             this.obj = {}
             this.obj.type = "two"
+
+            
             
             if (this.ws.readyState === WebSocket.OPEN)
             {
@@ -452,7 +454,30 @@ console.log(this.map[1][1]);
             this.playerOne = new Player(this.playerTwoPosition, "Player Two","sprites/PlayerTwo.png", this.ctx,this.input);
            
             this.check = false;
+
+        
+
         }
+
+        if(this.message.type === 'aiSetup')
+        {
+            
+                var pos = {x:this.message.data.x,y:this.message.data.y};
+
+                if(this.message.data.alive === false)
+                {
+                    this.enemyArray[this.message.data.index].setDead();
+                }
+
+                else
+                {
+                    this.enemyArray[this.message.data.index].transform.position.setPosition(pos);
+                    this.enemyArray[this.message.data.index].setTarget(this.message.data.target);
+                }
+                
+            
+        }
+
         else if (this.message.type === 'gameover')
         {
           game.gameOver = true;
